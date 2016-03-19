@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:context="http://www.springframework.org/schema/cache"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd">
+
+    <!--inventors-->
+
+    <bean id="mike" class="com.aidar.oo4.music.inventor.impl.ClassicalInstrumentsInventor">
+        <constructor-arg index="0" value="Mike"/>
+        <constructor-arg index="1" value="100"/>
+    </bean>
+
+    <bean id="george" class="com.aidar.oo4.music.inventor.impl.ClassicalInstrumentsInventor">
+        <constructor-arg index="0" value="George"/>
+        <constructor-arg index="1" value="1000"/>
+    </bean>
+
+    <bean id="mila" class="com.aidar.oo4.music.inventor.impl.SpecificInstrumentsInventor">
+        <constructor-arg index="0" value="Mila"/>
+        <constructor-arg index="1" value="100000"/>
+    </bean>
+
+    <!--instruments-->
+
+    <bean id="piano" class="com.aidar.oo4.music.instrument.impl.Piano">
+        <constructor-arg ref="george"/>
+    </bean>
+
+    <bean id="grand" class="com.aidar.oo4.music.instrument.impl.Piano">
+        <constructor-arg ref="mike"/>
+    </bean>
+
+    <bean id="guitar" class="com.aidar.oo4.music.instrument.impl.Guitar">
+        <constructor-arg ref="mila"/>
+    </bean>
+
+    <!--musicians-->
+
+    <bean id="junior1" class="com.aidar.oo4.music.musician.impl.Junior">
+        <constructor-arg ref="piano"/>
+    </bean>
+
+    <bean id="junior2" class="com.aidar.oo4.music.musician.impl.Junior">
+        <constructor-arg ref="guitar"/>
+    </bean>
+
+    <bean id="senior" class="com.aidar.oo4.music.musician.impl.Senior">
+        <constructor-arg ref="piano"/>
+    </bean>
+
+    <!--sounds-->
+
+    <bean id="guitarDo" class="com.aidar.oo4.music.sound.impl.GuitarSound">
+        <constructor-arg index="0" value="do"/>
+        <constructor-arg index="1" ref="guitar"/>
+    </bean>
+
+    <bean id="guitarSol" class="com.aidar.oo4.music.sound.impl.GuitarSound">
+        <constructor-arg index="0" value="sol"/>
+        <constructor-arg index="1" ref="guitar"/>
+    </bean>
+
+    <bean id="pianoDo" class="com.aidar.oo4.music.sound.impl.PianoSound">
+        <constructor-arg index="0" value="do"/>
+        <constructor-arg index="1" ref="piano"/>
+    </bean>
+
+    <bean id="pianoRe" class="com.aidar.oo4.music.sound.impl.PianoSound">
+        <constructor-arg index="0" value="re"/>
+        <constructor-arg index="1" ref="grand"/>
+    </bean>
+
+    <!--melodies-->
+
+    <bean id="adagioVFromTheDivertimentoInDMajor" class="com.aidar.oo4.music.melody.impl.FastMelody">
+        <constructor-arg index="0" value="Mozart"/>
+        <constructor-arg index="1" ref="sounds1">
+        </constructor-arg>
+    </bean>
+
+    <bean id="tearsInHeaven" class="com.aidar.oo4.music.melody.impl.RomanticMelody">
+        <constructor-arg index="0" value="EricClapton"/>
+        <constructor-arg index="1" ref="sounds2">
+        </constructor-arg>
+    </bean>
+
+    <!--orchestra-->
+
+    <bean id="queensOrchestra" class="com.aidar.oo4.music.orchestra.impl.RoyalOrchestra">
+        <constructor-arg index="0" ref="melodies"/>
+        <constructor-arg index="1" ref="musicians"/>
+    </bean>
+
+    <bean id="schoolOrchestra" class="com.aidar.oo4.music.orchestra.impl.UsualOrchestra">
+        <constructor-arg index="0" ref="melodies"/>
+        <constructor-arg index="1" ref="musicians"/>
+    </bean>
+
+    <!--concert halls-->
+
+    <bean id="royalAlbertHall" class="com.aidar.oo4.music.concertHall.impl.RoyalConcertHall"/>
+
+    <!--collections-->
+
+    <util:list id="inventors" value-type="com.aidar.oo4.music.inventor.Inventor">
+        <ref bean="mike"/>
+        <ref bean="george"/>
+        <ref bean="mila"/>
+    </util:list>
+
+    <util:list id="instruments" value-type="com.aidar.oo4.music.instrument.Instrument">
+        <ref bean="grand"/>
+        <ref bean="piano"/>
+        <ref bean="guitar"/>
+    </util:list>
+
+    <util:list id="musicians" value-type="com.aidar.oo4.music.musician.Musician">
+        <ref bean="junior1"/>
+        <ref bean="junior2"/>
+        <ref bean="senior"/>
+    </util:list>
+
+    <util:list id="sounds1" value-type="com.aidar.oo4.music.sound.Sound">
+        <ref bean="pianoDo"/>
+        <ref bean="pianoRe"/>
+    </util:list>
+
+    <util:list id="sounds2" value-type="com.aidar.oo4.music.sound.Sound">
+        <ref bean="guitarDo"/>
+        <ref bean="guitarSol"/>
+    </util:list>
+
+    <util:list id="melodies" value-type="com.aidar.oo4.music.melody.Melody">
+        <ref bean="adagioVFromTheDivertimentoInDMajor"/>
+        <ref bean="tearsInHeaven"/>
+    </util:list>
+
+    <util:list id="orchestra" value-type="com.aidar.oo4.music.orchestra.Orchestra">
+        <ref bean="queensOrchestra"/>
+        <ref bean="schoolOrchestra"/>
+    </util:list>
+
+</beans>
