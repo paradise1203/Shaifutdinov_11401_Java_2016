@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <bean id="complexNum" class="com.aidar.oo3.ComplexNumber">
+        <constructor-arg index="0" value="1"/>
+        <constructor-arg index="1" value="2"/>
+    </bean>
+
+    <bean id="zeroMatrix" class="com.aidar.oo3.ComplexMatrix2x2"/>
+
+    <bean id="nonZeroMatrix1" class="com.aidar.oo3.ComplexMatrix2x2">
+        <constructor-arg index="0" ref="complexNum"/>
+    </bean>
+
+    <bean id="nonZeroMatrix2" class="com.aidar.oo3.ComplexMatrix2x2">
+        <constructor-arg index="0" ref="complexNum"/>
+        <constructor-arg index="1" ref="complexNum"/>
+        <constructor-arg index="2" ref="complexNum"/>
+        <constructor-arg index="3" ref="complexNum"/>
+    </bean>
+
+    <bean id="complexNum1" class="com.aidar.oo3.ComplexNumber">
+        <constructor-arg index="0" value="5"/>
+        <constructor-arg index="1" value="1"/>
+    </bean>
+
+    <bean id="complexNum2" class="com.aidar.oo3.ComplexNumber">
+        <constructor-arg index="0" value="3"/>
+        <constructor-arg index="1" value="4"/>
+    </bean>
+
+    <bean id="nonZeroMatrix3" class="com.aidar.oo3.ComplexMatrix2x2">
+        <constructor-arg index="0" ref="complexNum1"/>
+        <constructor-arg index="1" ref="complexNum1"/>
+        <constructor-arg index="2" ref="complexNum2"/>
+        <constructor-arg index="3" ref="complexNum2"/>
+    </bean>
+
+</beans>

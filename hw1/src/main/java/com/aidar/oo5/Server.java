@@ -2,6 +2,8 @@ package com.aidar.oo5;
 
 
 import com.aidar.oo5.game.Game;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,10 +17,10 @@ public class Server {
     }
 
     public static void main(String[] args) throws IOException {
+        ApplicationContext context = new ClassPathXmlApplicationContext("oo8-spring-config.xml");
         ServerSocket ss = new ServerSocket(4568);
         while (true) {
             Socket s1 = ss.accept();
-            sendMessage("Welcome! We are looking for your opponent :)", s1);
             System.out.println("New user is connected! Waiting for another one");
             Socket s2 = ss.accept();
             sendMessage("Welcome! You can start playing whenever you wish :)", s2);

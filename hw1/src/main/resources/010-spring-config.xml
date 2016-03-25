@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <bean id="inventor" class="com.aidar.oo4.music.inventor.impl.ClassicalInstrumentsInventor">
+        <constructor-arg index="0" value="John"/>
+        <constructor-arg index="1" value="110"/>
+    </bean>
+
+    <bean id="guitar" class="com.aidar.oo4.music.instrument.impl.Guitar">
+        <constructor-arg index="0" ref="inventor"/>
+    </bean>
+
+    <bean id="mandolina" class="com.aidar.oo4.music.instrument.impl.Mandolina">
+        <constructor-arg index="0" ref="inventor"/>
+    </bean>
+
+    <bean id="guitarSound" class="com.aidar.oo4.music.sound.impl.GuitarSound"/>
+
+    <bean id="guitarSound1" class="com.aidar.oo4.music.sound.impl.GuitarSound">
+        <constructor-arg index="0" value="fa"/>
+        <constructor-arg index="1" ref="guitar"/>
+    </bean>
+
+    <bean id="guitarSound2" class="com.aidar.oo4.music.sound.impl.GuitarSound">
+        <property name="note" value="do"/>
+    </bean>
+
+    <bean id="mandolinaSound" class="com.aidar.oo4.music.sound.impl.MandolinaSound"/>
+
+    <bean id="mandolinaSound1" class="com.aidar.oo4.music.sound.impl.MandolinaSound">
+        <constructor-arg index="0" value="fa"/>
+        <constructor-arg index="1" ref="mandolina"/>
+    </bean>
+
+    <bean id="mandolinaSound2" class="com.aidar.oo4.music.sound.impl.MandolinaSound">
+        <property name="note" value="do"/>
+    </bean>
+
+    <bean id="junior" class="com.aidar.oo4.music.musician.impl.Junior">
+        <constructor-arg index="0" ref="guitar"/>
+    </bean>
+
+    <bean id="melodySound1" class="com.aidar.oo4.music.sound.impl.GuitarSound">
+        <property name="note" value="do"/>
+    </bean>
+
+    <bean id="melodySound2" class="com.aidar.oo4.music.sound.impl.GuitarSound">
+        <property name="note" value="la"/>
+    </bean>
+
+    <bean id="melodySound3" class="com.aidar.oo4.music.sound.impl.GuitarSound">
+        <property name="note" value="si"/>
+    </bean>
+
+    <bean id="fastMelody" class="com.aidar.oo4.music.melody.impl.FastMelody">
+        <constructor-arg index="0" value="Mick"/>
+        <constructor-arg index="1">
+            <list>
+                <ref bean="melodySound1"/>
+                <ref bean="melodySound2"/>
+                <ref bean="melodySound3"/>
+            </list>
+        </constructor-arg>
+    </bean>
+
+</beans>

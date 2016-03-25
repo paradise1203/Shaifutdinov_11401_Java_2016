@@ -1,8 +1,11 @@
 package com.aidar.oo3;
 
+import org.springframework.stereotype.Component;
+
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+@Component
 public class ComplexMatrix2x2Util {
 
     public static void initializeWithOneValue(ComplexNumber[][] matrix, ComplexNumber value) {

@@ -73,15 +73,12 @@ public class Mandolina implements Instrument {
 
         Mandolina mandolina = (Mandolina) o;
 
-        if (broken != mandolina.broken) return false;
-        return inventor != null ? inventor.equals(mandolina.inventor) : mandolina.inventor == null;
+        return inventor.equals(mandolina.inventedBy());
 
     }
 
     @Override
     public int hashCode() {
-        int result = inventor != null ? inventor.hashCode() : 0;
-        result = 31 * result + (broken ? 1 : 0);
-        return result;
+        return inventor.hashCode();
     }
 }

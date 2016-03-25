@@ -1,66 +1,44 @@
 package com.aidar.oo4.music.instrument.test;
 
+import com.aidar.oo4.music.MockedObjectsFactory;
 import com.aidar.oo4.music.instrument.Instrument;
 import com.aidar.oo4.music.instrument.impl.Guitar;
-import com.aidar.oo4.music.inventor.Inventor;
-import com.aidar.oo4.music.inventor.impl.SpecificInstrumentsInventor;
 import com.aidar.oo4.music.sound.Sound;
-import com.aidar.oo4.music.sound.impl.GuitarSound;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 public class GuitarTest {
 
+    private static ApplicationContext context;
+
     private Instrument guitar;
 
-    private Inventor inventor;
-
-    private Inventor mockInventor() {
-        String name = "Alex";
-        int rating = 100;
-        Inventor inventor = mock(SpecificInstrumentsInventor.class);
-        when(inventor.getName()).thenReturn(name);
-        when(inventor.getRating()).thenReturn(rating);
-        return inventor;
+    @BeforeClass
+    public static void initializeContext() {
+        context = new ClassPathXmlApplicationContext("010-spring-config.xml");
     }
 
     @Before
     public void initializeGuitar() {
-        inventor = mockInventor();
-        guitar = new Guitar(inventor);
+        guitar = (Instrument) context.getBean("guitar");
     }
 
     @Test
     public void parameterisedConstructorShouldWorkCorrect() {
-        assertEquals(inventor, guitar.inventedBy());
+        Instrument res = MockedObjectsFactory.getInstrument(Guitar.class);
+        assertTrue(guitar.inventedBy().equals(res.inventedBy()));
     }
 
     @Test
     public void makeSoundShouldWorkCorrect() {
-        String note1 = "do";
-        String note2 = "la";
-        String note3 = "si";
-        List<Sound> sounds = new ArrayList<>();
-        Sound sound1 = mock(GuitarSound.class);
-        when(sound1.getNote()).thenReturn(note1);
-        when(sound1.getSource()).thenReturn(guitar);
-        sounds.add(sound1);
-        Sound sound2 = mock(GuitarSound.class);
-        when(sound2.getNote()).thenReturn(note2);
-        when(sound2.getSource()).thenReturn(guitar);
-        sounds.add(sound2);
-        Sound sound3 = mock(GuitarSound.class);
-        when(sound3.getNote()).thenReturn(note3);
-        when(sound3.getSource()).thenReturn(guitar);
-        sounds.add(sound3);
+        List<Sound> sounds = MockedObjectsFactory.getSounds(guitar);
         List<Sound> res = guitar.makeSound();
         res.removeAll(sounds);
         assertTrue(res.size() == 0);
@@ -68,8 +46,8 @@ public class GuitarTest {
 
     @Test
     public void equalsShouldWorkCorrect() {
-        Instrument guitar = new Guitar(inventor);
-        assertTrue(this.guitar.equals(guitar));
+        Instrument res = MockedObjectsFactory.getInstrument(Guitar.class);
+        assertTrue(this.guitar.equals(res));
     }
 
 }

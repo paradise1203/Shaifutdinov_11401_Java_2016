@@ -1,27 +1,34 @@
 package com.aidar.oo4.music.sound.test;
 
+import com.aidar.oo4.music.MockedObjectsFactory;
 import com.aidar.oo4.music.instrument.Instrument;
 import com.aidar.oo4.music.instrument.impl.Mandolina;
-import com.aidar.oo4.music.inventor.Inventor;
-import com.aidar.oo4.music.inventor.impl.SpecificInstrumentsInventor;
 import com.aidar.oo4.music.sound.Sound;
 import com.aidar.oo4.music.sound.impl.MandolinaSound;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 public class MandolinaSoundTest {
 
+    private static ApplicationContext context;
+
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
+
+    @BeforeClass
+    public static void initializeContext() {
+        context = new ClassPathXmlApplicationContext("010-spring-config.xml");
+    }
 
     @Before
     public void setUpStreams() {
@@ -37,7 +44,7 @@ public class MandolinaSoundTest {
 
     @Test
     public void defaultConstructorShouldWorkCorrect() {
-        Sound sound = new MandolinaSound();
+        Sound sound = (MandolinaSound) context.getBean("mandolinaSound");
         assertEquals(null, sound.getNote());
         assertEquals(null, sound.getSource());
     }
@@ -45,23 +52,16 @@ public class MandolinaSoundTest {
     @Test
     public void parameterisedConstructorShouldWorkCorrect() {
         String note = "fa";
-        String name = "John";
-        int rating = 10;
-        Instrument mandolina = mock(Mandolina.class);
-        Inventor inventor = mock(SpecificInstrumentsInventor.class);
-        when(inventor.getName()).thenReturn(name);
-        when(inventor.getRating()).thenReturn(rating);
-        when(mandolina.inventedBy()).thenReturn(inventor);
-        Sound sound = new MandolinaSound(note, mandolina);
+        Instrument mandolina = MockedObjectsFactory.getInstrument(Mandolina.class);
+        Sound sound = (MandolinaSound) context.getBean("mandolinaSound1");
         assertEquals(note, sound.getNote());
-        assertEquals(mandolina, sound.getSource());
+        assertTrue(sound.getSource().equals(mandolina));
     }
 
     @Test
     public void soundShouldWork() {
         String note = "do";
-        Sound sound = new MandolinaSound();
-        sound.setNote(note);
+        Sound sound = (Sound) context.getBean("mandolinaSound2");
         sound.sound();
         assertEquals(note, outContent.toString());
     }
@@ -69,16 +69,10 @@ public class MandolinaSoundTest {
     @Test
     public void equalsShouldWorkCorrect() {
         String note = "fa";
-        String name = "John";
-        int rating = 10;
-        Instrument mandolina = mock(Mandolina.class);
-        Inventor inventor = mock(SpecificInstrumentsInventor.class);
-        when(inventor.getName()).thenReturn(name);
-        when(inventor.getRating()).thenReturn(rating);
-        when(mandolina.inventedBy()).thenReturn(inventor);
-        Sound sound = new MandolinaSound(note, mandolina);
-        Sound sound1 = new MandolinaSound(note, mandolina);
-        assertTrue(sound.equals(sound1));
+        Instrument mandolina = MockedObjectsFactory.getInstrument(Mandolina.class);
+        Sound sound = (MandolinaSound) context.getBean("mandolinaSound1");
+        Sound res = new MandolinaSound(note, mandolina);
+        assertTrue(sound.equals(res));
     }
 
 }

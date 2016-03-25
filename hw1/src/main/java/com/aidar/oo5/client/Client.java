@@ -1,5 +1,8 @@
 package com.aidar.oo5.client;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -20,7 +23,8 @@ public class Client {
     }
 
     private Client() throws IOException {
-        Socket socket = new Socket("localhost", 4568);
+        ApplicationContext context = new ClassPathXmlApplicationContext("oo8-spring-config.xml");
+        Socket socket = (Socket) context.getBean("socket");
         PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
         reader = new Scanner(socket.getInputStream());
         Scanner input = new Scanner(System.in);

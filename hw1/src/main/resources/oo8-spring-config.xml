@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:annotation-config/>
+
+    <context:component-scan base-package="com.aidar.oo5"/>
+
+    <!--client-->
+
+    <bean id="socket" class="java.net.Socket">
+        <constructor-arg index="0" value="localhost"/>
+        <constructor-arg index="1" value="4568"/>
+    </bean>
+
+    <!--server-->
+
+    <bean id="serverSocket" class="java.net.ServerSocket">
+        <constructor-arg index="0" value="4568"/>
+    </bean>
+
+    <!--Так не получается. Т.к, видимо, prototype просто делает deep-copy бина и не использует factory каждый раз-->
+
+    <!--<bean id="socket1" scope="prototype" factory-bean="socketFactory" factory-method="getSocket"/>-->
+    <!--<bean id="socket2" scope="prototype" factory-bean="socketFactory" factory-method="getSocket"/>-->
+
+    <!--<bean id="connection1" class="com.aidar.oo5.Connection">-->
+        <!--<constructor-arg index="0" ref="socket1"/>-->
+        <!--<constructor-arg index="1" value="0"/>-->
+    <!--</bean>-->
+
+    <!--<bean id="connection2" class="com.aidar.oo5.Connection">-->
+        <!--<constructor-arg index="0" ref="socket2"/>-->
+        <!--<constructor-arg index="1" value="1"/>-->
+    <!--</bean>-->
+
+    <!--<bean id="game" class="com.aidar.oo5.game.Game">-->
+        <!--<constructor-arg index="0" ref="connection1"/>-->
+        <!--<constructor-arg index="1" ref="connection2"/>-->
+    <!--</bean>-->
+
+</beans>

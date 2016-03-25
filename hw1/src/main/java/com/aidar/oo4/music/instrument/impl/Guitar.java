@@ -74,7 +74,7 @@ public class Guitar implements Instrument {
 
         Guitar guitar = (Guitar) o;
 
-        return inventor.equals(guitar.inventor);
+        return inventor.equals(guitar.inventedBy());
 
     }
 

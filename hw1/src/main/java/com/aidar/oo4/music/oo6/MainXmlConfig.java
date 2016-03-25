@@ -19,7 +19,7 @@ import java.util.List;
 public class MainXmlConfig {
 
     public static void main(String[] args) {
-        ApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
+        ApplicationContext context = new ClassPathXmlApplicationContext("oo6-spring-config.xml");
         List<Inventor> inventors = (List<Inventor>) context.getBean("inventors");
         inventors.forEach(i -> {
             i.advertise(1000);

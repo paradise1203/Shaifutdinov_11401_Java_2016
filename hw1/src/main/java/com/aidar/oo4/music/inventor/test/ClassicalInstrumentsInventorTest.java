@@ -6,7 +6,10 @@ import com.aidar.oo4.music.inventor.Inventor;
 import com.aidar.oo4.music.inventor.impl.ClassicalInstrumentsInventor;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -18,17 +21,23 @@ import static org.mockito.Mockito.when;
 
 public class ClassicalInstrumentsInventorTest {
 
+    private static ApplicationContext context;
+
     private Inventor inventor;
-
-    private String getName() {
-        return "John";
-    }
-
-    private int getRating() {
-        return 110;
-    }
+    private String name = "John";
+    private int rating = 110;
 
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+
+    @BeforeClass
+    public static void initializeContext() {
+        context = new ClassPathXmlApplicationContext("010-spring-config.xml");
+    }
+
+    @Before
+    public void initializeInventor() {
+        inventor = (Inventor) context.getBean("inventor");
+    }
 
     @Before
     public void setUpStreams() {
@@ -40,22 +49,18 @@ public class ClassicalInstrumentsInventorTest {
         System.setOut(null);
     }
 
-    @Before
-    public void initializeInventor() {
-        inventor = new ClassicalInstrumentsInventor(getName(), getRating());
-    }
-
     @Test
     public void parameterisedConstructorShouldWorkCorrect() {
-        assertEquals(getName(), inventor.getName());
-        assertEquals(getRating(), inventor.getRating());
+        assertEquals(name, inventor.getName());
+        assertEquals(rating, inventor.getRating());
     }
 
     @Test
     public void inventShouldWorkCorrect() {
-        Instrument instrument = mock(Piano.class);
-        when(instrument.inventedBy()).thenReturn(inventor);
-        assertTrue(instrument.inventedBy().equals(inventor));
+        Instrument instrument = inventor.invent();
+        Instrument res = mock(Piano.class);
+        when(res.inventedBy()).thenReturn(inventor);
+        assertTrue(instrument.inventedBy().equals(res.inventedBy()));
     }
 
     @Test
@@ -66,8 +71,10 @@ public class ClassicalInstrumentsInventorTest {
 
     @Test
     public void equalsShouldWorkCorrect() {
-        Inventor inventor = new ClassicalInstrumentsInventor(getName(), getRating());
-        assertTrue(inventor.equals(this.inventor));
+        Inventor inventor = mock(ClassicalInstrumentsInventor.class);
+        when(inventor.getName()).thenReturn(name);
+        when(inventor.getRating()).thenReturn(rating);
+        assertTrue(this.inventor.equals(inventor));
     }
 
 }
