@@ -82,7 +82,7 @@
                                     <changeLogFile>${basedir}/src/main/resources/database/changelog.xml</changeLogFile>
                                     <propertyFileWillOverride>false</propertyFileWillOverride>
                                     <dropFirst>true</dropFirst>
-                                    <propertyFile>${basedir}/src/main/resources/database.properties</propertyFile>
+                                    <propertyFile>${basedir}/src/main/resources/properties/database.properties</propertyFile>
                                 </configuration>
                                 <goals>
                                     <goal>update</goal>

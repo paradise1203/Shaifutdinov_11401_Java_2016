@@ -93,6 +93,7 @@
                         <resource>
                             <directory>../model/src/main/resources</directory>
                             <directory>../service/src/main/resources</directory>
+                            <directory>src/main/resources</directory>
                             <directory>src/main/webapp/WEB-INF</directory>
                         </resource>
                     </webResources>
