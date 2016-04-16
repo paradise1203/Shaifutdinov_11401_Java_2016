@@ -1,6 +1,6 @@
 package com.aidar.service;
 
-import com.aidar.model.Admin;
+import com.aidar.model.user.SuperUser;
 
 import java.util.List;
 
@@ -9,6 +9,6 @@ import java.util.List;
  */
 public interface AdminService {
 
-    List<Admin> getAdmins();
+    List<SuperUser> getAdmins();
 
 }

@@ -1,6 +1,6 @@
 package com.aidar.repository;
 
-import com.aidar.model.Admin;
+import com.aidar.model.user.SuperUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -8,8 +8,8 @@ import org.springframework.stereotype.Repository;
  * Created by paradise on 08.04.16.
  */
 @Repository
-public interface AdminRepository extends JpaRepository<Admin, Long> {
+public interface SuperUserRepository extends JpaRepository<SuperUser, Long> {
 
-    Admin findOneByEmail(String email);
+    SuperUser findOneByEmail(String email);
 
 }

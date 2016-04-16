@@ -6,23 +6,28 @@
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
 
     <changeSet id="0" author="paradise1203">
-        <createTable tableName="super_users">
+        <createTable tableName="community">
             <column name="id" type="int8"/>
-            <column name="name" type="varchar(50)"/>
-            <column name="surname" type="varchar(50)"/>
-            <column name="email" type="varchar(50)"/>
-            <column name="password" type="varchar(255)"/>
-            <column name="role" type="varchar(20)"/>
+            <column name="name" type="varchar(20)"/>
+            <column name="founder_id" type="int8"/>
+            <column name="created_at" type="date"/>
         </createTable>
     </changeSet>
 
     <changeSet id="1" author="paradise1203">
-        <addPrimaryKey tableName="super_users" columnNames="id"/>
+        <addPrimaryKey tableName="community" columnNames="id"/>
     </changeSet>
 
     <changeSet id="2" author="paradise1203">
-        <createSequence sequenceName="super_users_seq"
+        <createSequence sequenceName="community_seq"
                         schemaName="public" incrementBy="1" startValue="1"/>
+    </changeSet>
+
+    <changeSet id="3" author="paradise1203">
+        <addForeignKeyConstraint baseTableName="community" baseColumnNames="founder_id"
+                                 constraintName="community_founder_fk"
+                                 referencedTableName="users"
+                                 referencedColumnNames="id"/>
     </changeSet>
 
 </databaseChangeLog>

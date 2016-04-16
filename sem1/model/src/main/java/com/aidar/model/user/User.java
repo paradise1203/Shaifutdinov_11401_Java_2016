@@ -1,4 +1,6 @@
-package com.aidar.model;
+package com.aidar.model.user;
+
+import com.aidar.enums.Status;
 
 import javax.persistence.*;
 
@@ -8,11 +10,14 @@ import javax.persistence.*;
 @Entity
 @Table(name = "users")
 @SequenceGenerator(name = "users_gen", sequenceName = "users_seq", allocationSize = 1)
-public class User extends AbstractEntity {
+public class User extends AbstractUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_gen")
     private long id;
+
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
     public long getId() {
         return id;
@@ -22,4 +27,11 @@ public class User extends AbstractEntity {
         this.id = id;
     }
 
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
 }

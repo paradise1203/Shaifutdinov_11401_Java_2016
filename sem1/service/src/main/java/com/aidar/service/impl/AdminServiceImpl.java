@@ -1,7 +1,7 @@
 package com.aidar.service.impl;
 
-import com.aidar.model.Admin;
-import com.aidar.repository.AdminRepository;
+import com.aidar.model.user.SuperUser;
+import com.aidar.repository.SuperUserRepository;
 import com.aidar.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,11 +15,11 @@ import java.util.List;
 public class AdminServiceImpl implements AdminService {
 
     @Autowired
-    private AdminRepository adminRepository;
+    private SuperUserRepository superUserRepository;
 
     @Override
-    public List<Admin> getAdmins() {
-        return adminRepository.findAll();
+    public List<SuperUser> getAdmins() {
+        return superUserRepository.findAll();
     }
 
 }

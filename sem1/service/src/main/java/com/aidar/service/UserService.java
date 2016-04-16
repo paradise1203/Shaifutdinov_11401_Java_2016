@@ -1,6 +1,6 @@
 package com.aidar.service;
 
-import com.aidar.model.User;
+import com.aidar.model.user.User;
 
 import java.util.List;
 

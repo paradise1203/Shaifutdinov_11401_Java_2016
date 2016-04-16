@@ -1,4 +1,4 @@
-package com.aidar.model;
+package com.aidar.model.user;
 
 import com.aidar.enums.Role;
 
@@ -8,7 +8,7 @@ import javax.persistence.*;
  * Created by paradise on 08.04.16.
  */
 @MappedSuperclass
-public abstract class AbstractEntity {
+public abstract class AbstractUser {
 
     private String name;
 

@@ -1,6 +1,6 @@
 package com.aidar.service.impl;
 
-import com.aidar.model.User;
+import com.aidar.model.user.User;
 import com.aidar.repository.UserRepository;
 import com.aidar.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

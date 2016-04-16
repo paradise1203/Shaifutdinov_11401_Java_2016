@@ -1,7 +1,7 @@
 package com.aidar.security;
 
-import com.aidar.model.AbstractEntity;
-import com.aidar.repository.AdminRepository;
+import com.aidar.model.user.AbstractUser;
+import com.aidar.repository.SuperUserRepository;
 import com.aidar.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -26,15 +26,15 @@ public class AuthProviderImpl implements AuthenticationProvider {
     private UserRepository userRepository;
 
     @Autowired
-    private AdminRepository adminRepository;
+    private SuperUserRepository superUserRepository;
 
     private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String email = authentication.getName();
-        AbstractEntity principal = userRepository.findOneByEmail(email);
-        principal = principal == null ? adminRepository.findOneByEmail(email) : principal;
+        AbstractUser principal = userRepository.findOneByEmail(email);
+        principal = principal == null ? superUserRepository.findOneByEmail(email) : principal;
         if (principal == null) {
             throw new UsernameNotFoundException("User not found");
         }

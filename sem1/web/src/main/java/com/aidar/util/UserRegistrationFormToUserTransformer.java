@@ -1,7 +1,7 @@
 package com.aidar.util;
 
 import com.aidar.enums.Role;
-import com.aidar.model.User;
+import com.aidar.model.user.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**

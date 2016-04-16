@@ -1,6 +1,6 @@
 package com.aidar.repository;
 
-import com.aidar.model.User;
+import com.aidar.model.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
