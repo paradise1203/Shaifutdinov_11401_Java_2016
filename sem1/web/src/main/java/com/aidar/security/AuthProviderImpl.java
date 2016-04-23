@@ -1,11 +1,12 @@
 package com.aidar.security;
 
-import com.aidar.model.user.AbstractUser;
-import com.aidar.repository.SuperUserRepository;
+import com.aidar.enums.UserStatus;
+import com.aidar.model.User;
 import com.aidar.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -25,18 +26,17 @@ public class AuthProviderImpl implements AuthenticationProvider {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private SuperUserRepository superUserRepository;
-
     private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String email = authentication.getName();
-        AbstractUser principal = userRepository.findOneByEmail(email);
-        principal = principal == null ? superUserRepository.findOneByEmail(email) : principal;
+        User principal = userRepository.findOneByEmail(email);
         if (principal == null) {
             throw new UsernameNotFoundException("User not found");
+        }
+        if (principal.getStatus() == UserStatus.BANNED) {
+            throw new DisabledException("Sorry, but you are banned");
         }
         String password = authentication.getCredentials().toString();
         if (!encoder.matches(password, principal.getPassword())) {

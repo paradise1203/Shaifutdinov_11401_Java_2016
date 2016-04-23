@@ -1,7 +1,7 @@
 package com.aidar.model;
 
+import com.aidar.enums.RequestStatus;
 import com.aidar.enums.ServiceType;
-import com.aidar.model.user.User;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -19,21 +19,26 @@ public class Request {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "request_gen")
     private long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "needy_user_id")
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "needy_id")
     private User needy;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "volunteer_user_id")
+    @JoinColumn(name = "volunteer_id")
     private User volunteer;
 
     private String address;
 
+    @Column(name = "created_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
 
+    @Column(name = "service_type")
     @Enumerated(EnumType.STRING)
     private ServiceType serviceType;
+
+    @Enumerated(EnumType.STRING)
+    private RequestStatus status;
 
     public long getId() {
         return id;
@@ -81,5 +86,13 @@ public class Request {
 
     public void setServiceType(ServiceType serviceType) {
         this.serviceType = serviceType;
+    }
+
+    public RequestStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(RequestStatus status) {
+        this.status = status;
     }
 }

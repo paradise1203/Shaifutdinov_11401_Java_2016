@@ -13,6 +13,7 @@
             <column name="address" type="varchar(50)"/>
             <column name="created_at" type="date"/>
             <column name="service_type" type="varchar(20)"/>
+            <column name="status" type="varchar(20)"/>
         </createTable>
     </changeSet>
 

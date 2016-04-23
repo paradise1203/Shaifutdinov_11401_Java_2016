@@ -1,6 +1,6 @@
 package com.aidar.service;
 
-import com.aidar.model.user.User;
+import com.aidar.model.User;
 
 import java.util.List;
 
@@ -9,8 +9,14 @@ import java.util.List;
  */
 public interface UserService {
 
-    List<User> getUsers();
+    List<User> getAll();
 
-    void addUser(User user);
+    User getCurrent();
+
+    void add(User user);
+
+    void ban(String email);
+
+    void pardon(String email);
 
 }

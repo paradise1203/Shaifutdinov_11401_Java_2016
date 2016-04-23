@@ -1,49 +1,104 @@
 package com.aidar.controller;
 
+import com.aidar.enums.ServiceType;
+import com.aidar.model.Community;
+import com.aidar.model.Request;
+import com.aidar.model.User;
+import com.aidar.service.CommunityService;
+import com.aidar.service.RequestService;
 import com.aidar.service.UserService;
-import com.aidar.util.UserRegistrationForm;
-import com.aidar.util.UserRegistrationFormToUserTransformer;
-import com.aidar.util.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
- * Created by paradise on 06.04.16.
+ * Created by paradise on 17.04.16.
  */
 @Controller
 @RequestMapping("/users")
 public class UserController {
 
     @Autowired
-    private UserValidator userValidator;
-
-    @Autowired
     private UserService userService;
 
-    @RequestMapping("/index")
-    public String index() {
-        return "index";
+    @Autowired
+    private RequestService requestService;
+
+    @Autowired
+    private CommunityService communityService;
+
+    @RequestMapping("/edit")
+    public String getEditPage(Model model) {
+        model.addAttribute("user", userService.getCurrent());
+        return "user/edit";
     }
 
-    @RequestMapping("/new")
-    public String getNew() {
-        return "users_new";
+    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    public String edit(@ModelAttribute("user") User user) {
+        userService.add(user);
+        return "redirect:/home";
     }
 
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String addNewUser(@ModelAttribute UserRegistrationForm userRegistrationForm,
-                             BindingResult result) {
-        userValidator.validate(userRegistrationForm, result);
-        if (result.hasErrors()) {
-            return "users_new";
-        }
-        userService.addUser(UserRegistrationFormToUserTransformer
-                .transform(userRegistrationForm));
-        return "redirect:/auth/login";
+    @RequestMapping("/all")
+    public String getAllUsers(Model model) {
+        model.addAttribute("users", userService.getAll());
+        return "users";
+    }
+
+    @RequestMapping(value = "/ban", method = RequestMethod.POST)
+    @ResponseBody
+    public void banUser(@RequestParam("email") String email) {
+        userService.ban(email);
+    }
+
+    @RequestMapping(value = "/pardon", method = RequestMethod.POST)
+    @ResponseBody
+    public void pardonUser(@RequestParam("email") String email) {
+        userService.pardon(email);
+    }
+
+    // TODO
+    @RequestMapping(value = "/requests/all")
+    @ResponseBody
+    public List<Request> getAllRequests(Model model) {
+//        model.addAttribute("requests", requestService.getAll());
+//        return "requests";
+        return requestService.getAll();
+    }
+
+    @RequestMapping(value = "/requests/new")
+    public String getNewRequestForm(Model model) {
+        model.addAttribute("serviceTypes", ServiceType.values());
+        model.addAttribute("request", new Request());
+        return "request";
+    }
+
+    @RequestMapping(value = "/requests/create", method = RequestMethod.POST)
+    public String sendNewRequest(@ModelAttribute("request") Request request) {
+        requestService.add(request);
+        return "redirect:/home";
+    }
+
+    // TODO
+    @RequestMapping(value = "/communities/all")
+    public String getAllCommunities(Model model) {
+        model.addAttribute("communities", communityService.getAll());
+        return "";
+    }
+
+    @RequestMapping(value = "/communities/new")
+    public String getNewCommunityForm(Model model) {
+        model.addAttribute("community", new Community());
+        return "community";
+    }
+
+    @RequestMapping(value = "communities/create", method = RequestMethod.POST)
+    public String addNewCommunity(@ModelAttribute("community") Community community) {
+        communityService.add(community);
+        return "redirect:/home";
     }
 
 }

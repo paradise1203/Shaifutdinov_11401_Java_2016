@@ -1,7 +1,8 @@
 package com.aidar.util;
 
 import com.aidar.enums.Role;
-import com.aidar.model.user.User;
+import com.aidar.enums.UserStatus;
+import com.aidar.model.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
@@ -18,6 +19,7 @@ public class UserRegistrationFormToUserTransformer {
         user.setEmail(userRegistrationForm.getEmail());
         user.setPassword(encoder.encode(userRegistrationForm.getPassword()));
         user.setRole(Role.ROLE_USER);
+        user.setStatus(UserStatus.ACTIVE);
         return user;
     }
 

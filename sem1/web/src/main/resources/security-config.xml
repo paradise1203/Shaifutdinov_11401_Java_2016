@@ -4,21 +4,23 @@
        xmlns:security="http://www.springframework.org/schema/security"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
 
-    <security:http auto-config="true" use-expressions="true" access-denied-page="/auth/login">
-        <security:intercept-url pattern="/auth/login" access="isAnonymous()"/>
-        <security:intercept-url pattern="/users/new" access="isAnonymous()"/>
-        <security:intercept-url pattern="/users/create" access="isAnonymous()"/>
-        <security:intercept-url pattern="/users/**" access="hasRole('ROLE_USER')"/>
+    <security:http auto-config="true" use-expressions="true" access-denied-page="/home">
+        <security:intercept-url pattern="/sign_in" access="isAnonymous()"/>
+        <security:intercept-url pattern="/sign_up" access="isAnonymous()"/>
+        <security:intercept-url pattern="/" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')"/>
+        <security:intercept-url pattern="/home" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')"/>
+        <security:intercept-url pattern="/users/all" access="hasRole('ROLE_ADMIN')"/>
+        <security:intercept-url pattern="/users/ban" access="hasRole('ROLE_ADMIN')"/>
         <security:form-login
-                login-page="/auth/login"
+                login-page="/sign_in"
                 login-processing-url="/login/process"
                 username-parameter="email"
                 password-parameter="password"
-                default-target-url="/users/index"
+                default-target-url="/home"
                 always-use-default-target="true"
-                authentication-failure-url="/auth/login?error=true"/>
+                authentication-failure-url="/sign_in?error=true"/>
         <!--<security:remember-me key="token" token-validity-seconds="2500000" remember-me-parameter="rem"/>-->
-        <security:logout logout-url="/logout" logout-success-url="/auth/login"/>
+        <security:logout logout-url="/logout" logout-success-url="/sign_in"/>
     </security:http>
 
     <security:authentication-manager>

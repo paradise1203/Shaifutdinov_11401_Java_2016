@@ -1,7 +1,5 @@
 package com.aidar.model;
 
-import com.aidar.model.user.User;
-
 import javax.persistence.*;
 
 /**

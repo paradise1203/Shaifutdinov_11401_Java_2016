@@ -143,6 +143,12 @@
                 <version>${hibernate.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-validator</artifactId>
+                <version>5.2.2.Final</version>
+            </dependency>
+
             <!-- Database -->
             <dependency>
                 <groupId>org.postgresql</groupId>

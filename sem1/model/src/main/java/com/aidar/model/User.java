@@ -1,14 +1,21 @@
-package com.aidar.model.user;
+package com.aidar.model;
 
 import com.aidar.enums.Role;
+import com.aidar.enums.UserStatus;
 
 import javax.persistence.*;
 
 /**
  * Created by paradise on 08.04.16.
  */
-@MappedSuperclass
-public abstract class AbstractUser {
+@Entity
+@Table(name = "users")
+@SequenceGenerator(name = "users_gen", sequenceName = "users_seq", allocationSize = 1)
+public class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_gen")
+    private long id;
 
     private String name;
 
@@ -20,6 +27,17 @@ public abstract class AbstractUser {
 
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    @Enumerated(EnumType.STRING)
+    private UserStatus status;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -60,5 +78,12 @@ public abstract class AbstractUser {
     public void setRole(Role role) {
         this.role = role;
     }
-}
 
+    public UserStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(UserStatus status) {
+        this.status = status;
+    }
+}

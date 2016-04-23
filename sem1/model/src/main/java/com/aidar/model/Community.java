@@ -1,7 +1,5 @@
 package com.aidar.model;
 
-import com.aidar.model.user.User;
-
 import javax.persistence.*;
 import java.util.Date;
 
@@ -20,10 +18,13 @@ public class Community {
 
     private String name;
 
+    private String description;
+
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "founder_id")
     private User founder;
 
+    @Column(name = "created_at")
     @Temporal(TemporalType.DATE)
     private Date createdAt;
 
@@ -41,6 +42,14 @@ public class Community {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public User getFounder() {

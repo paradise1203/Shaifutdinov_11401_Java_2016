@@ -9,6 +9,7 @@
         <createTable tableName="community">
             <column name="id" type="int8"/>
             <column name="name" type="varchar(20)"/>
+            <column name="description" type="text"/>
             <column name="founder_id" type="int8"/>
             <column name="created_at" type="date"/>
         </createTable>
