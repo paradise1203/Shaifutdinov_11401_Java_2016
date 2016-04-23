@@ -31,6 +31,11 @@
             <artifactId>service</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.aidar</groupId>
+            <artifactId>aspect</artifactId>
+        </dependency>
+
         <!-- Spring -->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -121,6 +126,7 @@
                         <resource>
                             <directory>../model/src/main/resources</directory>
                             <directory>../service/src/main/resources</directory>
+                            <directory>../aspect/src/main/resources</directory>
                             <directory>src/main/resources</directory>
                             <directory>src/main/webapp/WEB-INF</directory>
                         </resource>
