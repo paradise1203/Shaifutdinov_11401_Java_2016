@@ -11,6 +11,10 @@ public interface RequestService {
 
     List<Request> getAll();
 
+    List<Request> getMy();
+
+    List<Request> getPending();
+
     void add(Request request);
 
 }

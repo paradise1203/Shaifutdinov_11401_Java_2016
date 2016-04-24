@@ -11,7 +11,7 @@
             <column name="needy_id" type="int8"/>
             <column name="volunteer_id" type="int8"/>
             <column name="address" type="varchar(50)"/>
-            <column name="created_at" type="date"/>
+            <column name="created_at" type="timestamp"/>
             <column name="service_type" type="varchar(20)"/>
             <column name="status" type="varchar(20)"/>
         </createTable>
@@ -23,7 +23,7 @@
 
     <changeSet id="2" author="paradise1203">
         <createSequence sequenceName="request_seq"
-                        schemaName="public" incrementBy="1" startValue="1"/>
+                        schemaName="public" incrementBy="1" startValue="50"/>
     </changeSet>
 
     <changeSet id="3" author="paradise1203">

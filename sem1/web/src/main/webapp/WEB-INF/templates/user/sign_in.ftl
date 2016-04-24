@@ -50,11 +50,12 @@
                                 <#if error??>
                                     <p class="help-block">Bad credentials or you are banned. Try again.</p>
                                 </#if>
-                                <#--<div class="checkbox">-->
-                                    <#--<label>-->
-                                        <#--<input name="remember" type="checkbox" value="Remember Me">Remember Me-->
-                                    <#--</label>-->
-                                <#--</div>-->
+                                <div class="checkbox">
+                                    <label>
+                                        Remember me
+                                        <input name="remember-me" type="checkbox">
+                                    </label>
+                                </div>
                                 <div class="form-group">
                                     <input class="btn btn-block btn-success" type="submit" value="Sign in">
                                 </div>

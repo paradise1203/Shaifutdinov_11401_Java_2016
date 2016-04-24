@@ -93,7 +93,7 @@
                     <#--</li>-->
                     <@sec.authorize access="hasRole('ROLE_USER')">
                         <li>
-                            <a href="/users/requests/new"><i class="fa fa-dashboard fa-fw"></i>New request</a>
+                            <a href="/requests/new"><i class="fa fa-dashboard fa-fw"></i>New request</a>
                         </li>
                     </@sec.authorize>
                 </ul>

@@ -11,7 +11,7 @@ public class HomeController {
 
     @RequestMapping("/")
     public String defaultPath() {
-        return "home";
+        return "redirect:/home";
     }
 
     @RequestMapping("/home")

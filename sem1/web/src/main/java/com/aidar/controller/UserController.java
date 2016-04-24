@@ -1,8 +1,6 @@
 package com.aidar.controller;
 
-import com.aidar.enums.ServiceType;
 import com.aidar.model.Community;
-import com.aidar.model.Request;
 import com.aidar.model.User;
 import com.aidar.service.CommunityService;
 import com.aidar.service.RequestService;
@@ -11,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * Created by paradise on 17.04.16.
@@ -58,28 +54,6 @@ public class UserController {
     @ResponseBody
     public void pardonUser(@RequestParam("email") String email) {
         userService.pardon(email);
-    }
-
-    // TODO
-    @RequestMapping(value = "/requests/all")
-    @ResponseBody
-    public List<Request> getAllRequests(Model model) {
-//        model.addAttribute("requests", requestService.getAll());
-//        return "requests";
-        return requestService.getAll();
-    }
-
-    @RequestMapping(value = "/requests/new")
-    public String getNewRequestForm(Model model) {
-        model.addAttribute("serviceTypes", ServiceType.values());
-        model.addAttribute("request", new Request());
-        return "request";
-    }
-
-    @RequestMapping(value = "/requests/create", method = RequestMethod.POST)
-    public String sendNewRequest(@ModelAttribute("request") Request request) {
-        requestService.add(request);
-        return "redirect:/home";
     }
 
     // TODO

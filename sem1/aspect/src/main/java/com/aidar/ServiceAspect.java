@@ -25,7 +25,6 @@ public class ServiceAspect {
                 + "."
                 + jp.getSignature().getName()
         );
-        System.out.println("!");
         Object result = jp.proceed();
         long end = System.currentTimeMillis();
         logger.debug("Method invocation took " + (end - start) + " seconds.");

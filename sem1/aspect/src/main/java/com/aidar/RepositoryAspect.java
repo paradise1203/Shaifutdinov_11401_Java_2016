@@ -14,8 +14,8 @@ public class RepositoryAspect {
 
     // TODO
     @Around("execution(* com.aidar.repository.*.*(..))")
-    public Object logMethodInvocation(ProceedingJoinPoint jp) {
-        return null;
+    public Object logMethodInvocation(ProceedingJoinPoint jp) throws Throwable {
+        return jp.proceed();
     }
 
 }

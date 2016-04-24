@@ -18,7 +18,7 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-lg-8">
-                        <@sf.form role="form" action="/users/requests/create" method="post" modelAttribute="request">
+                        <@sf.form role="form" action="/requests/create" method="post" modelAttribute="request">
                             <fieldset>
                                 <div class="form-group">
                                     <@sf.label path="address">Your location</@sf.label>

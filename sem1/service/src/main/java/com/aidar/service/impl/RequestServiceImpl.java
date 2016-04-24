@@ -2,6 +2,7 @@ package com.aidar.service.impl;
 
 import com.aidar.enums.RequestStatus;
 import com.aidar.model.Request;
+import com.aidar.model.User;
 import com.aidar.repository.RequestRepository;
 import com.aidar.service.RequestService;
 import com.aidar.service.SecurityService;
@@ -28,6 +29,17 @@ public class RequestServiceImpl implements RequestService {
     @Override
     public List<Request> getAll() {
         return requestRepository.findAll();
+    }
+
+    @Override
+    public List<Request> getMy() {
+        User user = securityService.getPersistedPrincipal();
+        return requestRepository.findByNeedyOrVolunteer(user, user);
+    }
+
+    @Override
+    public List<Request> getPending() {
+        return requestRepository.findAllByStatus(RequestStatus.PENDING);
     }
 
     @Override
