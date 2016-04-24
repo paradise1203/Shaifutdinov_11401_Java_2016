@@ -1,9 +1,6 @@
 package com.aidar.controller;
 
-import com.aidar.model.Community;
 import com.aidar.model.User;
-import com.aidar.service.CommunityService;
-import com.aidar.service.RequestService;
 import com.aidar.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,12 +16,6 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private RequestService requestService;
-
-    @Autowired
-    private CommunityService communityService;
 
     @RequestMapping("/edit")
     public String getEditPage(Model model) {
@@ -54,25 +45,6 @@ public class UserController {
     @ResponseBody
     public void pardonUser(@RequestParam("email") String email) {
         userService.pardon(email);
-    }
-
-    // TODO
-    @RequestMapping(value = "/communities/all")
-    public String getAllCommunities(Model model) {
-        model.addAttribute("communities", communityService.getAll());
-        return "";
-    }
-
-    @RequestMapping(value = "/communities/new")
-    public String getNewCommunityForm(Model model) {
-        model.addAttribute("community", new Community());
-        return "community";
-    }
-
-    @RequestMapping(value = "communities/create", method = RequestMethod.POST)
-    public String addNewCommunity(@ModelAttribute("community") Community community) {
-        communityService.add(community);
-        return "redirect:/home";
     }
 
 }

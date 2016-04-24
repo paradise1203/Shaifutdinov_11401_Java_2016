@@ -1,4 +1,4 @@
-package com.aidar;
+package com.aidar.aspect;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

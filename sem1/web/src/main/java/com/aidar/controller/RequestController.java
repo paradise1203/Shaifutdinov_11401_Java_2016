@@ -1,4 +1,4 @@
-package com.aidar.api;
+package com.aidar.controller;
 
 import com.aidar.enums.ServiceType;
 import com.aidar.model.Request;

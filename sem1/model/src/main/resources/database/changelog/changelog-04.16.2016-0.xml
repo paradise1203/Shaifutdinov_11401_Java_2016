@@ -11,7 +11,7 @@
             <column name="text" type="text"/>
             <column name="sender_id" type="int8"/>
             <column name="recipient_id" type="int8"/>
-            <column name="created_at" type="date"/>
+            <column name="created_at" type="timestamp"/>
         </createTable>
     </changeSet>
 

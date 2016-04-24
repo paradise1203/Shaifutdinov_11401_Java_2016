@@ -14,7 +14,7 @@ $(document).ready(function () {
         doAjax('/requests/my');
     });
 
-    $('.pending').on('click', function () {
+    $('#pending').on('click', function () {
         doAjax('/requests/pending');
     });
 

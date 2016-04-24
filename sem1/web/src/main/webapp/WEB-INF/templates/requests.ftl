@@ -1,5 +1,7 @@
 <#assign sec=JspTaglibs["http://www.springframework.org/security/tags"]>
 
+<#import "macro/requests_table.ftl" as mac/>
+
 <#include "main_template.ftl"/>
 
 <#macro content>
@@ -14,33 +16,11 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     Requests
+                    <a href="#" style="float: right">New!</a>
                 </div>
                 <div class="panel-body">
                     <@sec.authorize access="hasRole('ROLE_ADMIN')">
-                    <div class="dataTable_wrapper">
-                        <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-                            <thead>
-                                <tr>
-                                    <th>Needy</th>
-                                    <th>Address</th>
-                                    <th>Created at</th>
-                                    <th>Type of service</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <#list requests as request>
-                                    <tr>
-                                        <td>${request.needy.name} ${request.needy.surname}</td>
-                                        <td>${request.address}</td>
-                                        <td>${request.createdAt}</td>
-                                        <td>${request.serviceType.representation}</td>
-                                        <td>${request.status}</td>
-                                    </tr>
-                                </#list>
-                            </tbody>
-                        </table>
-                    </div>
+                        <@mac.req_table requests=requests/>
                     </@sec.authorize>
                     <@sec.authorize access="hasRole('ROLE_USER')">
                         <ul class="nav nav-tabs">

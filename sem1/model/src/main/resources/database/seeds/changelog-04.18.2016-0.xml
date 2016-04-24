@@ -6,7 +6,7 @@
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
 
     <changeSet id="0" author="paradise1203">
-        <loadUpdateData tableName="request" primaryKey="id" file="database/seeds/requests.csv">
+        <loadUpdateData tableName="users" primaryKey="id" file="database/seeds/data/users.csv">
             <column name="id" type="numeric"/>
         </loadUpdateData>
     </changeSet>

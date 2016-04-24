@@ -23,7 +23,7 @@ public class Request {
     @JoinColumn(name = "needy_id")
     private User needy;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "volunteer_id")
     private User volunteer;
 
