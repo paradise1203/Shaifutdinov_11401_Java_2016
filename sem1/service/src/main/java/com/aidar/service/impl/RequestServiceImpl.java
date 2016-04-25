@@ -39,7 +39,15 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     public List<Request> getPending() {
-        return requestRepository.findAllByStatus(RequestStatus.PENDING);
+        List<Request> pending = requestRepository.findAllByStatus(RequestStatus.PENDING);
+        pending.removeAll(requestRepository
+                .findByNeedy(securityService.getPersistedPrincipal()));
+        return pending;
+    }
+
+    @Override
+    public Request getOne(Long id) {
+        return requestRepository.findOne(id);
     }
 
     @Override
@@ -48,6 +56,13 @@ public class RequestServiceImpl implements RequestService {
         request.setCreatedAt(new Date());
         request.setStatus(RequestStatus.PENDING);
         requestRepository.save(request);
+    }
+
+    @Override
+    public void help(Long id) {
+        Request request = requestRepository.findOne(id);
+        request.setVolunteer(securityService.getPersistedPrincipal());
+        request.setStatus(RequestStatus.ACTIVE);
     }
 
 }

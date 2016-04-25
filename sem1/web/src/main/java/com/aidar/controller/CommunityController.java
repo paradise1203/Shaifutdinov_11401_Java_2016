@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -22,13 +23,19 @@ public class CommunityController {
     @RequestMapping(value = "/all")
     public String getAllCommunities(Model model) {
         model.addAttribute("communities", communityService.getAll());
-        return "";
+        return "communities";
+    }
+
+    @RequestMapping(value = "/{id}")
+    public String getInfo(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("community", communityService.getOne(id));
+        return "community";
     }
 
     @RequestMapping(value = "/new")
     public String getNewCommunityForm(Model model) {
         model.addAttribute("community", new Community());
-        return "community";
+        return "new_community";
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)

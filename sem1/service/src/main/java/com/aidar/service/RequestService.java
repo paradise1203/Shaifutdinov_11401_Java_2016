@@ -15,6 +15,10 @@ public interface RequestService {
 
     List<Request> getPending();
 
+    Request getOne(Long id);
+
     void add(Request request);
+
+    void help(Long id);
 
 }

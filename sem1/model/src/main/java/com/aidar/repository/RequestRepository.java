@@ -14,6 +14,8 @@ import java.util.List;
 @Repository
 public interface RequestRepository extends JpaRepository<Request, Long> {
 
+    List<Request> findByNeedy(User needy);
+
     List<Request> findByNeedyOrVolunteer(User needy, User volunteer);
 
     // TODO invalid

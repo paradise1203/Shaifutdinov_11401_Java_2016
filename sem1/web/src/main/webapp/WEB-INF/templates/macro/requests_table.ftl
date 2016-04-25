@@ -1,4 +1,4 @@
-<#macro req_table requests type="all">
+<#macro req_table requests type="default">
     <div class="dataTable_wrapper">
         <table class="table table-striped table-bordered table-hover" id="dataTables-example">
             <thead>
@@ -9,6 +9,7 @@
                     <th>Type of service</th>
                     <th>Status</th>
                     <th>Volunteer</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -24,6 +25,19 @@
                             ${request.volunteer.name} ${request.volunteer.surname}
                             <#else>
                                 No yet
+                            </#if>
+                        </td>
+                        <#-- Request id to send via ajax -->
+                        <p class="request_id" style="display: none">${request.id}</p>
+                        <td>
+                            <#if type=="pending">
+                                <button type="button" class="help btn btn-outline btn-success btn-xs">
+                                    help!
+                                </button>
+                            <#else>
+                                <a href="/requests/${request.id}" class="btn btn-outline btn-primary btn-xs">
+                                    info
+                                </a>
                             </#if>
                         </td>
                     </tr>

@@ -6,10 +6,7 @@ import com.aidar.service.RequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -32,34 +29,47 @@ public class RequestController {
     @ResponseBody
     public ModelAndView getAll(Model model) {
         model.addAttribute("requests", requestService.getAll());
-        return new ModelAndView("portion/requests_all");
+        return new ModelAndView("partition/requests_part");
     }
 
     @RequestMapping("/my")
     @ResponseBody
     public ModelAndView getMy(Model model) {
         model.addAttribute("requests", requestService.getMy());
-        return new ModelAndView("portion/requests_all");
+        return new ModelAndView("partition/requests_part");
     }
 
     @RequestMapping("/pending")
     @ResponseBody
     public ModelAndView getPending(Model model) {
         model.addAttribute("requests", requestService.getPending());
-        return new ModelAndView("portion/requests_all");
+        model.addAttribute("type", "pending");
+        return new ModelAndView("partition/requests_part");
+    }
+
+    @RequestMapping("/{id}")
+    public String getInfo(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("request", requestService.getOne(id));
+        return "request";
     }
 
     @RequestMapping("/new")
     public String getNewForm(Model model) {
         model.addAttribute("serviceTypes", ServiceType.values());
         model.addAttribute("request", new Request());
-        return "request";
+        return "new_request";
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String sendNewForm(@ModelAttribute("request") Request request) {
         requestService.add(request);
         return "redirect:/home";
+    }
+
+    @RequestMapping(value = "/{id}/help", method = RequestMethod.POST)
+    @ResponseBody
+    public void help(@PathVariable("id") Long id) {
+        requestService.help(id);
     }
 
 }

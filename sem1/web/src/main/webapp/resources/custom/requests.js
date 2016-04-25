@@ -18,6 +18,22 @@ $(document).ready(function () {
         doAjax('/requests/pending');
     });
 
+    $(document).on('click', '.help', function () {
+        var td = $(this).parent('td');
+        var request_id = $('.request_id').text();
+
+        $.ajax({
+            url: '/requests/' + request_id + '/help',
+            type: 'post',
+            success: function () {
+                td.children('button').remove();
+                var info = $('<a>').text('info').attr('href', '/requests/' + request_id)
+                    .addClass('btn').addClass('btn-outline').addClass('btn-primary').addClass('btn-xs');
+                td.append(info);
+            }
+        });
+    });
+
     function doAjax(url) {
         $.ajax({
             url: url,

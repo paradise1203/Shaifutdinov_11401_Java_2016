@@ -11,6 +11,8 @@ public interface CommunityService {
 
     List<Community> getAll();
 
+    Community getOne(Long id);
+
     void add(Community community);
 
 }

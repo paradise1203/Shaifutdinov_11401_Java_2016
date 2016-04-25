@@ -1,7 +1,6 @@
 <#assign sec=JspTaglibs["http://www.springframework.org/security/tags"]>
 
 <#import "macro/requests_table.ftl" as mac/>
-
 <#include "main_template.ftl"/>
 
 <#macro content>
@@ -13,10 +12,10 @@
 
     <div class="row">
         <div class="col-lg-12">
-            <div class="panel panel-default">
+            <div class="panel panel-info">
                 <div class="panel-heading">
                     Requests
-                    <a href="#" style="float: right">New!</a>
+                    <a href="/requests/new" style="float: right">New!</a>
                 </div>
                 <div class="panel-body">
                     <@sec.authorize access="hasRole('ROLE_ADMIN')">

@@ -58,7 +58,7 @@
                     </a>
                     <ul class="dropdown-menu dropdown-user">
                         <li>
-                            <a href="/users/edit"><i class="fa fa-sign-out fa-fw"></i>My profile</a>
+                            <a href="/users/edit"><i class="fa fa-user fa-fw"></i>My profile</a>
                         </li>
                         <li class="divider"></li>
                         <li>
@@ -86,7 +86,7 @@
                             <a href="/users/all"><i class="fa fa-dashboard fa-fw"></i>Users</a>
                         </li>
                         <li>
-                            <a href="/users/communities/new"><i class="fa fa-dashboard fa-fw"></i>Communities</a>
+                            <a href="/communities/all"><i class="fa fa-dashboard fa-fw"></i>Communities</a>
                         </li>
                         <li>
                             <a href="/requests/"><i class="fa fa-dashboard fa-fw"></i>Requests</a>
