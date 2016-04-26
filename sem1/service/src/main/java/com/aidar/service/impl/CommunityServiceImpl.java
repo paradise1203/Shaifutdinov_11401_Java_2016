@@ -30,6 +30,11 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
     @Override
+    public Community getOne(Long id) {
+        return null;
+    }
+
+    @Override
     public void add(Community community) {
         community.setFounder(securityService.getPersistedPrincipal());
         community.setCreatedAt(new Date());

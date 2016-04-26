@@ -1,7 +1,6 @@
 package com.aidar.aspect;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.log4j.Logger;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -14,20 +13,24 @@ import org.springframework.stereotype.Component;
 @Aspect
 public class ServiceAspect {
 
-    private Logger logger = LogManager.getLogger("ServiceLogger");
+    private final static Logger logger = Logger.getLogger(ServiceAspect.class);
 
     // TODO Logger doesn`t work
     @Around("execution(* com.aidar.service.*.*(..))")
     public Object logMethodInvocation(ProceedingJoinPoint jp) throws Throwable {
         long start = System.currentTimeMillis();
-        logger.debug("Start invoking "
-                + jp.getTarget().getClass().getSimpleName()
-                + "."
-                + jp.getSignature().getName()
-        );
+        if (logger.isDebugEnabled()) {
+            logger.debug("Start invoking "
+                    + jp.getTarget().getClass().getSimpleName()
+                    + "."
+                    + jp.getSignature().getName()
+            );
+        }
         Object result = jp.proceed();
         long end = System.currentTimeMillis();
-        logger.debug("Method invocation took " + (end - start) + " seconds.");
+        if (logger.isInfoEnabled()) {
+            logger.info("Method invocation took " + (end - start) + " seconds.");
+        }
         return result;
     }
 
