@@ -17,6 +17,12 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @RequestMapping("")
+    public String getAllUsers(Model model) {
+        model.addAttribute("users", userService.getAll());
+        return "user/users";
+    }
+
     @RequestMapping("/edit")
     public String getEditPage(Model model) {
         model.addAttribute("user", userService.getCurrent());
@@ -27,12 +33,6 @@ public class UserController {
     public String edit(@ModelAttribute("user") User user) {
         userService.add(user);
         return "redirect:/home";
-    }
-
-    @RequestMapping("/all")
-    public String getAllUsers(Model model) {
-        model.addAttribute("users", userService.getAll());
-        return "users";
     }
 
     @RequestMapping(value = "/ban", method = RequestMethod.POST)

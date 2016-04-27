@@ -11,7 +11,7 @@
             <column name="text" type="text"/>
             <column name="request_id" type="int8"/>
             <column name="author_id" type="int8"/>
-            <column name="date" type="timestamp"/>
+            <column name="created_at" type="timestamp"/>
         </createTable>
     </changeSet>
 

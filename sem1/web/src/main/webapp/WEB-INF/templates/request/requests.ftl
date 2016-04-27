@@ -1,7 +1,7 @@
 <#assign sec=JspTaglibs["http://www.springframework.org/security/tags"]>
 
-<#import "macro/requests_table.ftl" as mac/>
-<#include "main_template.ftl"/>
+<#import "../macro/requests_table.ftl" as mac/>
+<#include "../main_template.ftl"/>
 
 <#macro content>
     <div class="row">

@@ -1,8 +1,11 @@
 package com.aidar.controller;
 
 import com.aidar.enums.ServiceType;
+import com.aidar.model.Comment;
 import com.aidar.model.Request;
+import com.aidar.service.CommentService;
 import com.aidar.service.RequestService;
+import com.aidar.service.SecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,10 +22,16 @@ public class RequestController {
     @Autowired
     private RequestService requestService;
 
+    @Autowired
+    private CommentService commentService;
+
+    @Autowired
+    private SecurityService securityService;
+
     @RequestMapping("")
     public String getRequestsPage(Model model) {
         model.addAttribute("requests", requestService.getAll());
-        return "requests";
+        return "request/requests";
     }
 
     @RequestMapping("/all")
@@ -47,17 +56,19 @@ public class RequestController {
         return new ModelAndView("partition/requests_part");
     }
 
+    // TODO switching between 'help!' and 'info' buttons doesn`t work
     @RequestMapping("/{id}")
     public String getInfo(@PathVariable("id") Long id, Model model) {
         model.addAttribute("request", requestService.getOne(id));
-        return "request";
+        model.addAttribute("principal", securityService.getPrincipal());
+        return "request/request";
     }
 
     @RequestMapping("/new")
     public String getNewForm(Model model) {
         model.addAttribute("serviceTypes", ServiceType.values());
         model.addAttribute("request", new Request());
-        return "new_request";
+        return "request/new_request";
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
@@ -70,6 +81,14 @@ public class RequestController {
     @ResponseBody
     public void help(@PathVariable("id") Long id) {
         requestService.help(id);
+    }
+
+    // TODO change to ajax
+    @RequestMapping(value = "/{id}/comments/create", method = RequestMethod.POST)
+    @ResponseBody
+    public Comment sendNewComment(@PathVariable("id") Long id,
+                                  @RequestParam("text") String text) {
+        return commentService.add(id, text);
     }
 
 }

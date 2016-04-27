@@ -1,6 +1,6 @@
 <#assign sf=JspTaglibs["http://www.springframework.org/tags/form"]>
 
-<#include "main_template.ftl"/>
+<#include "../main_template.ftl"/>
 
 <#macro content>
 <div class="row">

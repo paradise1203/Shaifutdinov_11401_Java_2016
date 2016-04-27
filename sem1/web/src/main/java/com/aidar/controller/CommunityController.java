@@ -23,19 +23,19 @@ public class CommunityController {
     @RequestMapping(value = "/all")
     public String getAllCommunities(Model model) {
         model.addAttribute("communities", communityService.getAll());
-        return "communities";
+        return "community/communities";
     }
 
     @RequestMapping(value = "/{id}")
     public String getInfo(@PathVariable("id") Long id, Model model) {
         model.addAttribute("community", communityService.getOne(id));
-        return "community";
+        return "community/community";
     }
 
     @RequestMapping(value = "/new")
     public String getNewCommunityForm(Model model) {
         model.addAttribute("community", new Community());
-        return "new_community";
+        return "community/new_community";
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)

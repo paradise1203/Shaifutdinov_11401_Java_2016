@@ -1,6 +1,6 @@
 <#assign sf=JspTaglibs["http://www.springframework.org/tags/form"]>
 
-<#include "main_template.ftl"/>
+<#include "../main_template.ftl"/>
 
 <#macro content>
 <div class="row">
@@ -18,7 +18,7 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-lg-8">
-                        <@sf.form role="form" action="/users/communities/create" method="post" modelAttribute="community">
+                        <@sf.form role="form" action="/communities/create" method="post" modelAttribute="community">
                             <fieldset>
                                 <div class="form-group">
                                     <@sf.label path="name">Community name</@sf.label>
@@ -27,7 +27,7 @@
                                 </div>
                                 <div class="form-group">
                                     <@sf.label path="description">A brief description of your community</@sf.label>
-                                    <@sf.input path="description" cssClass="form-control" type="text"/>
+                                    <@sf.textarea path="description" cssClass="form-control" rows="5"/>
                                     <@sf.errors path="description" cssClass="help-block"/>
                                 </div>
                                 <div class="form-group">

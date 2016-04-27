@@ -5,6 +5,7 @@ import com.aidar.enums.ServiceType;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by paradise on 13.04.16.
@@ -39,6 +40,9 @@ public class Request {
 
     @Enumerated(EnumType.STRING)
     private RequestStatus status;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "request")
+    private List<Comment> comments;
 
     public long getId() {
         return id;
@@ -94,5 +98,13 @@ public class Request {
 
     public void setStatus(RequestStatus status) {
         this.status = status;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 }

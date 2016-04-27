@@ -8,13 +8,22 @@
     <context:component-scan base-package="com.aidar.security"/>
 
     <security:http auto-config="true" use-expressions="true" access-denied-page="/home">
+        <!-- AuthController -->
         <security:intercept-url pattern="/sign_in" access="isAnonymous()"/>
         <security:intercept-url pattern="/sign_up" access="isAnonymous()"/>
+        <!-- HomeController -->
         <security:intercept-url pattern="/" access="isAuthenticated()"/>
         <security:intercept-url pattern="/home" access="isAuthenticated()"/>
+        <!-- UserController -->
         <security:intercept-url pattern="/users/edit" access="isAuthenticated()"/>
-        <security:intercept-url pattern="/users/all" access="hasRole('ROLE_ADMIN')"/>
+        <security:intercept-url pattern="/users/" access="hasRole('ROLE_ADMIN')"/>
         <security:intercept-url pattern="/users/ban" access="hasRole('ROLE_ADMIN')"/>
+        <security:intercept-url pattern="/users/pardon" access="hasRole('ROLE_ADMIN')"/>
+        <!-- RequestController -->
+        <security:intercept-url pattern="/requests/" access="isAuthenticated()"/>
+        <security:intercept-url pattern="/requests/new" access="isAuthenticated()"/>
+        <security:intercept-url pattern="/requests/create" access="isAuthenticated()"/>
+
         <security:form-login
                 login-page="/sign_in"
                 login-processing-url="/login/process"

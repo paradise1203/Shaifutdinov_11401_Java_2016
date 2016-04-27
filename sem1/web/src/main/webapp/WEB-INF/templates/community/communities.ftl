@@ -1,6 +1,6 @@
 <#assign sec=JspTaglibs["http://www.springframework.org/security/tags"]>
 
-<#include "main_template.ftl"/>
+<#include "../main_template.ftl"/>
 
 <#macro content>
 <div class="row">
@@ -30,15 +30,17 @@
                         </thead>
                         <tbody>
                             <#list communities as community>
-                                <td>${community.name}</td>
-                                <td>${community.description}</td>
-                                <td>${community.founder.name} + ${community.founder.surname}</td>
-                                <td>${community.createdAt}</td>
-                                <td>
-                                    <a href="/requests/${request.id}" class="btn btn-outline btn-primary btn-xs">
-                                        info
-                                    </a>
-                                </td>
+                                <tr>
+                                    <td>${community.name}</td>
+                                    <td>${community.description}</td>
+                                    <td>${community.founder.name} ${community.founder.surname}</td>
+                                    <td>${community.createdAt}</td>
+                                    <td>
+                                        <a href="/communities/${community.id}" class="btn btn-outline btn-primary btn-xs">
+                                            info
+                                        </a>
+                                    </td>
+                                </tr>
                             </#list>
                         </tbody>
                     </table>

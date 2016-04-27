@@ -83,7 +83,7 @@
                             <!-- /input-group -->
                         </li>
                         <li>
-                            <a href="/users/all"><i class="fa fa-dashboard fa-fw"></i>Users</a>
+                            <a href="/users/"><i class="fa fa-dashboard fa-fw"></i>Users</a>
                         </li>
                         <li>
                             <a href="/communities/all"><i class="fa fa-dashboard fa-fw"></i>Communities</a>

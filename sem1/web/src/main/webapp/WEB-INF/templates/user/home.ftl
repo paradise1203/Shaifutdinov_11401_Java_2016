@@ -1,4 +1,4 @@
-<#include "main_template.ftl"/>
+<#include "../main_template.ftl"/>
 
 <#macro content>
     Welcome home!

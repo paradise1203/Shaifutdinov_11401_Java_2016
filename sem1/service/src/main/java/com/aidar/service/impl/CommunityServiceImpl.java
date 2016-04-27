@@ -31,7 +31,7 @@ public class CommunityServiceImpl implements CommunityService {
 
     @Override
     public Community getOne(Long id) {
-        return null;
+        return communityRepository.findOne(id);
     }
 
     @Override
