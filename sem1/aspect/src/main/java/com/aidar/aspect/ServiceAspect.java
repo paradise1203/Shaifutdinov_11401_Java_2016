@@ -15,22 +15,19 @@ public class ServiceAspect {
 
     private final static Logger logger = Logger.getLogger(ServiceAspect.class);
 
-    // TODO Logger doesn`t work
     @Around("execution(* com.aidar.service.*.*(..))")
     public Object logMethodInvocation(ProceedingJoinPoint jp) throws Throwable {
         long start = System.currentTimeMillis();
-        if (logger.isDebugEnabled()) {
-            logger.debug("Start invoking "
-                    + jp.getTarget().getClass().getSimpleName()
-                    + "."
-                    + jp.getSignature().getName()
-            );
-        }
+        logger.info("Start invoking service"
+                + jp.getTarget().getClass().getSimpleName()
+                + "."
+                + jp.getSignature().getName()
+        );
         Object result = jp.proceed();
         long end = System.currentTimeMillis();
-        if (logger.isInfoEnabled()) {
-            logger.info("Method invocation took " + (end - start) + " seconds.");
-        }
+        logger.info("Method invocation took " + (end - start) + " seconds.");
+        logger.debug("debug!!!");
+        logger.error("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         return result;
     }
 
