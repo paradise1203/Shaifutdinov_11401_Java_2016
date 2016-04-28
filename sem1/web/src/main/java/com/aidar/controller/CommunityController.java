@@ -5,10 +5,7 @@ import com.aidar.service.CommunityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by paradise on 24.04.16.
@@ -20,7 +17,7 @@ public class CommunityController {
     @Autowired
     private CommunityService communityService;
 
-    @RequestMapping(value = "/all")
+    @RequestMapping(value = "/")
     public String getAllCommunities(Model model) {
         model.addAttribute("communities", communityService.getAll());
         return "community/communities";
@@ -30,6 +27,12 @@ public class CommunityController {
     public String getInfo(@PathVariable("id") Long id, Model model) {
         model.addAttribute("community", communityService.getOne(id));
         return "community/community";
+    }
+
+    @RequestMapping(value = "/{id}/members/add", method = RequestMethod.POST)
+    @ResponseBody
+    public void addMember(@PathVariable("id") Long id) {
+        communityService.addMember(id);
     }
 
     @RequestMapping(value = "/new")

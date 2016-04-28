@@ -86,7 +86,7 @@
                             <a href="/users/"><i class="fa fa-dashboard fa-fw"></i>Users</a>
                         </li>
                         <li>
-                            <a href="/communities/all"><i class="fa fa-dashboard fa-fw"></i>Communities</a>
+                            <a href="/communities/"><i class="fa fa-dashboard fa-fw"></i>Communities</a>
                         </li>
                         <li>
                             <a href="/requests/"><i class="fa fa-dashboard fa-fw"></i>Requests</a>

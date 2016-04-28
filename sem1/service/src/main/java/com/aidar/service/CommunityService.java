@@ -15,4 +15,6 @@ public interface CommunityService {
 
     void add(Community community);
 
+    void addMember(Long id);
+
 }

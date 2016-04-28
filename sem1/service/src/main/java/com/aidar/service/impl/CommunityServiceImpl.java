@@ -1,7 +1,9 @@
 package com.aidar.service.impl;
 
 import com.aidar.model.Community;
+import com.aidar.model.UserCommunity;
 import com.aidar.repository.CommunityRepository;
+import com.aidar.repository.UserCommunityRepository;
 import com.aidar.service.CommunityService;
 import com.aidar.service.SecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,9 @@ public class CommunityServiceImpl implements CommunityService {
     private CommunityRepository communityRepository;
 
     @Autowired
+    private UserCommunityRepository userCommunityRepository;
+
+    @Autowired
     private SecurityService securityService;
 
     @Override
@@ -39,6 +44,14 @@ public class CommunityServiceImpl implements CommunityService {
         community.setFounder(securityService.getPersistedPrincipal());
         community.setCreatedAt(new Date());
         communityRepository.save(community);
+    }
+
+    @Override
+    public void addMember(Long id) {
+        UserCommunity userCommunity = new UserCommunity();
+        userCommunity.setUser(securityService.getPersistedPrincipal());
+        userCommunity.setCommunity(communityRepository.findOne(id));
+        userCommunityRepository.save(userCommunity);
     }
 
 }

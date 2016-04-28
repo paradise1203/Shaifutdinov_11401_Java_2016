@@ -14,6 +14,8 @@
         <div class="panel panel-success">
             <div class="panel-heading">
                 Community info
+                <p class="community_id" style="display: none;">${community.id}</p>
+                <a href="#" class="follow" style="float: right">Follow!</a>
             </div>
             <div class="panel-body">
                 <p class="lead">Name: ${community.name} </p>
@@ -26,4 +28,4 @@
 </div>
 </#macro>
 
-<@main title="Request info"/>
+<@main title="Request info" scripts=["/resources/custom/community.js"]/>
