@@ -10,7 +10,8 @@ import java.util.Date;
 @Table(name = "message")
 @SequenceGenerator(name = "message_gen",
         sequenceName = "message_seq", allocationSize = 1)
-public class Message {
+public class
+Message {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "message_gen")
@@ -26,6 +27,7 @@ public class Message {
     @JoinColumn(name = "recipient_id")
     private User recipient;
 
+    @Column(name = "created_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
 

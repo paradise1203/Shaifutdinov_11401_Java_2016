@@ -1,11 +1,15 @@
 package com.aidar.controller;
 
+import com.aidar.model.Message;
 import com.aidar.model.User;
+import com.aidar.service.MessageService;
 import com.aidar.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * Created by paradise on 17.04.16.
@@ -16,6 +20,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private MessageService messageService;
 
     @RequestMapping("")
     public String getAllUsers(Model model) {
@@ -45,6 +52,22 @@ public class UserController {
     @ResponseBody
     public void pardonUser(@RequestParam("email") String email) {
         userService.pardon(email);
+    }
+
+    @RequestMapping("/{id}/dialog")
+    public String getDialog(@PathVariable("id") Long id, Model model) {
+        List<Message> messages = messageService.getDialog(id);
+        model.addAttribute("messages", messages);
+        model.addAttribute("friend", userService.getOne(id));
+        return "user/dialog";
+    }
+
+    // send message
+    @RequestMapping(value = "/{id}/dialog", method = RequestMethod.POST)
+    @ResponseBody
+    public Message sendNewMessage(@PathVariable("id") Long id,
+                                  @RequestParam("text") String text) {
+        return messageService.add(id, text);
     }
 
 }

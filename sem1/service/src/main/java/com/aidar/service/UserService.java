@@ -13,6 +13,8 @@ public interface UserService {
 
     User getCurrent();
 
+    User getOne(Long id);
+
     void add(User user);
 
     void update(User user);

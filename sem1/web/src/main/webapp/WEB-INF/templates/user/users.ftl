@@ -1,3 +1,5 @@
+<#assign sec=JspTaglibs["http://www.springframework.org/security/tags"]>
+
 <#include "../main_template.ftl"/>
 
 <#macro content>
@@ -33,15 +35,22 @@
                                         <td class="email">${user.email}</td>
                                         <td class="status">${user.status}</td>
                                         <td>
-                                            <#if user.status == "ACTIVE">
-                                                <button type="button" class="ban btn btn-outline btn-danger btn-xs">
-                                                    ban
-                                                </button>
-                                            <#elseif user.status == "BANNED">
-                                                <button type="button" class="pardon btn btn-outline btn-primary btn-xs">
-                                                    pardon
-                                                </button>
-                                            </#if>
+                                            <@sec.authorize access="hasRole('ROLE_ADMIN')">
+                                                <#if user.status == "ACTIVE">
+                                                    <button type="button" class="ban btn btn-outline btn-danger btn-xs">
+                                                        ban
+                                                    </button>
+                                                <#elseif user.status == "BANNED">
+                                                    <button type="button" class="pardon btn btn-outline btn-primary btn-xs">
+                                                        pardon
+                                                    </button>
+                                                </#if>
+                                            </@sec.authorize>
+                                            <@sec.authorize access="hasRole('ROLE_USER')">
+                                                <a href="/users/${user.id}/dialog" class="btn btn-outline btn-primary btn-xs">
+                                                    dialog
+                                                </a>
+                                            </@sec.authorize>
                                         </td>
                                     </tr>
                                 </#list>
