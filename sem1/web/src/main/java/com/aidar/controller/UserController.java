@@ -2,6 +2,7 @@ package com.aidar.controller;
 
 import com.aidar.model.Message;
 import com.aidar.model.User;
+import com.aidar.service.AssessmentService;
 import com.aidar.service.MessageService;
 import com.aidar.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,9 @@ public class UserController {
 
     @Autowired
     private MessageService messageService;
+
+    @Autowired
+    private AssessmentService assessmentService;
 
     @RequestMapping("")
     public String getAllUsers(Model model) {
@@ -68,6 +72,12 @@ public class UserController {
     public Message sendNewMessage(@PathVariable("id") Long id,
                                   @RequestParam("text") String text) {
         return messageService.add(id, text);
+    }
+
+    @RequestMapping(value = "/${id}/assess", method = RequestMethod.POST)
+    @ResponseBody
+    public void assessUser(@PathVariable("id") Long id, String assessment) {
+        assessmentService.assess(id, assessment);
     }
 
 }

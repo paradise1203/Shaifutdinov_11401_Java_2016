@@ -15,7 +15,7 @@
             <div class="panel-heading">
                 Community info
                 <p class="community_id" style="display: none;">${community.id}</p>
-                <a href="#" class="follow" style="float: right">Follow!</a>
+                <a href="#" class="subscribe" style="float: right">Subscribe</a>
             </div>
             <div class="panel-body">
                 <p class="lead">Name: ${community.name} </p>

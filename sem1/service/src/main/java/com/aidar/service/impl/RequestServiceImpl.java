@@ -61,8 +61,10 @@ public class RequestServiceImpl implements RequestService {
     @Override
     public void help(Long id) {
         Request request = requestRepository.findOne(id);
-        request.setVolunteer(securityService.getPersistedPrincipal());
-        request.setStatus(RequestStatus.ACTIVE);
+        if (request.getVolunteer() == null) {
+            request.setVolunteer(securityService.getPersistedPrincipal());
+            request.setStatus(RequestStatus.ACTIVE);
+        }
     }
 
 }

@@ -66,6 +66,9 @@
                             <div class="form-group">
                                 <input class="btn btn-block btn-primary" type="submit" value="Sign up">
                             </div>
+                            <div class="form-group">
+                                <a href="/sign_in" class="btn btn-block btn-success">Sign in</a>
+                            </div>
                         </fieldset>
                     </@sf.form>
                 </div>

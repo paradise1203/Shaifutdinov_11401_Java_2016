@@ -15,13 +15,21 @@ public class UserCommunity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_community_gen")
     private long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "community_id")
     private Community community;
+
+    public UserCommunity() {
+    }
+
+    public UserCommunity(User user, Community community) {
+        this.user = user;
+        this.community = community;
+    }
 
     public long getId() {
         return id;

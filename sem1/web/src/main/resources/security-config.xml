@@ -19,9 +19,9 @@
         <security:intercept-url pattern="/users/ban" access="hasRole('ROLE_ADMIN')"/>
         <security:intercept-url pattern="/users/pardon" access="hasRole('ROLE_ADMIN')"/>
         <!-- RequestController -->
-        <security:intercept-url pattern="/requests/" access="isAuthenticated()"/>
-        <security:intercept-url pattern="/requests/new" access="isAuthenticated()"/>
-        <security:intercept-url pattern="/requests/create" access="isAuthenticated()"/>
+        <security:intercept-url pattern="/requests/**" access="isAuthenticated()"/>
+        <!-- CommunityController -->
+        <security:intercept-url pattern="/communities/**" access="isAuthenticated()"/>
 
         <security:form-login
                 login-page="/sign_in"
@@ -32,7 +32,7 @@
                 always-use-default-target="true"
                 authentication-failure-url="/sign_in?error=true"/>
         <security:remember-me key="secretToken" token-validity-seconds="36000"/>
-        <security:logout logout-url="/logout" logout-success-url="/sign_in" delete-cookies="JSESSIONID"/>
+        <security:logout logout-url="/logout" logout-success-url="/sign_in"/>
     </security:http>
 
     <security:authentication-manager>

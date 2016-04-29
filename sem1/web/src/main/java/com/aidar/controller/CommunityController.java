@@ -17,7 +17,7 @@ public class CommunityController {
     @Autowired
     private CommunityService communityService;
 
-    @RequestMapping(value = "/")
+    @RequestMapping(value = "")
     public String getAllCommunities(Model model) {
         model.addAttribute("communities", communityService.getAll());
         return "community/communities";
@@ -29,10 +29,16 @@ public class CommunityController {
         return "community/community";
     }
 
-    @RequestMapping(value = "/{id}/members/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/{id}/subscribe", method = RequestMethod.POST)
     @ResponseBody
-    public void addMember(@PathVariable("id") Long id) {
+    public void subscribe(@PathVariable("id") Long id) {
         communityService.addMember(id);
+    }
+
+    @RequestMapping(value = "/{id}/unsubscribe", method = RequestMethod.POST)
+    @ResponseBody
+    public void unsubscribe(@PathVariable("id") Long id) {
+        communityService.removeMember(id);
     }
 
     @RequestMapping(value = "/new")

@@ -1,6 +1,7 @@
 package com.aidar.service.impl;
 
 import com.aidar.model.Community;
+import com.aidar.model.User;
 import com.aidar.model.UserCommunity;
 import com.aidar.repository.CommunityRepository;
 import com.aidar.repository.UserCommunityRepository;
@@ -48,10 +49,20 @@ public class CommunityServiceImpl implements CommunityService {
 
     @Override
     public void addMember(Long id) {
-        UserCommunity userCommunity = new UserCommunity();
-        userCommunity.setUser(securityService.getPersistedPrincipal());
-        userCommunity.setCommunity(communityRepository.findOne(id));
-        userCommunityRepository.save(userCommunity);
+        User user = securityService.getPersistedPrincipal();
+        Community community = communityRepository.findOne(id);
+        if (userCommunityRepository.findOneByUserAndCommunity(user, community) == null) {
+            UserCommunity userCommunity = new UserCommunity(user, community);
+            userCommunityRepository.save(userCommunity);
+        }
+    }
+
+    @Override
+    public void removeMember(Long id) {
+        User user = securityService.getPersistedPrincipal();
+        Community community = communityRepository.findOne(id);
+        UserCommunity userCommunity = userCommunityRepository.findOneByUserAndCommunity(user, community);
+        userCommunityRepository.delete(userCommunity);
     }
 
 }
