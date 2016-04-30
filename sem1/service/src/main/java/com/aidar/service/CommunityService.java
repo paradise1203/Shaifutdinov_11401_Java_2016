@@ -13,6 +13,8 @@ public interface CommunityService {
 
     Community getOne(Long id);
 
+    boolean isMember(Long id);
+
     void add(Community community);
 
     void addMember(Long id);

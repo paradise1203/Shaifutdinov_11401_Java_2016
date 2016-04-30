@@ -13,7 +13,8 @@ $(document).ready(function () {
             type: 'post',
             success: function () {
                 td.children('a').remove();
-                var link = $('<a>').text('Subscribe').addClass('subscribe').attr('style', 'float: right').attr('href', '#');
+                var link = $('<a>').text('Subscribe').addClass('subscribe')
+                    .attr('style', 'float: right').attr('href', '#');
                 td.append(link);
             }
         });
@@ -28,7 +29,8 @@ $(document).ready(function () {
             type: 'post',
             success: function () {
                 td.children('a').remove();
-                var link = $('<a>').text('Unsubscribe').addClass('unsubscribe').attr('style', 'float: right').attr('href', '#');
+                var link = $('<a>').text('Unsubscribe').addClass('unsubscribe')
+                    .attr('style', 'float: right').attr('href', '#');
                 td.append(link);
             }
         });

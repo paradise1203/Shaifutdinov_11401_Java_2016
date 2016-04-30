@@ -2,6 +2,7 @@ package com.aidar.model;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by paradise on 13.04.16.
@@ -27,6 +28,9 @@ public class Community {
     @Column(name = "created_at")
     @Temporal(TemporalType.DATE)
     private Date createdAt;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "community")
+    private List<News> news;
 
     public long getId() {
         return id;
@@ -67,4 +71,13 @@ public class Community {
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
+
+    public List<News> getNews() {
+        return news;
+    }
+
+    public void setNews(List<News> news) {
+        this.news = news;
+    }
+
 }

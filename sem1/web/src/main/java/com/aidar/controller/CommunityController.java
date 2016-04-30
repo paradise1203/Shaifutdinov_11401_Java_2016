@@ -1,7 +1,9 @@
 package com.aidar.controller;
 
 import com.aidar.model.Community;
+import com.aidar.model.News;
 import com.aidar.service.CommunityService;
+import com.aidar.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +19,9 @@ public class CommunityController {
     @Autowired
     private CommunityService communityService;
 
+    @Autowired
+    private NewsService newsService;
+
     @RequestMapping(value = "")
     public String getAllCommunities(Model model) {
         model.addAttribute("communities", communityService.getAll());
@@ -25,8 +30,21 @@ public class CommunityController {
 
     @RequestMapping(value = "/{id}")
     public String getInfo(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("community", communityService.getOne(id));
+        Community community = communityService.getOne(id);
+        model.addAttribute("community", community);
+        model.addAttribute("membership", communityService.isMember(id));
+        model.addAttribute("news", community.getNews());
         return "community/community";
+    }
+
+    // TODO ajax
+    @RequestMapping(value = "/{id}/news/create", method = RequestMethod.POST)
+    @ResponseBody
+    public News sendNews(@PathVariable("id") Long id,
+                         @RequestParam("text") String text) {
+        Community community = communityService.getOne(id);
+        newsService.add(community, text);
+        return null;
     }
 
     @RequestMapping(value = "/{id}/subscribe", method = RequestMethod.POST)

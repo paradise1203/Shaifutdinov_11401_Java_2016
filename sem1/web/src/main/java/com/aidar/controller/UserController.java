@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -78,6 +79,13 @@ public class UserController {
     @ResponseBody
     public void assessUser(@PathVariable("id") Long id, String assessment) {
         assessmentService.assess(id, assessment);
+    }
+
+    // generate downloadable pdf document with all users
+    @RequestMapping("/pdf")
+    public ModelAndView getPdf() {
+        List<User> users = userService.getAll();
+        return new ModelAndView("pdfView", "users", users);
     }
 
 }

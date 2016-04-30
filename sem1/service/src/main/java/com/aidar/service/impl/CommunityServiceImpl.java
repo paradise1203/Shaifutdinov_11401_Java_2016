@@ -41,6 +41,13 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
     @Override
+    public boolean isMember(Long id) {
+        User user = securityService.getPersistedPrincipal();
+        Community community = communityRepository.findOne(id);
+        return userCommunityRepository.findOneByUserAndCommunity(user, community) != null;
+    }
+
+    @Override
     public void add(Community community) {
         community.setFounder(securityService.getPersistedPrincipal());
         community.setCreatedAt(new Date());

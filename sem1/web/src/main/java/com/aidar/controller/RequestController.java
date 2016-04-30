@@ -88,7 +88,8 @@ public class RequestController {
     @ResponseBody
     public Comment sendNewComment(@PathVariable("id") Long id,
                                   @RequestParam("text") String text) {
-        return commentService.add(id, text);
+        Request request = requestService.getOne(id);
+        return commentService.add(request, text);
     }
 
 }

@@ -4,25 +4,25 @@ import javax.persistence.*;
 import java.util.Date;
 
 /**
- * Created by paradise on 13.04.16.
+ * Created by paradise on 30.04.16.
  */
 @Entity
-@Table(name = "comment")
-@SequenceGenerator(name = "comment_gen",
-        sequenceName = "comment_seq", allocationSize = 1)
-public class Comment {
+@Table(name = "news")
+@SequenceGenerator(name = "news_gen",
+        sequenceName = "news_seq", allocationSize = 1)
+public class News {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "comment_gen")
-    private long id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "news_gen")
+    private Long id;
 
     private String text;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "request_id")
-    private Request request;
+    @JoinColumn(name = "community_id")
+    private Community community;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "author_id")
     private User author;
 
@@ -30,18 +30,21 @@ public class Comment {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
 
-    public Comment(String text, Request request, User author) {
+    public News() {
+    }
+
+    public News(String text, Community community, User author) {
         this.text = text;
-        this.request = request;
+        this.community = community;
         this.author = author;
         createdAt = new Date();
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -53,12 +56,12 @@ public class Comment {
         this.text = text;
     }
 
-    public Request getRequest() {
-        return request;
+    public Community getCommunity() {
+        return community;
     }
 
-    public void setRequest(Request request) {
-        this.request = request;
+    public void setCommunity(Community community) {
+        this.community = community;
     }
 
     public User getAuthor() {
@@ -76,4 +79,5 @@ public class Comment {
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
+
 }
