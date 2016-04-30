@@ -1,5 +1,6 @@
 package com.aidar.service.impl;
 
+import com.aidar.enums.MessageStatus;
 import com.aidar.model.Message;
 import com.aidar.model.User;
 import com.aidar.repository.MessageRepository;
@@ -10,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -33,19 +33,30 @@ public class MessageServiceImpl implements MessageService {
     public List<Message> getDialog(Long id) {
         User principal = securityService.getPersistedPrincipal();
         User friend = userRepository.findOne(id);
-        return messageRepository.getDialog(principal, friend);
+        List<Message> messages = messageRepository.getDialog(principal, friend);
+        messages.stream()
+                .filter(m -> m.getSender().equals(friend))
+                .forEach(m -> m.setStatus(MessageStatus.READ));
+        return messages;
+    }
+
+    @Override
+    public List<Message> getNew(Long id) {
+        User principal = securityService.getPersistedPrincipal();
+        User friend = userRepository.findOne(id);
+        List<Message> messages = messageRepository
+                .findAllBySenderAndRecipientAndStatus(friend, principal, MessageStatus.NEW);
+        messages.forEach(m -> m.setStatus(MessageStatus.READ));
+        return messages;
     }
 
     @Override
     public Message add(Long id, String text) {
         User principal = securityService.getPersistedPrincipal();
         User friend = userRepository.findOne(id);
-        Message message = new Message();
-        message.setCreatedAt(new Date());
-        message.setText(text);
-        message.setSender(principal);
-        message.setRecipient(friend);
-        return messageRepository.save(message);
+        Message message = new Message(text, principal, friend);
+        message = messageRepository.save(message);
+        return messageRepository.findOne(message.getId());
     }
 
 }

@@ -1,5 +1,7 @@
 package com.aidar.model;
 
+import com.aidar.enums.MessageStatus;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -30,6 +32,20 @@ Message {
     @Column(name = "created_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
+
+    @Enumerated(EnumType.STRING)
+    private MessageStatus status;
+
+    public Message() {
+    }
+
+    public Message(String text, User sender, User recipient) {
+        this.text = text;
+        this.sender = sender;
+        this.recipient = recipient;
+        createdAt = new Date();
+        status = MessageStatus.NEW;
+    }
 
     public long getId() {
         return id;
@@ -69,5 +85,13 @@ Message {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public MessageStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(MessageStatus status) {
+        this.status = status;
     }
 }

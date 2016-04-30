@@ -18,7 +18,6 @@ public interface RequestRepository extends JpaRepository<Request, Long> {
 
     List<Request> findByNeedyOrVolunteer(User needy, User volunteer);
 
-    // TODO invalid
     List<Request> findAllByStatus(RequestStatus status);
 
 }

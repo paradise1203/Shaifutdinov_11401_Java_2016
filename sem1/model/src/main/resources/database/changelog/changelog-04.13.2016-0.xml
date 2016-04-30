@@ -23,7 +23,7 @@
 
     <changeSet id="2" author="paradise1203">
         <createSequence sequenceName="users_seq"
-                        schemaName="public" incrementBy="1" startValue="50"/>
+                        schemaName="public" incrementBy="1" startValue="100"/>
     </changeSet>
 
 </databaseChangeLog>

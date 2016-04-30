@@ -2,6 +2,7 @@ package com.aidar.model;
 
 import com.aidar.enums.Role;
 import com.aidar.enums.UserStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
@@ -23,6 +24,7 @@ public class User {
 
     private String email;
 
+    @JsonIgnore
     private String password;
 
     @Enumerated(EnumType.STRING)

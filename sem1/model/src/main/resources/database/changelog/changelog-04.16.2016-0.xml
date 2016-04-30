@@ -12,6 +12,7 @@
             <column name="sender_id" type="int8"/>
             <column name="recipient_id" type="int8"/>
             <column name="created_at" type="timestamp"/>
+            <column name="status" type="varchar(20)"/>
         </createTable>
     </changeSet>
 

@@ -3,31 +3,31 @@
 <#macro content>
 <div class="row">
     <div class="col-lg-12">
-        <h1 class="page-header">Edit info</h1>
+        <h1 class="page-header">Dialog with ${friend.name} ${friend.surname}</h1>
     </div>
 </div>
 
 <div class="row">
-    <div class="col-lg-12">
+    <div class="col-lg-8">
             <ul id="dialog">
                 <#list messages as message>
                     <#if message.sender == friend>
-                        <li> ${friend.firstName} at ${message.createdAt} : ${message.text} </li>
+                        <li> ${friend.name} at ${message.createdAt} : ${message.text} </li>
                     <#else>
                         <li> You at ${message.createdAt} : ${message.text} </li>
                     </#if>
                 </#list>
             </ul>
             <div class="form-group">
-                <label>Write your message:
-                    <textarea name="text" class="form-control" rows="3" cols="30"></textarea>
-                </label>
+                <label for="dialog">New message</label>
+                <textarea name="text" class="text form-control" rows="3" cols="30"></textarea>
             </div>
             <div class="form-group">
-                <input class="btn btn-primary" type="submit" value="Add">
+                <p class="friend" style="display: none;">${friend.id}</p>
+                <button type="button" class="send btn btn-primary">Send</button>
             </div>
     </div>
 </div>
 </#macro>
 
-<@main title="Community"/>
+<@main title="Dialog" scripts=["/resources/custom/dialog.js"]/>

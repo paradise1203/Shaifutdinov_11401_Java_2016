@@ -1,5 +1,6 @@
 package com.aidar.repository;
 
+import com.aidar.enums.MessageStatus;
 import com.aidar.model.Message;
 import com.aidar.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -19,5 +20,8 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
             "or m.sender = :recipient and m.recipient = :sender order by m.createdAt")
     List<Message> getDialog(@Param("sender") User sender,
                             @Param("recipient") User recipient);
+
+    List<Message> findAllBySenderAndRecipientAndStatus(User sender, User recipient,
+                                                       MessageStatus status);
 
 }

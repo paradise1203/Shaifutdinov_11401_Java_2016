@@ -67,12 +67,23 @@ public class UserController {
         return "user/dialog";
     }
 
-    // send message
+    // TODO date format and view refactoring
+    @RequestMapping("/{id}/dialog/new")
+    @ResponseBody
+    public String getNewMessages(@PathVariable("id") Long id) {
+        String res = "";
+        for (Message m : messageService.getNew(id)) {
+            res += "<li>" + m.getSender().getName() + " at " + m.getCreatedAt() + " : " + m.getText() + "</li>";
+        }
+        return res;
+    }
+
     @RequestMapping(value = "/{id}/dialog", method = RequestMethod.POST)
     @ResponseBody
-    public Message sendNewMessage(@PathVariable("id") Long id,
-                                  @RequestParam("text") String text) {
-        return messageService.add(id, text);
+    public String sendNewMessage(@PathVariable("id") Long id,
+                               @RequestParam("text") String text) {
+        Message message = messageService.add(id, text);
+        return "<li>" + "You at " + message.getCreatedAt() + " : " + message.getText() + "</li>";
     }
 
     @RequestMapping(value = "/${id}/assess", method = RequestMethod.POST)

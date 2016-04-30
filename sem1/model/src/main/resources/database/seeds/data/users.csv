@@ -50,3 +50,4 @@ ID,NAME,SURNAME,EMAIL,PASSWORD,ROLE,STATUS
 48,Jack,Patterson,jpatterson1b@msu.edu,$2a$10$grYFE1HKwcxurIKwiv6FWOILIRaolL72zYwq2WvORi4KU/XkmhOwK,ROLE_USER,ACTIVE
 49,Frank,Rice,frice1c@devhub.com,$2a$10$grYFE1HKwcxurIKwiv6FWOILIRaolL72zYwq2WvORi4KU/XkmhOwK,ROLE_USER,ACTIVE
 50,Marie,Taylor,mtaylor1d@columbia.edu,$2a$10$grYFE1HKwcxurIKwiv6FWOILIRaolL72zYwq2WvORi4KU/XkmhOwK,ROLE_USER,ACTIVE
+51,Kobe,Bryant,kobe@gmail.com,$2a$10$grYFE1HKwcxurIKwiv6FWOILIRaolL72zYwq2WvORi4KU/XkmhOwK,ROLE_USER,ACTIVE
