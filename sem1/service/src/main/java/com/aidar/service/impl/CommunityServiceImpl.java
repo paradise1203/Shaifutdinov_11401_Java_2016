@@ -49,9 +49,11 @@ public class CommunityServiceImpl implements CommunityService {
 
     @Override
     public void add(Community community) {
-        community.setFounder(securityService.getPersistedPrincipal());
+        User user = securityService.getPersistedPrincipal();
+        community.setFounder(user);
         community.setCreatedAt(new Date());
         communityRepository.save(community);
+        userCommunityRepository.save(new UserCommunity(user, community));
     }
 
     @Override

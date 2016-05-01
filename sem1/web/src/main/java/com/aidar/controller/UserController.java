@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -67,23 +68,23 @@ public class UserController {
         return "user/dialog";
     }
 
-    // TODO date format and view refactoring
     @RequestMapping("/{id}/dialog/new")
     @ResponseBody
-    public String getNewMessages(@PathVariable("id") Long id) {
-        String res = "";
-        for (Message m : messageService.getNew(id)) {
-            res += "<li>" + m.getSender().getName() + " at " + m.getCreatedAt() + " : " + m.getText() + "</li>";
-        }
-        return res;
+    public ModelAndView getNewMessages(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("messages", messageService.getNew(id));
+        return new ModelAndView("partition/messages_part");
     }
 
     @RequestMapping(value = "/{id}/dialog", method = RequestMethod.POST)
     @ResponseBody
-    public String sendNewMessage(@PathVariable("id") Long id,
-                               @RequestParam("text") String text) {
-        Message message = messageService.add(id, text);
-        return "<li>" + "You at " + message.getCreatedAt() + " : " + message.getText() + "</li>";
+    public ModelAndView sendNewMessage(@PathVariable("id") Long id,
+                                       @RequestParam("text") String text, Model model) {
+        List<Message> messages = new ArrayList<>();
+        messages.add(messageService.add(id, text));
+        model.addAttribute("messages", messages);
+        // to determine message appearance
+        model.addAttribute("my", true);
+        return new ModelAndView("partition/messages_part");
     }
 
     @RequestMapping(value = "/${id}/assess", method = RequestMethod.POST)

@@ -2,6 +2,7 @@ package com.aidar.service.impl;
 
 import com.aidar.model.Community;
 import com.aidar.model.News;
+import com.aidar.repository.CommunityRepository;
 import com.aidar.repository.NewsRepository;
 import com.aidar.service.NewsService;
 import com.aidar.service.SecurityService;
@@ -20,12 +21,16 @@ public class NewsServiceImpl implements NewsService {
     private NewsRepository newsRepository;
 
     @Autowired
+    private CommunityRepository communityRepository;
+
+    @Autowired
     private SecurityService securityService;
 
     @Override
-    public void add(Community community, String text) {
+    public News add(Long id, String text) {
+        Community community = communityRepository.findOne(id);
         News news = new News(text, community, securityService.getPersistedPrincipal());
-        newsRepository.save(news);
+        return newsRepository.save(news);
     }
 
 }

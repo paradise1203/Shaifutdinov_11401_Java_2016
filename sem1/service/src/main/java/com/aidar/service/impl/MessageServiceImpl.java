@@ -55,8 +55,7 @@ public class MessageServiceImpl implements MessageService {
         User principal = securityService.getPersistedPrincipal();
         User friend = userRepository.findOne(id);
         Message message = new Message(text, principal, friend);
-        message = messageRepository.save(message);
-        return messageRepository.findOne(message.getId());
+        return messageRepository.save(message);
     }
 
 }

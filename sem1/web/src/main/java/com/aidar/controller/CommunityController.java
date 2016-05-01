@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Created by paradise on 24.04.16.
@@ -37,14 +38,13 @@ public class CommunityController {
         return "community/community";
     }
 
-    // TODO ajax
     @RequestMapping(value = "/{id}/news/create", method = RequestMethod.POST)
     @ResponseBody
-    public News sendNews(@PathVariable("id") Long id,
-                         @RequestParam("text") String text) {
-        Community community = communityService.getOne(id);
-        newsService.add(community, text);
-        return null;
+    public ModelAndView sendNews(@PathVariable("id") Long id,
+                                 @RequestParam("text") String text, Model model) {
+        News news = newsService.add(id, text);
+        model.addAttribute("news", news);
+        return new ModelAndView("partition/news_part");
     }
 
     @RequestMapping(value = "/{id}/subscribe", method = RequestMethod.POST)

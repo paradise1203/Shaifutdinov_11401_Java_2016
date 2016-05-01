@@ -30,6 +30,9 @@ public class Comment {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
 
+    public Comment() {
+    }
+
     public Comment(String text, Request request, User author) {
         this.text = text;
         this.request = request;

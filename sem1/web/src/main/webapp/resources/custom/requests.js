@@ -20,7 +20,7 @@ $(document).ready(function () {
 
     $(document).on('click', '.help', function () {
         var td = $(this).parent('td');
-        var request_id = $('.request_id').text();
+        var request_id = $('#request').val();
 
         $.ajax({
             url: '/requests/' + request_id + '/help',

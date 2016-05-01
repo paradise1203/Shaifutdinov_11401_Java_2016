@@ -56,7 +56,6 @@ public class RequestController {
         return new ModelAndView("partition/requests_part");
     }
 
-    // TODO switching between 'help!' and 'info' buttons doesn`t work
     @RequestMapping("/{id}")
     public String getInfo(@PathVariable("id") Long id, Model model) {
         model.addAttribute("request", requestService.getOne(id));
@@ -83,13 +82,13 @@ public class RequestController {
         requestService.help(id);
     }
 
-    // TODO change to ajax
     @RequestMapping(value = "/{id}/comments/create", method = RequestMethod.POST)
     @ResponseBody
-    public Comment sendNewComment(@PathVariable("id") Long id,
-                                  @RequestParam("text") String text) {
-        Request request = requestService.getOne(id);
-        return commentService.add(request, text);
+    public ModelAndView sendNewComment(@PathVariable("id") Long id,
+                                       @RequestParam("text") String text, Model model) {
+        Comment comment = commentService.add(id, text);
+        model.addAttribute("comment", comment);
+        return new ModelAndView("/partition/comments_part");
     }
 
 }

@@ -14,6 +14,7 @@
             </thead>
             <tbody>
                 <#list requests as request>
+                    <input id="request" type="text" style="display: none" value="${request.id}">
                     <tr>
                         <td>${request.needy.name} ${request.needy.surname}</td>
                         <td>${request.address}</td>
@@ -27,8 +28,6 @@
                                 No yet
                             </#if>
                         </td>
-                        <#-- Request id to send via ajax -->
-                        <p class="request_id" style="display: none">${request.id}</p>
                         <td>
                             <#if type=="pending">
                                 <button type="button" class="help btn btn-outline btn-success btn-xs">

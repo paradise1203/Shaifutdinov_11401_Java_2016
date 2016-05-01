@@ -21,7 +21,7 @@ Message {
 
     private String text;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "sender_id")
     private User sender;
 

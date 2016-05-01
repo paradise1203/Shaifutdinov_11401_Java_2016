@@ -7,7 +7,7 @@ $(document).ready(function () {
     setInterval(getNew, 10000);
 
     $(document).on('click', '.send', function () {
-        var friend = $('.friend').text();
+        var friend = $('#friend').val();
         var text = $('.text').val();
 
         $.ajax({
@@ -17,7 +17,7 @@ $(document).ready(function () {
                 text: text
             },
             success: function (message) {
-                $('#dialog').append(message);
+                $('.chat').append(message);
             }
         });
     });
@@ -25,13 +25,13 @@ $(document).ready(function () {
 });
 
 function getNew() {
-    var friend = $('.friend').text();
+    var friend = $('#friend').val();
 
     $.ajax({
         url: '/users/' + friend + '/dialog/new',
         type: 'GET',
         success: function (messages) {
-            $("#dialog").append(messages);
+            $(".chat").append(messages);
         }
     });
 }
