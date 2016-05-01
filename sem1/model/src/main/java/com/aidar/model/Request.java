@@ -30,6 +30,10 @@ public class Request {
 
     private String address;
 
+    private double latitude;
+
+    private double longitude;
+
     @Column(name = "created_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
@@ -76,6 +80,22 @@ public class Request {
         this.address = address;
     }
 
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
     public Date getCreatedAt() {
         return createdAt;
     }
@@ -107,4 +127,5 @@ public class Request {
     public void setComments(List<Comment> comments) {
         this.comments = comments;
     }
+
 }

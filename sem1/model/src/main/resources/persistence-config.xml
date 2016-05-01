@@ -9,6 +9,7 @@
         <property name="locations">
             <list>
                 <value>classpath:properties/database.properties</value>
+                <value>classpath:googleapi.properties</value>
             </list>
         </property>
     </bean>

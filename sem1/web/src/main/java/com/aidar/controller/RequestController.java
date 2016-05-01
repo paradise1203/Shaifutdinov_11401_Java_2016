@@ -6,9 +6,11 @@ import com.aidar.model.Request;
 import com.aidar.service.CommentService;
 import com.aidar.service.RequestService;
 import com.aidar.service.SecurityService;
+import com.aidar.util.RequestValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -27,6 +29,9 @@ public class RequestController {
 
     @Autowired
     private SecurityService securityService;
+
+    @Autowired
+    RequestValidator requestValidator;
 
     @RequestMapping("")
     public String getRequestsPage(Model model) {
@@ -71,7 +76,13 @@ public class RequestController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String sendNewForm(@ModelAttribute("request") Request request) {
+    public String sendNewForm(@ModelAttribute("request") Request request,
+                              BindingResult result, Model model) {
+        requestValidator.validate(request, result);
+        if (result.hasErrors()) {
+            model.addAttribute("serviceTypes", ServiceType.values());
+            return "request/new_request";
+        }
         requestService.add(request);
         return "redirect:/home";
     }
@@ -88,7 +99,7 @@ public class RequestController {
                                        @RequestParam("text") String text, Model model) {
         Comment comment = commentService.add(id, text);
         model.addAttribute("comment", comment);
-        return new ModelAndView("/partition/comments_part");
+        return new ModelAndView("partition/comments_part");
     }
 
 }

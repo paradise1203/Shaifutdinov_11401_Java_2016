@@ -29,7 +29,7 @@
                                                     <i class="fa fa-clock-o fa-fw"></i>${message.createdAt}</small>
                                                 <strong class="pull-right primary-font">${friend.name}</strong>
                                             </div>
-                                            <p>${message.text}</p>
+                                            <p class="pull-right">${message.text}</p>
                                         </div>
                                     </li>
                                 <#else>

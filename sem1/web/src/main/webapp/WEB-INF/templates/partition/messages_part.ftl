@@ -20,11 +20,11 @@
             </span>
             <div class="chat-body clearfix">
                 <div class="header">
+                    <strong class="pull-right primary-font">${message.sender.name}</strong>
                     <small class=" text-muted">
                         <i class="fa fa-clock-o fa-fw"></i>${message.createdAt?string('HH:mm:ss')}</small>
-                    <strong class="pull-right primary-font">${message.sender.name}</strong>
                 </div>
-                <p>${message.text}</p>
+                <p class="pull-right">${message.text}</p>
             </div>
         </li>
     </#if>

@@ -4,8 +4,10 @@ import com.aidar.enums.RequestStatus;
 import com.aidar.model.Request;
 import com.aidar.model.User;
 import com.aidar.repository.RequestRepository;
+import com.aidar.service.GoogleMapsService;
 import com.aidar.service.RequestService;
 import com.aidar.service.SecurityService;
+import com.aidar.util.LocationBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +24,9 @@ public class RequestServiceImpl implements RequestService {
 
     @Autowired
     private RequestRepository requestRepository;
+
+    @Autowired
+    private GoogleMapsService googleMapsService;
 
     @Autowired
     private SecurityService securityService;
@@ -52,6 +57,9 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     public void add(Request request) {
+        LocationBody location = googleMapsService.getLocation(request.getAddress());
+        request.setLatitude(location.getLatitude());
+        request.setLongitude(location.getLongitude());
         request.setNeedy(securityService.getPersistedPrincipal());
         request.setCreatedAt(new Date());
         request.setStatus(RequestStatus.PENDING);

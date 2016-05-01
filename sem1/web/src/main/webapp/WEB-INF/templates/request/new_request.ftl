@@ -22,16 +22,16 @@
                             <fieldset>
                                 <div class="form-group">
                                     <@sf.label path="address">Your location</@sf.label>
-                                    <@sf.input path="address" cssClass="form-control" placeholder="Enter your current address" type="text"/>
+                                    <@sf.input path="address" cssClass="form-control" placeholder="Enter your current address"/>
                                     <@sf.errors path="address" cssClass="help-block"/>
                                 </div>
                                 <div class="form-group">
-                                    <label for="serviceType">Type of service</label>
-                                    <select id="serviceType" name="serviceType" class="form-control">
+                                    <@sf.label path="serviceType">Type of service</@sf.label>
+                                    <@sf.select path="serviceType" cssClass="form-control">
                                         <#list serviceTypes as s>
-                                            <option value="${s}">${s.representation}</option>
+                                            <@sf.option value="${s}" label="${s.representation}"/>
                                         </#list>
-                                    </select>
+                                    </@sf.select>
                                 </div>
                                 <div class="form-group">
                                     <input class="btn btn-primary" type="submit" value="Help!">
