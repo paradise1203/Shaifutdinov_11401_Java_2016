@@ -119,5 +119,6 @@
         <#list scripts as script>
             <script type="application/javascript" src="${script}"></script>
         </#list>
+
     </body>
 </#macro>

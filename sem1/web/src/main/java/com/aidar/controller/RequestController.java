@@ -4,8 +4,10 @@ import com.aidar.enums.ServiceType;
 import com.aidar.model.Comment;
 import com.aidar.model.Request;
 import com.aidar.service.CommentService;
+import com.aidar.service.GoogleMapsService;
 import com.aidar.service.RequestService;
 import com.aidar.service.SecurityService;
+import com.aidar.util.LocationBody;
 import com.aidar.util.RequestValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,6 +31,9 @@ public class RequestController {
 
     @Autowired
     private SecurityService securityService;
+
+    @Autowired
+    private GoogleMapsService googleMapsService;
 
     @Autowired
     RequestValidator requestValidator;
@@ -66,6 +71,12 @@ public class RequestController {
         model.addAttribute("request", requestService.getOne(id));
         model.addAttribute("principal", securityService.getPrincipal());
         return "request/request";
+    }
+
+    @RequestMapping("/{id}/path")
+    @ResponseBody
+    public LocationBody getLocation(@RequestParam("address") String address) {
+        return googleMapsService.getLocation(address);
     }
 
     @RequestMapping("/new")
