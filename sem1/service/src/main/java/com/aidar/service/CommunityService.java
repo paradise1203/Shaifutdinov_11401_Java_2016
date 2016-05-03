@@ -3,6 +3,7 @@ package com.aidar.service;
 import com.aidar.model.Community;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by paradise on 21.04.16.
@@ -10,6 +11,8 @@ import java.util.List;
 public interface CommunityService {
 
     List<Community> getAll();
+
+    Set<Community> getMy();
 
     Community getOne(Long id);
 

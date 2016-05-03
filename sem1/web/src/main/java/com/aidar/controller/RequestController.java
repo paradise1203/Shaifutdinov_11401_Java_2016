@@ -7,7 +7,7 @@ import com.aidar.service.CommentService;
 import com.aidar.service.GoogleMapsService;
 import com.aidar.service.RequestService;
 import com.aidar.service.SecurityService;
-import com.aidar.util.LocationBody;
+import com.aidar.util.google_api.LocationBody;
 import com.aidar.util.RequestValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

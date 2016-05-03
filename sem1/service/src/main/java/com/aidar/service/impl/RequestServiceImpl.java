@@ -7,7 +7,7 @@ import com.aidar.repository.RequestRepository;
 import com.aidar.service.GoogleMapsService;
 import com.aidar.service.RequestService;
 import com.aidar.service.SecurityService;
-import com.aidar.util.LocationBody;
+import com.aidar.util.google_api.LocationBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

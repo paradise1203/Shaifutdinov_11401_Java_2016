@@ -21,6 +21,8 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
     List<Message> getDialog(@Param("sender") User sender,
                             @Param("recipient") User recipient);
 
+    List<Message> findAllBySenderOrRecipient(User sender, User recipient);
+
     List<Message> findAllBySenderAndRecipientAndStatus(User sender, User recipient,
                                                        MessageStatus status);
 

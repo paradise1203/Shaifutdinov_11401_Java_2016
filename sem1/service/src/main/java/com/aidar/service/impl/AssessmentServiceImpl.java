@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * Created by paradise on 29.04.16.
  */
@@ -26,6 +28,12 @@ public class AssessmentServiceImpl implements AssessmentService {
 
     @Autowired
     private SecurityService securityService;
+
+    @Override
+    public List<Assessment> getMy() {
+        User estimated = securityService.getPersistedPrincipal();
+        return assessmentRepository.findAllByEstimated(estimated);
+    }
 
     @Override
     public void assess(Long id, String assessmentType) {

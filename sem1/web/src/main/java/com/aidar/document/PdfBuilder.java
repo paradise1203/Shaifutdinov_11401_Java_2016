@@ -25,9 +25,9 @@ public class PdfBuilder extends AbstractPdfView {
         List<User> users = (List<User>) model.get("users");
 
         document.add(new Paragraph("All users"));
-        PdfPTable table = new PdfPTable(5);
-        table.setWidthPercentage(80.0f);
-        table.setWidths(new float[]{2.0f, 2.0f, 4.0f, 1.0f, 1.0f});
+        PdfPTable table = new PdfPTable(4);
+        table.setWidthPercentage(100.0f);
+        table.setWidths(new float[]{2.0f, 2.0f, 4.0f, 2.0f});
         table.setSpacingBefore(10);
         Font font = FontFactory.getFont(FontFactory.COURIER);
         font.setColor(BaseColor.WHITE);
@@ -45,9 +45,6 @@ public class PdfBuilder extends AbstractPdfView {
         cell.setPhrase(new Phrase("Email", font));
         table.addCell(cell);
 
-        cell.setPhrase(new Phrase("Role", font));
-        table.addCell(cell);
-
         cell.setPhrase(new Phrase("Status", font));
         table.addCell(cell);
 
@@ -55,7 +52,6 @@ public class PdfBuilder extends AbstractPdfView {
             table.addCell(user.getName());
             table.addCell(user.getSurname());
             table.addCell(user.getEmail());
-            table.addCell(user.getRole().getRepresentation());
             table.addCell(String.valueOf(user.getStatus().getRepresentation()));
         }
 

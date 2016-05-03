@@ -1,8 +1,8 @@
 package com.aidar.service.impl;
 
 import com.aidar.service.GoogleMapsService;
-import com.aidar.util.GeocodeResponse;
-import com.aidar.util.LocationBody;
+import com.aidar.util.google_api.GeocodeResponse;
+import com.aidar.util.google_api.LocationBody;
 import org.apache.http.client.utils.URIBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

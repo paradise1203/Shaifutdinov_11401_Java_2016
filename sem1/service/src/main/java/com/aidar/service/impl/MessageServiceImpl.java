@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by paradise on 28.04.16.
@@ -28,6 +30,18 @@ public class MessageServiceImpl implements MessageService {
 
     @Autowired
     private SecurityService securityService;
+
+    @Override
+    public Set<User> getMyPenFriends() {
+        User principal = securityService.getPersistedPrincipal();
+        List<Message> messages = messageRepository.findAllBySenderOrRecipient(principal, principal);
+        Set<User> penFriends = new HashSet<>();
+        messages.forEach(m -> {
+            User sender = m.getSender();
+            penFriends.add(sender.equals(principal) ? m.getRecipient() : sender);
+        });
+        return penFriends;
+    }
 
     @Override
     public List<Message> getDialog(Long id) {

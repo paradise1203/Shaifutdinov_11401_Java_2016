@@ -2,6 +2,7 @@ package com.aidar.util;
 
 import com.aidar.model.Request;
 import com.aidar.service.GoogleMapsService;
+import com.aidar.util.google_api.LocationBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
