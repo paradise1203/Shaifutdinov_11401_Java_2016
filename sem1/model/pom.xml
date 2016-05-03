@@ -75,7 +75,7 @@
 
     <profiles>
         <profile>
-            <id>ddl_dev</id>
+            <id>ddl_migration</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
@@ -105,9 +105,9 @@
             </build>
         </profile>
         <profile>
-            <id>dml_dev</id>
+            <id>dml_migration</id>
             <activation>
-                <activeByDefault>true</activeByDefault>
+                <activeByDefault>false</activeByDefault>
             </activation>
             <build>
                 <plugins>

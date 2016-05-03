@@ -42,10 +42,10 @@
                         <form role="form" action="/login/process" method="post">
                             <fieldset>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="E-mail" name="email" type="email" autofocus>
+                                    <input id="email" class="form-control" placeholder="E-mail" name="email" type="email" autofocus>
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="Password" name="password" type="password" value="">
+                                    <input id="pass" class="form-control" placeholder="Password" name="password" type="password" value="">
                                 </div>
                                 <#if error??>
                                     <p class="help-block">Bad credentials or you are banned. Try again.</p>
@@ -57,7 +57,7 @@
                                     <#--</label>-->
                                 <#--</div>-->
                                 <div class="form-group">
-                                    <input class="btn btn-block btn-success" type="submit" value="Sign in">
+                                    <input id="sign_in" class="btn btn-block btn-success" type="submit" value="Sign in">
                                 </div>
                                 <div class="form-group">
                                     <a href="/sign_up" class="btn btn-block btn-primary">Sign up</a>
