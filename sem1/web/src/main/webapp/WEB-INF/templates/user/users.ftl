@@ -34,7 +34,7 @@
                                         <td>${user.name}</td>
                                         <td>${user.surname}</td>
                                         <td class="email">${user.email}</td>
-                                        <td class="status">${user.status}</td>
+                                        <td class="status">${user.status.representation}</td>
                                         <td>
                                             <@sec.authorize access="hasRole('ROLE_ADMIN')">
                                                 <#if user.status == "ACTIVE">

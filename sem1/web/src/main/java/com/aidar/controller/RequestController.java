@@ -95,7 +95,7 @@ public class RequestController {
             return "request/new_request";
         }
         requestService.add(request);
-        return "redirect:/home";
+        return "redirect:/requests/";
     }
 
     @RequestMapping(value = "/{id}/help", method = RequestMethod.POST)

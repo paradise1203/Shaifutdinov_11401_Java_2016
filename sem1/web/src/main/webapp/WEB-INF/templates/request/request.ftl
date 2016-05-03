@@ -17,49 +17,81 @@
                     <input id="request" type="text" style="display: none" value="${request.id}">
                 </div>
                 <div class="panel-body">
-                    <p class="lead">Needy: ${request.needy.name} ${request.needy.surname}</p>
-                    <p class="lead">Address: ${request.address}</p>
-                    <p class="lead">Created at: ${request.createdAt}</p>
-                    <p class="lead">Type of service: ${request.serviceType.representation}</p>
-                    <p class="lead">Status: ${request.status}</p>
-                    <p class="lead">Volunteer:
-                        <#if request.volunteer??>
-                            ${request.volunteer.name} ${request.volunteer.surname}
-                        <#else>
-                            No yet
-                        </#if>
+                    <p class="lead">
+                        <strong>Needy:</strong> <em>${request.needy.name} ${request.needy.surname}</em>
                     </p>
-                    <p class="lead">Show path:</p>
-                    <div class="form-group">
-                        <input type="text" class="address form-control" placeholder="Enter your address">
-                    </div>
-                    <div class="form-group">
-                        <button type="button" class="path btn btn-primary btn-outline">Show path</button>
-                    </div>
+                    <p class="lead">
+                        <strong>Address:</strong> <em>${request.address}</em>
+                    </p>
+                    <p class="lead">
+                        <strong>Created at:</strong> <em>${request.createdAt}</em>
+                    </p>
+                    <p class="lead">
+                        <strong>Type of service:</strong> <em>${request.serviceType.representation}</em>
+                    </p>
+                    <p class="lead">
+                        <strong>Status:</strong> <em>${request.status.representation}</em>
+                    </p>
+                    <p class="lead">
+                        <strong>Volunteer:</strong>
+                        <em>
+                            <#if request.volunteer??>
+                                <#if request.volunteer.id == principal.id>
+                                    You
+                                <#else>
+                                    ${request.volunteer.name} ${request.volunteer.surname}
+                                </#if>
+                            <#else>
+                                No yet
+                            </#if>
+                        </em>
+                    </p>
+                    <hr>
 
-                    <#-- Needy location to display on Google map view -->
-                    <input id="latitude" type="text" style="display: none" value="${request.latitude}">
-                    <input id="longitude" type="text" style="display: none" value="${request.longitude}">
-                    <#-- Google map view -->
-                    <div id="map" style="width: 100%; height: 400px;"></div>
+                    <#-- Google maps -->
+                    <#if request.volunteer?? && principal.id == request.volunteer.id>
+                        <p class="lead">
+                            <em>Show path:</em>
+                        </p>
+                        <div class="form-group">
+                            <input type="text" class="address form-control" placeholder="Enter your address">
+                        </div>
+                        <div class="form-group">
+                            <button type="button" class="path btn btn-primary btn-outline">Show path</button>
+                        </div>
 
-                    <p class="lead">Comments:</p>
+                        <#-- Needy location to display on Google map view -->
+                        <input id="latitude" type="text" style="display: none" value="${request.latitude}">
+                        <input id="longitude" type="text" style="display: none" value="${request.longitude}">
+                        <#-- Google map view -->
+                        <div id="map" style="width: 100%; height: 400px;"></div>
+                        <br>
+                    </#if>
+
+                    <p class="lead">
+                        <em>Comments:</em>
+                    </p>
                     <ul class="comments">
                         <#list request.comments as comment>
                             <li>
-                                ${comment.text} by ${comment.author.name} ${comment.author.surname}
-                                    at ${comment.createdAt}
+                                <blockquote>
+                                    <p>${comment.text}</p>
+                                    <small>
+                                    ${comment.author.name} ${comment.author.surname} at ${comment.createdAt}
+                                    </small>
+                                </blockquote>
                             </li>
                         </#list>
                     </ul>
                     <#if principal.id == request.needy.id || request.volunteer?? && principal.id == request.volunteer.id>
-                        <p class="lead">Add new comment on this request:</p>
+                        <p class="lead">
+                            <em>Add new comment on this request:</em>
+                        </p>
                         <div class="form-group">
-                            <label>Text:</label>
-                            <textarea name="text" class="text form-control" rows="3" cols="30"></textarea>
+                            <textarea name="text" class="text form-control" rows="5" cols="30"></textarea>
                         </div>
                         <div class="form-group">
-                            <button type="button" class="send btn btn-primary btn-outline">Send news</button>
+                            <button type="button" class="send btn btn-primary btn-outline">Send</button>
                         </div>
                     </#if>
                 </div>

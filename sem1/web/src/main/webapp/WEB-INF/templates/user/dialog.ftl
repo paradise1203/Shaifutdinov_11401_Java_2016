@@ -9,7 +9,7 @@
 
 <div class="row">
     <div class="col-lg-8">
-                <div class="chat-panel panel panel-default">
+                <div class="chat-panel panel panel-info">
                     <div class="panel-heading">
                         <i class="fa fa-comments fa-fw"></i>
                         Chat

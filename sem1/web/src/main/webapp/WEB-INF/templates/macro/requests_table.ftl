@@ -14,13 +14,12 @@
             </thead>
             <tbody>
                 <#list requests as request>
-                    <input id="request" type="text" style="display: none" value="${request.id}">
                     <tr>
                         <td>${request.needy.name} ${request.needy.surname}</td>
                         <td>${request.address}</td>
                         <td>${request.createdAt}</td>
                         <td>${request.serviceType.representation}</td>
-                        <td>${request.status}</td>
+                        <td>${request.status.representation}</td>
                         <td>
                             <#if request.volunteer??>
                             ${request.volunteer.name} ${request.volunteer.surname}
@@ -30,7 +29,7 @@
                         </td>
                         <td>
                             <#if type=="pending">
-                                <button type="button" class="help btn btn-outline btn-success btn-xs">
+                                <button type="button" name="${request.id}" class="help btn btn-outline btn-success btn-xs">
                                     help!
                                 </button>
                             <#else>

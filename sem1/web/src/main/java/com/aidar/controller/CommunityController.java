@@ -7,8 +7,11 @@ import com.aidar.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.validation.Valid;
 
 /**
  * Created by paradise on 24.04.16.
@@ -66,9 +69,13 @@ public class CommunityController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String addNewCommunity(@ModelAttribute("community") Community community) {
+    public String addNewCommunity(@ModelAttribute("community") @Valid Community community,
+                                  BindingResult result) {
+        if (result.hasErrors()) {
+            return "community/new_community";
+        }
         communityService.add(community);
-        return "redirect:/home";
+        return "redirect:/communities/";
     }
 
 }

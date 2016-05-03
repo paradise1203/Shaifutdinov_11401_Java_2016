@@ -29,7 +29,7 @@
                                 <@sf.errors path="email" cssClass="help-block"/>
                 </div>
                 <div class="form-group">
-                    <input class="btn btn-success" type="submit" value="Update">
+                    <input class="btn btn-info btn-outline" type="submit" value="Update">
                 </div>
             </fieldset>
         </@sf.form>

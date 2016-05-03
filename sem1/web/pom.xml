@@ -33,7 +33,7 @@
 
         <dependency>
             <groupId>com.aidar</groupId>
-            <artifactId>aspect</artifactId>
+            <artifactId>aop</artifactId>
         </dependency>
 
         <!-- Spring -->

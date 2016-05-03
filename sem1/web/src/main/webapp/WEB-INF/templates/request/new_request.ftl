@@ -11,7 +11,7 @@
 
 <div class="row">
     <div class="col-lg-6">
-        <div class="panel panel-default">
+        <div class="panel panel-info">
             <div class="panel-heading">
                 New request
             </div>
@@ -26,7 +26,7 @@
                                     <@sf.errors path="address" cssClass="help-block"/>
                                 </div>
                                 <div class="form-group">
-                                    <@sf.label path="serviceType">Type of service</@sf.label>
+                                    <@sf.label path="serviceType">Type of service you need</@sf.label>
                                     <@sf.select path="serviceType" cssClass="form-control">
                                         <#list serviceTypes as s>
                                             <@sf.option value="${s}" label="${s.representation}"/>
@@ -34,7 +34,7 @@
                                     </@sf.select>
                                 </div>
                                 <div class="form-group">
-                                    <input class="btn btn-primary" type="submit" value="Help!">
+                                    <input class="btn btn-primary btn-outline" type="submit" value="Help!">
                                 </div>
                             </fieldset>
                         </@sf.form>

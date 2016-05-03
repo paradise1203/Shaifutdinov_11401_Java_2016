@@ -11,7 +11,7 @@
 
 <div class="row">
     <div class="col-lg-12">
-        <div class="panel panel-success">
+        <div class="panel panel-info">
             <div class="panel-heading">
                 Community info
                 <input id="community" type="text" style="display: none" value="${community.id}">
@@ -22,25 +22,42 @@
                 </#if>
             </div>
             <div class="panel-body">
-                <p class="lead">Name: ${community.name} </p>
-                <p class="lead">Description: ${community.description}</p>
-                <p class="lead">Founded by ${community.founder.name} ${community.founder.surname}</p>
-                <p class="lead">Created at: ${community.createdAt}</p>
-
+                <p class="lead">
+                    <strong>Name:</strong> <em>${community.name}</em>
+                </p>
+                <p class="lead">
+                    <strong>Description:</strong> <em>${community.description}</em>
+                </p>
+                <p class="lead">
+                    <strong>Founder:</strong><em>${community.founder.name} ${community.founder.surname}</em>
+                </p>
+                <p class="lead">
+                    <strong>Created at:</strong> <em>${community.createdAt}</em></p>
+                <hr>
                 <#if membership>
-                    <p class="lead">News:</p>
+                    <p class="lead">
+                        <em>News:</em>
+                    </p>
                     <ul class="news">
                         <#list news as n>
-                            <li>${n.text} by ${n.author.name} ${n.author.surname} at ${n.createdAt}</li>
+                            <li>
+                                <blockquote>
+                                    <p>${n.text}</p>
+                                    <small>
+                                        ${n.author.name} ${n.author.surname} at ${n.createdAt}
+                                    </small>
+                                </blockquote>
+                            </li>
                         </#list>
                     </ul>
-                    <p class="lead">Add news:</p>
+                    <p class="lead">
+                        <em>Add news:</em>
+                    </p>
                     <div class="form-group">
-                        <label>Text:</label>
-                        <textarea name="text" class="text form-control" rows="3" cols="30"></textarea>
+                        <textarea name="text" class="text form-control" rows="5" cols="30"></textarea>
                     </div>
                     <div class="form-group">
-                        <button type="button" class="send btn btn-primary btn-outline">Send news</button>
+                        <button type="button" class="send btn btn-primary btn-outline">Send</button>
                     </div>
                 </#if>
             </div>

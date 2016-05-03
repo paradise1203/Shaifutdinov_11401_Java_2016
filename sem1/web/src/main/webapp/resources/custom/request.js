@@ -55,7 +55,7 @@ $(document).ready(function () {
             },
             success: function (location) {
                 if (location != null) {
-                    console.log(location);
+                    $('.help-block').hide();
                     var volunteer = {
                         lat: location.lat,
                         lng: location.lng
@@ -72,11 +72,9 @@ $(document).ready(function () {
                     directionsService.route(request, function (response, status) {
                         if (status == google.maps.DirectionsStatus.OK) {
                             directionsDisplay.setDirections(response);
+                            marker.setMap(null);
                         }
                     });
-                    marker.setMap(null);
-                } else {
-                    //TODO
                 }
             }
         });

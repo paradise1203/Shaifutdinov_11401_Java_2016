@@ -1,6 +1,9 @@
 package com.aidar.model;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.List;
 
@@ -17,8 +20,10 @@ public class Community {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "community_gen")
     private long id;
 
+    @Size(min = 1, max = 20, message = "From 1 to 20 symbols")
     private String name;
 
+    @NotEmpty(message = "Provide some description")
     private String description;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

@@ -58,7 +58,7 @@
                     </a>
                     <ul class="dropdown-menu dropdown-user">
                         <li>
-                            <a href="/users/edit"><i class="fa fa-user fa-fw"></i>My profile</a>
+                            <a href="/users/edit"><i class="fa fa-edit fa-fw"></i>Edit profile</a>
                         </li>
                         <li class="divider"></li>
                         <li>
@@ -83,13 +83,16 @@
                             <!-- /input-group -->
                         </li>
                         <li>
-                            <a href="/users/"><i class="fa fa-dashboard fa-fw"></i>Users</a>
+                            <a href="/home"><i class="fa fa-home fa-fw"></i>Home</a>
                         </li>
                         <li>
-                            <a href="/communities/"><i class="fa fa-dashboard fa-fw"></i>Communities</a>
+                            <a href="/users/"><i class="fa fa fa-male fa-fw"></i>Users</a>
                         </li>
                         <li>
-                            <a href="/requests/"><i class="fa fa-dashboard fa-fw"></i>Requests</a>
+                            <a href="/communities/"><i class="fa fa-users fa-fw"></i>Communities</a>
+                        </li>
+                        <li>
+                            <a href="/requests/"><i class="fa fa-book fa-fw"></i>Requests</a>
                         </li>
                     </ul>
                 </div>

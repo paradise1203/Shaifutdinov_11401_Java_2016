@@ -11,7 +11,7 @@
 
 <div class="row">
     <div class="col-lg-6">
-        <div class="panel panel-default">
+        <div class="panel panel-info">
             <div class="panel-heading">
                 New community
             </div>
@@ -21,17 +21,17 @@
                         <@sf.form role="form" action="/communities/create" method="post" modelAttribute="community">
                             <fieldset>
                                 <div class="form-group">
-                                    <@sf.label path="name">Community name</@sf.label>
+                                    <@sf.label path="name">Name</@sf.label>
                                     <@sf.input path="name" cssClass="form-control" type="text"/>
                                     <@sf.errors path="name" cssClass="help-block"/>
                                 </div>
                                 <div class="form-group">
-                                    <@sf.label path="description">A brief description of your community</@sf.label>
+                                    <@sf.label path="description">Brief description</@sf.label>
                                     <@sf.textarea path="description" cssClass="form-control" rows="5"/>
                                     <@sf.errors path="description" cssClass="help-block"/>
                                 </div>
                                 <div class="form-group">
-                                    <input class="btn btn-primary" type="submit" value="Create">
+                                    <input class="btn btn-primary btn-outline" type="submit" value="Create">
                                 </div>
                             </fieldset>
                         </@sf.form>

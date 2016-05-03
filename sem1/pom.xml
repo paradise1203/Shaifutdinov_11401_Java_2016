@@ -14,7 +14,7 @@
         <module>model</module>
         <module>service</module>
         <module>web</module>
-        <module>aspect</module>
+        <module>aop</module>
     </modules>
 
     <properties>
@@ -48,7 +48,7 @@
 
             <dependency>
                 <groupId>com.aidar</groupId>
-                <artifactId>aspect</artifactId>
+                <artifactId>aop</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

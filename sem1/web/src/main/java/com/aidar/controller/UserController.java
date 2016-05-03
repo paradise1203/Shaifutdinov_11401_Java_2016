@@ -87,6 +87,7 @@ public class UserController {
         return new ModelAndView("partition/messages_part");
     }
 
+    // TODO
     @RequestMapping(value = "/${id}/assess", method = RequestMethod.POST)
     @ResponseBody
     public void assessUser(@PathVariable("id") Long id, String assessment) {
