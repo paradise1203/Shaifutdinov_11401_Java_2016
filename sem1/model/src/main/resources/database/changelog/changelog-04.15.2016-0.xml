@@ -25,7 +25,7 @@
 
     <changeSet id="2" author="paradise1203">
         <createSequence sequenceName="request_seq"
-                        schemaName="public" incrementBy="1" startValue="50"/>
+                        schemaName="public" incrementBy="1" startValue="150"/>
     </changeSet>
 
     <changeSet id="3" author="paradise1203">

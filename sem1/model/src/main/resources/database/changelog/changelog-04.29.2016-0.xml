@@ -20,7 +20,7 @@
 
     <changeSet id="2" author="paradise1203">
         <createSequence sequenceName="assessment_seq"
-                        schemaName="public" incrementBy="1" startValue="1"/>
+                        schemaName="public" incrementBy="1" startValue="150"/>
     </changeSet>
 
     <changeSet id="3" author="paradise1203">

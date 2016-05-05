@@ -15,10 +15,16 @@ public interface RequestService {
 
     List<Request> getPending();
 
+    List<Request> getClosedAsVolunteer(Long id);
+
+    List<Request> getClosedAsNeedy(Long id);
+
     Request getOne(Long id);
 
     void add(Request request);
 
     void help(Long id);
+
+    void close(Long id);
 
 }

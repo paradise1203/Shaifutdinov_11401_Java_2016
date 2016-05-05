@@ -2,9 +2,8 @@ package com.aidar.controller;
 
 import com.aidar.model.Message;
 import com.aidar.model.User;
-import com.aidar.service.AssessmentService;
-import com.aidar.service.MessageService;
-import com.aidar.service.UserService;
+import com.aidar.service.*;
+import com.aidar.util.MyAssessments;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +22,12 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private RequestService requestService;
+
+    @Autowired
+    CommunityService communityService;
 
     @Autowired
     private MessageService messageService;
@@ -58,6 +63,16 @@ public class UserController {
     @ResponseBody
     public void pardonUser(@RequestParam("email") String email) {
         userService.pardon(email);
+    }
+
+    @RequestMapping("/{id}/profile")
+    public String getUserProfile(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("user", userService.getOne(id));
+        model.addAttribute("volunteerReq", requestService.getClosedAsVolunteer(id));
+        model.addAttribute("needyReq", requestService.getClosedAsNeedy(id));
+        model.addAttribute("communities", communityService.getByUser(id));
+        model.addAttribute("assessments", new MyAssessments(assessmentService.getByUser(id)));
+        return "user/profile";
     }
 
     @RequestMapping("/{id}/dialog")

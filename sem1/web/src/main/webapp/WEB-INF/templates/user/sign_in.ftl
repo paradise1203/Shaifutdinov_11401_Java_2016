@@ -46,10 +46,10 @@
                                 </div>
                                 <div class="form-group">
                                     <input id="pass" class="form-control" placeholder="Password" name="password" type="password" value="">
+                                    <#if error??>
+                                        <p class="help-block">Bad credentials or you are banned. Try again.</p>
+                                    </#if>
                                 </div>
-                                <#if error??>
-                                    <p class="help-block">Bad credentials or you are banned. Try again.</p>
-                                </#if>
                                 <#--<div class="checkbox">-->
                                     <#--<label>-->
                                         <#--Remember me-->

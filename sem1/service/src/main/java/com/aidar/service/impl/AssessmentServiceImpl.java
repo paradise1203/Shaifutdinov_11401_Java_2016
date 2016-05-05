@@ -21,17 +21,23 @@ import java.util.List;
 public class AssessmentServiceImpl implements AssessmentService {
 
     @Autowired
+    private SecurityService securityService;
+
+    @Autowired
     private AssessmentRepository assessmentRepository;
 
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private SecurityService securityService;
-
     @Override
     public List<Assessment> getMy() {
         User estimated = securityService.getPersistedPrincipal();
+        return assessmentRepository.findAllByEstimated(estimated);
+    }
+
+    @Override
+    public List<Assessment> getByUser(Long id) {
+        User estimated = userRepository.findOne(id);
         return assessmentRepository.findAllByEstimated(estimated);
     }
 

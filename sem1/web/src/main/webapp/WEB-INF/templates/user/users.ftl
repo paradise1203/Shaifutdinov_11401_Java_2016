@@ -26,6 +26,9 @@
                                     <th>Email</th>
                                     <th>Status</th>
                                     <th></th>
+                                    <@sec.authorize access="hasRole('ROLE_USER')">
+                                        <th></th>
+                                    </@sec.authorize>
                                 </tr>
                             </thead>
                             <tbody>
@@ -35,8 +38,8 @@
                                         <td>${user.surname}</td>
                                         <td class="email">${user.email}</td>
                                         <td class="status">${user.status.representation}</td>
-                                        <td>
-                                            <@sec.authorize access="hasRole('ROLE_ADMIN')">
+                                        <@sec.authorize access="hasRole('ROLE_ADMIN')">
+                                            <td>
                                                 <#if user.status == "ACTIVE">
                                                     <button type="button" class="ban btn btn-outline btn-danger btn-xs">
                                                         ban
@@ -46,13 +49,20 @@
                                                         pardon
                                                     </button>
                                                 </#if>
-                                            </@sec.authorize>
-                                            <@sec.authorize access="hasRole('ROLE_USER')">
-                                                <a href="/users/${user.id}/dialog" class="btn btn-outline btn-primary btn-xs">
+                                            </td>
+                                        </@sec.authorize>
+                                        <@sec.authorize access="hasRole('ROLE_USER')">
+                                            <td>
+                                                <a href="/users/${user.id}/profile" class="btn btn-outline btn-primary btn-xs">
+                                                    info
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a href="/users/${user.id}/dialog" class="btn btn-outline btn-success btn-xs">
                                                     dialog
                                                 </a>
-                                            </@sec.authorize>
-                                        </td>
+                                            </td>
+                                        </@sec.authorize>
                                     </tr>
                                 </#list>
                             </tbody>

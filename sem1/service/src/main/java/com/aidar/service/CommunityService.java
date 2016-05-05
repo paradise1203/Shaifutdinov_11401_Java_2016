@@ -14,6 +14,8 @@ public interface CommunityService {
 
     Set<Community> getMy();
 
+    Set<Community> getByUser(Long id);
+
     Community getOne(Long id);
 
     boolean isMember(Long id);

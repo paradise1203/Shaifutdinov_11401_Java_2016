@@ -29,7 +29,7 @@
                     <strong>Description:</strong> <em>${community.description}</em>
                 </p>
                 <p class="lead">
-                    <strong>Founder:</strong><em>${community.founder.name} ${community.founder.surname}</em>
+                    <strong>Founder:</strong> <em>${community.founder.name} ${community.founder.surname}</em>
                 </p>
                 <p class="lead">
                     <strong>Created at:</strong> <em>${community.createdAt}</em></p>

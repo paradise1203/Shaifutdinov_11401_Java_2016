@@ -1,14 +1,12 @@
 package com.aidar.controller;
 
-import com.aidar.service.UserService;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import java.io.IOException;
+import java.io.*;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -16,10 +14,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Created by paradise on 03.05.16.
  */
-public class AuthControllerTest {
-
-    @Autowired
-    private UserService userService;
+public class AuthControllerIT {
 
     private WebDriver driver;
 
@@ -32,7 +27,9 @@ public class AuthControllerTest {
     }
 
     @Test
-    public void signInWithValidCredentialsShouldRedirectToHomePage() {
+    public void signInWithValidCredentialsShouldRedirectToHomePage() throws IOException {
+        driver.get(signInUrl);
+        new FileWriter(new File("log.txt")).write(driver.getPageSource() + "\n" + driver.getCurrentUrl());
         driver.get(signInUrl);
         driver.findElement(By.id("email")).sendKeys("kobe@gmail.com");
         driver.findElement(By.id("pass")).sendKeys("123456");

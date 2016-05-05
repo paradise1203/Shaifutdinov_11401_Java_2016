@@ -23,13 +23,13 @@ import java.util.Set;
 public class MessageServiceImpl implements MessageService {
 
     @Autowired
+    private SecurityService securityService;
+
+    @Autowired
     private MessageRepository messageRepository;
 
     @Autowired
     private UserRepository userRepository;
-
-    @Autowired
-    private SecurityService securityService;
 
     @Override
     public Set<User> getMyPenFriends() {

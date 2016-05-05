@@ -4,6 +4,7 @@ import com.aidar.enums.RequestStatus;
 import com.aidar.model.Request;
 import com.aidar.model.User;
 import com.aidar.repository.RequestRepository;
+import com.aidar.repository.UserRepository;
 import com.aidar.service.GoogleMapsService;
 import com.aidar.service.RequestService;
 import com.aidar.service.SecurityService;
@@ -23,13 +24,16 @@ import java.util.List;
 public class RequestServiceImpl implements RequestService {
 
     @Autowired
-    private RequestRepository requestRepository;
-
-    @Autowired
     private GoogleMapsService googleMapsService;
 
     @Autowired
     private SecurityService securityService;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private RequestRepository requestRepository;
 
     @Override
     public List<Request> getAll() {
@@ -39,15 +43,27 @@ public class RequestServiceImpl implements RequestService {
     @Override
     public List<Request> getMy() {
         User user = securityService.getPersistedPrincipal();
-        return requestRepository.findByNeedyOrVolunteer(user, user);
+        return requestRepository.findAllByNeedyOrVolunteer(user, user);
     }
 
     @Override
     public List<Request> getPending() {
         List<Request> pending = requestRepository.findAllByStatus(RequestStatus.PENDING);
         pending.removeAll(requestRepository
-                .findByNeedy(securityService.getPersistedPrincipal()));
+                .findAllByNeedy(securityService.getPersistedPrincipal()));
         return pending;
+    }
+
+    @Override
+    public List<Request> getClosedAsVolunteer(Long id) {
+        User user = userRepository.findOne(id);
+        return requestRepository.findAllByVolunteerAndStatus(user, RequestStatus.CLOSED);
+    }
+
+    @Override
+    public List<Request> getClosedAsNeedy(Long id) {
+        User user = userRepository.findOne(id);
+        return requestRepository.findAllByNeedyAndStatus(user, RequestStatus.CLOSED);
     }
 
     @Override
@@ -73,6 +89,12 @@ public class RequestServiceImpl implements RequestService {
             request.setVolunteer(securityService.getPersistedPrincipal());
             request.setStatus(RequestStatus.ACTIVE);
         }
+    }
+
+    @Override
+    public void close(Long id) {
+        Request request = requestRepository.findOne(id);
+        request.setStatus(RequestStatus.CLOSED);
     }
 
 }

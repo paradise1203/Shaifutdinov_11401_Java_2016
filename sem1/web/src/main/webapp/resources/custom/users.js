@@ -22,7 +22,7 @@ function ban() {
             email: email
         },
         success: function () {
-            status.text('BANNED');
+            status.text('banned');
             td.children('button').remove();
             var pardon = $("<button>").text('pardon').addClass('pardon').addClass('btn').addClass('btn-outline')
                 .addClass('btn-primary').addClass('btn-xs');
@@ -43,7 +43,7 @@ function pardon() {
             email: email
         },
         success: function () {
-            status.text('ACTIVE');
+            status.text('active');
             td.children('button').remove();
             var ban = $("<button>").text('ban').addClass('ban').addClass('btn').addClass('btn-outline')
                 .addClass('btn-danger').addClass('btn-xs');

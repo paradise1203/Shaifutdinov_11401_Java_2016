@@ -5,6 +5,7 @@ import com.aidar.model.User;
 import com.aidar.model.UserCommunity;
 import com.aidar.repository.CommunityRepository;
 import com.aidar.repository.UserCommunityRepository;
+import com.aidar.repository.UserRepository;
 import com.aidar.service.CommunityService;
 import com.aidar.service.SecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,26 +25,39 @@ import java.util.Set;
 public class CommunityServiceImpl implements CommunityService {
 
     @Autowired
+    private SecurityService securityService;
+
+    @Autowired
     private CommunityRepository communityRepository;
 
     @Autowired
-    private UserCommunityRepository userCommunityRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    private SecurityService securityService;
+    private UserCommunityRepository userCommunityRepository;
 
     @Override
     public List<Community> getAll() {
         return communityRepository.findAll();
     }
 
-    @Override
-    public Set<Community> getMy() {
-        User principal = securityService.getPersistedPrincipal();
-        List<UserCommunity> communities = userCommunityRepository.findAllByUser(principal);
+    private Set<Community> getSome(User user) {
+        List<UserCommunity> communities = userCommunityRepository.findAllByUser(user);
         Set<Community> myCommunities = new HashSet<>();
         communities.forEach(c -> myCommunities.add(c.getCommunity()));
         return myCommunities;
+    }
+
+    @Override
+    public Set<Community> getMy() {
+        User principal = securityService.getPersistedPrincipal();
+        return getSome(principal);
+    }
+
+    @Override
+    public Set<Community> getByUser(Long id) {
+        User user = userRepository.findOne(id);
+        return getSome(user);
     }
 
     @Override

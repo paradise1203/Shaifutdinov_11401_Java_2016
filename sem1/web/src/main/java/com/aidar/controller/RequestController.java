@@ -104,6 +104,12 @@ public class RequestController {
         requestService.help(id);
     }
 
+    @RequestMapping(value = "/{id}/close", method = RequestMethod.POST)
+    @ResponseBody
+    public void close(@PathVariable("id") Long id) {
+        requestService.close(id);
+    }
+
     @RequestMapping(value = "/{id}/comments/create", method = RequestMethod.POST)
     @ResponseBody
     public ModelAndView sendNewComment(@PathVariable("id") Long id,

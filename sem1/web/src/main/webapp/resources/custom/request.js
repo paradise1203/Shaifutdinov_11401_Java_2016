@@ -27,6 +27,20 @@ function initMap() {
 
 $(document).ready(function () {
 
+    $(document).on('click', '#close', function () {
+        var a = $(this);
+        var request = $('#request').val();
+
+        $.ajax({
+            url: '/requests/' + request + '/close',
+            type: 'post',
+            success: function (comments) {
+                a.remove();
+                $('.status').text('closed');
+            }
+        });
+    });
+
     $(document).on('click', '.send', function () {
         var text = $('.text').val();
         var request = $('#request').val();
@@ -55,7 +69,7 @@ $(document).ready(function () {
             },
             success: function (location) {
                 if (location != null) {
-                    $('.help-block').hide();
+                    $('.help-block').attr('style', 'display: none');
                     var volunteer = {
                         lat: location.lat,
                         lng: location.lng
@@ -73,8 +87,12 @@ $(document).ready(function () {
                         if (status == google.maps.DirectionsStatus.OK) {
                             directionsDisplay.setDirections(response);
                             marker.setMap(null);
+                        } else {
+                            $('.help-block').attr('style', 'display: block');
                         }
                     });
+                } else {
+                    $('.help-block').attr('style', 'display: block');
                 }
             }
         });

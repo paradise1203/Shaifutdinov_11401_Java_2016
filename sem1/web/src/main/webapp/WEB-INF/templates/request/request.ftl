@@ -14,11 +14,24 @@
             <div class="panel panel-info">
                 <div class="panel-heading">
                     Request info
+                    <#if request.status == "PENDING" && request.needy.id != principal.id>
+                        <a id="help" href="#" style="float: right">Help!</a>
+                    </#if>
+                    <#if request.status != "CLOSED" && request.needy.id == principal.id>
+                        <a id="close" href="#" style="float: right">Close</a>
+                    </#if>
                     <input id="request" type="text" style="display: none" value="${request.id}">
                 </div>
                 <div class="panel-body">
                     <p class="lead">
-                        <strong>Needy:</strong> <em>${request.needy.name} ${request.needy.surname}</em>
+                        <strong>Needy:</strong>
+                        <em>
+                            <#if request.needy.id == principal.id>
+                                You
+                            <#else>
+                                ${request.needy.name} ${request.needy.surname}
+                            </#if>
+                        </em>
                     </p>
                     <p class="lead">
                         <strong>Address:</strong> <em>${request.address}</em>
@@ -30,7 +43,8 @@
                         <strong>Type of service:</strong> <em>${request.serviceType.representation}</em>
                     </p>
                     <p class="lead">
-                        <strong>Status:</strong> <em>${request.status.representation}</em>
+                        <strong>Status:</strong>
+                        <em class="status">${request.status.representation}</em>
                     </p>
                     <p class="lead">
                         <strong>Volunteer:</strong>
@@ -55,6 +69,7 @@
                         </p>
                         <div class="form-group">
                             <input type="text" class="address form-control" placeholder="Enter your address">
+                            <p class="help-block" style="display: none;">Unreachable address. Make another try!</p>
                         </div>
                         <div class="form-group">
                             <button type="button" class="path btn btn-primary btn-outline">Show path</button>
