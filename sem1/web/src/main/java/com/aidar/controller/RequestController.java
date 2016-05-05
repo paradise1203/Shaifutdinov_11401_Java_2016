@@ -7,14 +7,16 @@ import com.aidar.service.CommentService;
 import com.aidar.service.GoogleMapsService;
 import com.aidar.service.RequestService;
 import com.aidar.service.SecurityService;
-import com.aidar.util.google_api.LocationBody;
 import com.aidar.util.RequestValidator;
+import com.aidar.util.google_api.LocationBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 /**
  * Created by paradise on 24.04.16.
@@ -117,6 +119,13 @@ public class RequestController {
         Comment comment = commentService.add(id, text);
         model.addAttribute("comment", comment);
         return new ModelAndView("partition/comments_part");
+    }
+
+    // generate downloadable pdf document with all requests
+    @RequestMapping("/pdf")
+    public ModelAndView getPdf() {
+        List<Request> requests = requestService.getAll();
+        return new ModelAndView("requestsPdfView", "requests", requests);
     }
 
 }

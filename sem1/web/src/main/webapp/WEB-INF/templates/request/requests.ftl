@@ -15,7 +15,8 @@
             <div class="panel panel-info">
                 <div class="panel-heading">
                     Requests
-                    <a href="/requests/new" style="float: right">New!</a>
+                    <a href="/requests/pdf" target="_blank" style="float: right">generate pdf</a>
+                    <a href="/requests/new" style="float: right; margin-right: 15px">New!</a>
                 </div>
                 <div class="panel-body">
                     <@sec.authorize access="hasRole('ROLE_ADMIN')">

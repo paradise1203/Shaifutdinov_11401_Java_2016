@@ -3,7 +3,6 @@ package com.aidar.controller;
 import com.aidar.service.AssessmentService;
 import com.aidar.service.CommunityService;
 import com.aidar.service.MessageService;
-import com.aidar.util.MyAssessments;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,7 +32,9 @@ public class HomeController {
     public String home(Model model) {
         model.addAttribute("penFriends", messageService.getMyPenFriends());
         model.addAttribute("communities", communityService.getMy());
-        model.addAttribute("assessments", new MyAssessments(assessmentService.getMy()));
+        int rating = assessmentService.getMyRating();
+        model.addAttribute("positive", rating >= 0);
+        model.addAttribute("rating", Math.abs(rating));
         return "user/home";
     }
 

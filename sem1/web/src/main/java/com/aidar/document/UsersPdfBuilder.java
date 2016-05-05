@@ -16,7 +16,7 @@ import java.util.Map;
  * Created by paradise on 30.04.16.
  */
 @Component
-public class PdfBuilder extends AbstractPdfView {
+public class UsersPdfBuilder extends AbstractPdfView {
 
     @Override
     protected void buildPdfDocument(Map<String, Object> model, Document document, PdfWriter writer,
@@ -52,7 +52,7 @@ public class PdfBuilder extends AbstractPdfView {
             table.addCell(user.getName());
             table.addCell(user.getSurname());
             table.addCell(user.getEmail());
-            table.addCell(String.valueOf(user.getStatus().getRepresentation()));
+            table.addCell(user.getStatus().getRepresentation());
         }
 
         document.add(table);

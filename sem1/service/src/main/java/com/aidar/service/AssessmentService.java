@@ -2,16 +2,16 @@ package com.aidar.service;
 
 import com.aidar.model.Assessment;
 
-import java.util.List;
-
 /**
  * Created by paradise on 29.04.16.
  */
 public interface AssessmentService {
 
-    List<Assessment> getMy();
+    int getMyRating();
 
-    List<Assessment> getByUser(Long id);
+    int getUserRating(Long id);
+
+    Assessment getMyAssessmentOfUser(Long id);
 
     void assess(Long id, String assessment);
 

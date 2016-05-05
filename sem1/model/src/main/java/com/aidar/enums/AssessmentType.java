@@ -5,9 +5,18 @@ package com.aidar.enums;
  */
 public enum  AssessmentType {
 
-    BAD,
-    NORMAL,
-    GOOD;
+    LIKE("like"),
+    DISLIKE("dislike");
+
+    private String representation;
+
+    AssessmentType(String representation) {
+        this.representation = representation;
+    }
+
+    public String getRepresentation() {
+        return representation;
+    }
 
     public static AssessmentType getAssessmentType(String assessment) {
         for (AssessmentType t : values()) {

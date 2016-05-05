@@ -24,7 +24,7 @@
         </#if>
         <#if communities?has_content>
             <p class="lead">
-                <em>My communities</em>
+                <em>My communities:</em>
             </p>
             <ul>
                 <#list communities as c>
@@ -36,17 +36,13 @@
             <hr>
         </#if>
         <p class="lead">
-            <em>What others think about me</em>
+            <em>My rating:</em>
         </p>
-        <p>
-            <strong>Bad-</strong><em>${assessments.bad}</em>
-        </p>
-        <p>
-            <strong>Normal-</strong><em>${assessments.normal}</em>
-        </p>
-        <p>
-            <strong>Good-</strong><em>${assessments.good}</em>
-        </p>
+        <#if positive>
+            <button type="button" class="btn btn-link disabled fa fa-thumbs-o-up fa-2x">${rating}</button>
+        <#else>
+            <button type="button" class="btn btn-link disabled fa fa-thumbs-o-down fa-2x">${rating}</button>
+        </#if>
     </div>
 </div>
 </#macro>

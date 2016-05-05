@@ -29,16 +29,40 @@ public class AssessmentServiceImpl implements AssessmentService {
     @Autowired
     private UserRepository userRepository;
 
-    @Override
-    public List<Assessment> getMy() {
-        User estimated = securityService.getPersistedPrincipal();
-        return assessmentRepository.findAllByEstimated(estimated);
+    private int getRating(User user) {
+        List<Assessment> assessments = assessmentRepository.findAllByEstimated(user);
+        int rating = 0;
+        for (Assessment a : assessments) {
+            switch (a.getAssessmentType()) {
+                case LIKE:
+                    rating++;
+                    break;
+                case DISLIKE:
+                    rating--;
+                    break;
+            }
+        }
+        return rating;
     }
 
     @Override
-    public List<Assessment> getByUser(Long id) {
+    public int getMyRating() {
+        User user = securityService.getPersistedPrincipal();
+        return getRating(user);
+    }
+
+    @Override
+    public int getUserRating(Long id) {
+        User user = userRepository.findOne(id);
+        return getRating(user);
+    }
+
+    @Override
+    public Assessment getMyAssessmentOfUser(Long id) {
+        User estimator = securityService.getPersistedPrincipal();
         User estimated = userRepository.findOne(id);
-        return assessmentRepository.findAllByEstimated(estimated);
+        return assessmentRepository
+                .findOneByEstimatorAndEstimated(estimator, estimated);
     }
 
     @Override

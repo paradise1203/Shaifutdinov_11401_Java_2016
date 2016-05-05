@@ -57,17 +57,23 @@
                     </ul>
                 </#if>
                 <p class="lead">
-                    <em>What others think about ${user.name}</em>
+                    <em>Rating:</em>
                 </p>
-                <p>
-                    <strong>Bad-</strong><em>${assessments.bad}</em>
-                </p>
-                <p>
-                    <strong>Normal-</strong><em>${assessments.normal}</em>
-                </p>
-                <p>
-                    <strong>Good-</strong><em>${assessments.good}</em>
-                </p>
+                <#if positive>
+                    <button type="button" class="btn btn-link disabled fa fa-thumbs-o-up fa-2x">${rating}</button>
+                <#else>
+                    <button type="button" class="btn btn-link disabled fa fa-thumbs-o-down fa-2x">${rating}</button>
+                </#if>
+                <#--<p class="lead">-->
+                    <#--<em>Your opinion</em>-->
+                <#--</p>-->
+                <#--<#if haveAssessment>-->
+                    <#--<#if havePositiveAssessment>-->
+                        <#--<button type="button" class="btn btn-link fa fa-thumbs-o-down fa-2x"></button>-->
+                    <#--<#else>-->
+                        <#--<button type="button" class="btn btn-link fa fa-thumbs-o-up fa-2x"></button>-->
+                    <#--</#if>-->
+                <#--</#if>-->
             </div>
         </div>
     </div>

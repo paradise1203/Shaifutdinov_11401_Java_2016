@@ -3,7 +3,6 @@ package com.aidar.controller;
 import com.aidar.model.Message;
 import com.aidar.model.User;
 import com.aidar.service.*;
-import com.aidar.util.MyAssessments;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -71,7 +70,15 @@ public class UserController {
         model.addAttribute("volunteerReq", requestService.getClosedAsVolunteer(id));
         model.addAttribute("needyReq", requestService.getClosedAsNeedy(id));
         model.addAttribute("communities", communityService.getByUser(id));
-        model.addAttribute("assessments", new MyAssessments(assessmentService.getByUser(id)));
+        int rating = assessmentService.getUserRating(id);
+        model.addAttribute("positive", rating >= 0);
+        model.addAttribute("rating", Math.abs(rating));
+//        Assessment myAssessment = assessmentService.getMyAssessmentOfUser(id);
+//        model.addAttribute("haveAssessment", myAssessment != null);
+//        if (myAssessment != null) {
+//            model.addAttribute("havePositiveAssessment",
+//                    myAssessment.getAssessmentType() == AssessmentType.LIKE);
+//        }
         return "user/profile";
     }
 
@@ -113,7 +120,7 @@ public class UserController {
     @RequestMapping("/pdf")
     public ModelAndView getPdf() {
         List<User> users = userService.getAll();
-        return new ModelAndView("pdfView", "users", users);
+        return new ModelAndView("usersPdfView", "users", users);
     }
 
 }
