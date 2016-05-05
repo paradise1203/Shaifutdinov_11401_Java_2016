@@ -157,16 +157,6 @@
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
-                    <!--<warName>ROOT</warName>-->
-                    <!--<webResources>-->
-                        <!--<resource>-->
-                            <!--<directory>../model/src/main/resources</directory>-->
-                            <!--<directory>../service/src/main/resources</directory>-->
-                            <!--<directory>../aspect/src/main/resources</directory>-->
-                            <!--<directory>src/main/resources</directory>-->
-                            <!--<directory>src/main/webapp/WEB-INF</directory>-->
-                        <!--</resource>-->
-                    <!--</webResources>-->
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
