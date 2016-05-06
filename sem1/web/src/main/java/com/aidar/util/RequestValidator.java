@@ -26,7 +26,10 @@ public class RequestValidator implements Validator {
     public void validate(Object o, Errors errors) {
         Request request = (Request) o;
         String address = request.getAddress();
-        LocationBody location = googleMapsService.getLocation(address);
+        LocationBody location = null;
+        if (address != null && !address.isEmpty()) {
+            location = googleMapsService.getLocation(address);
+        }
         if (location == null) {
             errors.rejectValue("address", "", "Enter valid address");
         }

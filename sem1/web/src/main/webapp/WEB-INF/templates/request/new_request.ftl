@@ -34,7 +34,7 @@
                                     </@sf.select>
                                 </div>
                                 <div class="form-group">
-                                    <input class="btn btn-primary btn-outline" type="submit" value="Help!">
+                                    <input class="btn btn-info btn-outline" type="submit" value="Help!">
                                 </div>
                             </fieldset>
                         </@sf.form>

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * Created by paradise on 24.04.16.
@@ -76,6 +77,13 @@ public class CommunityController {
         }
         communityService.add(community);
         return "redirect:/communities/";
+    }
+
+    // generate downloadable pdf document with all requests
+    @RequestMapping("/pdf")
+    public ModelAndView getPdf() {
+        List<Community> communities = communityService.getAll();
+        return new ModelAndView("communitiesPdfView", "communities", communities);
     }
 
 }

@@ -27,6 +27,20 @@ function initMap() {
 
 $(document).ready(function () {
 
+    $(document).on('click', '#help', function () {
+        var a = $(this);
+        var request = $('#request').val();
+
+        $.ajax({
+            url: '/requests/' + request + '/help',
+            type: 'post',
+            success: function () {
+                // redirect to request page
+                window.location = '/requests/' + request;
+            }
+        });
+    });
+
     $(document).on('click', '#close', function () {
         var a = $(this);
         var request = $('#request').val();

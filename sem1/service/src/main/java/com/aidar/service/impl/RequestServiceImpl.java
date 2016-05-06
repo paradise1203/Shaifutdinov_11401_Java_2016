@@ -8,6 +8,7 @@ import com.aidar.repository.UserRepository;
 import com.aidar.service.GoogleMapsService;
 import com.aidar.service.RequestService;
 import com.aidar.service.SecurityService;
+import com.aidar.util.DateUtil;
 import com.aidar.util.google_api.LocationBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,6 +39,11 @@ public class RequestServiceImpl implements RequestService {
     @Override
     public List<Request> getAll() {
         return requestRepository.findAll();
+    }
+
+    @Override
+    public List<Request> getRecent() {
+        return requestRepository.findAllByCreatedAtBetween(DateUtil.getMonthAgoDate(), new Date());
     }
 
     @Override

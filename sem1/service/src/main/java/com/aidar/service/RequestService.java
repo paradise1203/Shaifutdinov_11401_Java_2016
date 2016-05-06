@@ -11,6 +11,8 @@ public interface RequestService {
 
     List<Request> getAll();
 
+    List<Request> getRecent();
+
     List<Request> getMy();
 
     List<Request> getPending();

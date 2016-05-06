@@ -6,6 +6,7 @@ import com.aidar.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,5 +24,7 @@ public interface RequestRepository extends JpaRepository<Request, Long> {
     List<Request> findAllByVolunteerAndStatus(User volunteer, RequestStatus status);
 
     List<Request> findAllByNeedyAndStatus(User needy, RequestStatus status);
+
+    List<Request> findAllByCreatedAtBetween(Date start, Date end);
 
 }

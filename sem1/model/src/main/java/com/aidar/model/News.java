@@ -22,7 +22,7 @@ public class News {
     @JoinColumn(name = "community_id")
     private Community community;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "author_id")
     private User author;
 

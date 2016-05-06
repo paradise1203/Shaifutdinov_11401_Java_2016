@@ -1,6 +1,6 @@
 package com.aidar.service.impl;
 
-import com.aidar.config.UserServiceConfig;
+import com.aidar.config.UserServiceTestConfig;
 import com.aidar.enums.Role;
 import com.aidar.enums.UserStatus;
 import com.aidar.model.User;
@@ -24,9 +24,9 @@ import static org.mockito.Mockito.*;
  * Created by paradise on 05.05.16.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = UserServiceConfig.class,
+@ContextConfiguration(classes = UserServiceTestConfig.class,
         loader = AnnotationConfigContextLoader.class)
-public class UserServiceImplTest {
+public class UserServiceTest {
 
     @Autowired
     private UserService userService;
@@ -38,7 +38,7 @@ public class UserServiceImplTest {
     private UserRepository userRepository;
 
     @Test
-    public void getAllShouldWorkCorrect() {
+    public void getAllShouldReturnAllUsers() {
         List<User> users = new ArrayList<>();
         User user = new User();
         user.setId(0);
@@ -48,15 +48,15 @@ public class UserServiceImplTest {
     }
 
     @Test
-    public void getCurrentShouldWorkCorrect() {
+    public void getCurrentShouldReturnCurrentPrincipal() {
         User user = new User();
         user.setId(0);
-        when(securityService.getPrincipal()).thenReturn(user);
+        when(securityService.getPersistedPrincipal()).thenReturn(user);
         assertEquals(user, userService.getCurrent());
     }
 
     @Test
-    public void getOneShouldWorkCorrect() {
+    public void getOneShouldReturnOneUserById() {
         User user = new User();
         user.setId(0);
         when(userRepository.findOne(user.getId())).thenReturn(user);
@@ -76,7 +76,7 @@ public class UserServiceImplTest {
         User newUser = mock(User.class);
         when(userRepository.findOne(user.getId())).thenReturn(newUser);
         userService.update(user);
-        verify(user, atLeastOnce()).getId();
+        verify(user, times(2)).getId();
         verify(userRepository, atLeastOnce()).findOne(user.getId());
         verify(newUser, times(1)).setEmail(user.getEmail());
         verify(newUser, times(1)).setName(user.getSurname());

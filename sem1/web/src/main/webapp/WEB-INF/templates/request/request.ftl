@@ -80,7 +80,7 @@
                         <input id="longitude" type="text" style="display: none" value="${request.longitude}">
                         <#-- Google map view -->
                         <div id="map" style="width: 100%; height: 400px;"></div>
-                        <br>
+                        <hr>
                     </#if>
 
                     <p class="lead">

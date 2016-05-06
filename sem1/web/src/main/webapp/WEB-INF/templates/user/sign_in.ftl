@@ -60,7 +60,7 @@
                                     <input id="sign_in" class="btn btn-block btn-success" type="submit" value="Sign in">
                                 </div>
                                 <div class="form-group">
-                                    <a href="/sign_up" class="btn btn-block btn-primary">Sign up</a>
+                                    <a href="/sign_up" class="btn btn-block btn-info">Sign up</a>
                                 </div>
                             </fieldset>
                         </form>

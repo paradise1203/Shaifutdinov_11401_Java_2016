@@ -42,6 +42,7 @@
                             </li>
                         </#list>
                     </ul>
+                    <hr>
                 </#if>
                 <#if volunteerReq?has_content>
                     <p class="lead">
@@ -56,6 +57,7 @@
                             </li>
                         </#list>
                     </ul>
+                    <hr>
                 </#if>
                 <p class="lead">
                     <em>Rating:</em>
@@ -65,6 +67,7 @@
                 <#else>
                     <button type="button" class="rating btn btn-link disabled fa fa-thumbs-o-down fa-2x">${rating}</button>
                 </#if>
+                <hr>
                 <p class="lead">
                     <em>Your opinion</em>
                 </p>

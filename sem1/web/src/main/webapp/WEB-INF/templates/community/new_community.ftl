@@ -31,7 +31,7 @@
                                     <@sf.errors path="description" cssClass="help-block"/>
                                 </div>
                                 <div class="form-group">
-                                    <input class="btn btn-primary btn-outline" type="submit" value="Create">
+                                    <input class="btn btn-info btn-outline" type="submit" value="Create">
                                 </div>
                             </fieldset>
                         </@sf.form>

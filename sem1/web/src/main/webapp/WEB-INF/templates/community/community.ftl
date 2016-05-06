@@ -1,5 +1,3 @@
-<#assign sec=JspTaglibs["http://www.springframework.org/security/tags"]>
-
 <#include "../main_template.ftl"/>
 
 <#macro content>
@@ -33,8 +31,8 @@
                 </p>
                 <p class="lead">
                     <strong>Created at:</strong> <em>${community.createdAt}</em></p>
-                <hr>
                 <#if membership>
+                    <hr>
                     <p class="lead">
                         <em>News:</em>
                     </p>

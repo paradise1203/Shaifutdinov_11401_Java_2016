@@ -128,4 +128,19 @@ public class Request {
         this.comments = comments;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Request)) return false;
+
+        Request request = (Request) o;
+
+        return getId() == request.getId();
+
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) (getId() ^ (getId() >>> 32));
+    }
 }

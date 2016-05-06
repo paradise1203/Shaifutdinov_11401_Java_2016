@@ -12,10 +12,8 @@ $(document).ready(function () {
             url: '/communities/' + community + '/unsubscribe',
             type: 'post',
             success: function () {
-                td.children('a').remove();
-                var link = $('<a>').text('Subscribe').addClass('subscribe')
-                    .attr('style', 'float: right').attr('href', '#');
-                td.append(link);
+                // redirect to community page
+                window.location = '/communities/' + community;
             }
         });
     });
@@ -28,10 +26,8 @@ $(document).ready(function () {
             url: '/communities/' + community + '/subscribe',
             type: 'post',
             success: function () {
-                td.children('a').remove();
-                var link = $('<a>').text('Unsubscribe').addClass('unsubscribe')
-                    .attr('style', 'float: right').attr('href', '#');
-                td.append(link);
+                // redirect to community page
+                window.location = '/communities/' + community;
             }
         });
     });

@@ -1,3 +1,5 @@
+<#assign sec=JspTaglibs["http://www.springframework.org/security/tags"]>
+
 <#include "../main_template.ftl"/>
 
 <#macro content>
@@ -9,40 +11,71 @@
 
     <div class="row">
     <div class="col-lg-12">
-        <#if penFriends?has_content>
+        <@sec.authorize access="hasRole('ROLE_USER')">
+            <#if penFriends?has_content>
+                <p class="lead">
+                    <em>Active dialogs with:</em>
+                </p>
+                <ul>
+                    <#list penFriends as f>
+                        <li>
+                            <a href="/users/${f.id}/dialog">${f.name} ${f.surname}</a>
+                        </li>
+                    </#list>
+                </ul>
+                <hr>
+            </#if>
+            <#if communities?has_content>
+                <p class="lead">
+                    <em>My communities:</em>
+                </p>
+                <ul>
+                    <#list communities as c>
+                        <li>
+                            <a href="/communities/${c.id}">${c.name}</a>
+                        </li>
+                    </#list>
+                </ul>
+                <hr>
+            </#if>
             <p class="lead">
-                <em>Active dialogs with:</em>
+                <em>My rating:</em>
             </p>
-            <ul>
-                <#list penFriends as f>
-                    <li>
-                        <a href="/users/${f.id}/dialog">${f.name} ${f.surname}</a>
-                    </li>
-                </#list>
-            </ul>
-            <hr>
-        </#if>
-        <#if communities?has_content>
-            <p class="lead">
-                <em>My communities:</em>
-            </p>
-            <ul>
-                <#list communities as c>
-                    <li>
-                        <a href="/communities/${c.id}">${c.name}</a>
-                    </li>
-                </#list>
-            </ul>
-            <hr>
-        </#if>
-        <p class="lead">
-            <em>My rating:</em>
-        </p>
-        <#if positive>
+            <#if positive>
             <button type="button" class="btn btn-link disabled fa fa-thumbs-o-up fa-2x">${rating}</button>
         <#else>
             <button type="button" class="btn btn-link disabled fa fa-thumbs-o-down fa-2x">${rating}</button>
         </#if>
+        </@sec.authorize>
+        <@sec.authorize access="hasRole('ROLE_ADMIN')">
+            <#if recentCommunities?has_content>
+                <p class="lead">
+                    <em>Recently founded communities:</em>
+                </p>
+                <ul>
+                    <#list recentCommunities as c>
+                        <li>
+                            <a href="/communities/${c.id}">${c.name}</a>
+                        </li>
+                    </#list>
+                </ul>
+                <hr>
+            </#if>
+            <#if recentRequests?has_content>
+                <p class="lead">
+                    <em>Recently created requests:</em>
+                </p>
+                <ul>
+                    <#list recentRequests as r>
+                        <li>
+                            <a href="/requests/${r.id}">
+                                issued by ${r.needy.name} ${r.needy.surname} at ${r.createdAt}
+                            </a>
+                        </li>
+                    </#list>
+                </ul>
+            </#if>
+        </@sec.authorize>
     </div>
 </div>
 </#macro>

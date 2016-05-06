@@ -64,7 +64,7 @@
                                 <@sf.errors path="passwordConfirmation" cssClass="help-block"/>
                             </div>
                             <div class="form-group">
-                                <input class="btn btn-block btn-primary" type="submit" value="Sign up">
+                                <input class="btn btn-block btn-info" type="submit" value="Sign up">
                             </div>
                             <div class="form-group">
                                 <a href="/sign_in" class="btn btn-block btn-success">Sign in</a>

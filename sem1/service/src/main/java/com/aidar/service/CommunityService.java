@@ -12,6 +12,8 @@ public interface CommunityService {
 
     List<Community> getAll();
 
+    List<Community> getRecent();
+
     Set<Community> getMy();
 
     Set<Community> getByUser(Long id);

@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getCurrent() {
-        return securityService.getPrincipal();
+        return securityService.getPersistedPrincipal();
     }
 
     @Override

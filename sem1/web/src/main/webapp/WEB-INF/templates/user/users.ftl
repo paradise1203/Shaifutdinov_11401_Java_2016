@@ -14,7 +14,9 @@
             <div class="panel panel-info">
                 <div class="panel-heading">
                     All users
-                    <a href="/users/pdf" target="_blank" style="float: right">generate pdf</a>
+                    <@sec.authorize access="hasRole('ROLE_ADMIN')">
+                        <a href="/users/pdf" target="_blank" style="float: right">generate pdf</a>
+                    </@sec.authorize>
                 </div>
                 <div class="panel-body">
                     <div class="dataTable_wrapper">

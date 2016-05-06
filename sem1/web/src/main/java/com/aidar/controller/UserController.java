@@ -50,7 +50,7 @@ public class UserController {
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public String edit(@ModelAttribute("user") User user) {
-        userService.add(user);
+        userService.update(user);
         return "redirect:/home";
     }
 

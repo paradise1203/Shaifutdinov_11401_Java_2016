@@ -13,7 +13,7 @@ import static org.mockito.Mockito.mock;
  * Created by paradise on 05.05.16.
  */
 @Configuration
-public class UserServiceConfig {
+public class UserServiceTestConfig {
 
     @Bean
     public UserService userService() {

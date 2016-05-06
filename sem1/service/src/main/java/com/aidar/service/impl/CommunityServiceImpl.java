@@ -8,14 +8,12 @@ import com.aidar.repository.UserCommunityRepository;
 import com.aidar.repository.UserRepository;
 import com.aidar.service.CommunityService;
 import com.aidar.service.SecurityService;
+import com.aidar.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by paradise on 21.04.16.
@@ -39,6 +37,11 @@ public class CommunityServiceImpl implements CommunityService {
     @Override
     public List<Community> getAll() {
         return communityRepository.findAll();
+    }
+
+    @Override
+    public List<Community> getRecent() {
+        return communityRepository.findAllByCreatedAtBetween(DateUtil.getMonthAgoDate(), new Date());
     }
 
     private Set<Community> getSome(User user) {

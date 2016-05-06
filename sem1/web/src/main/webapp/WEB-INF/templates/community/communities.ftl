@@ -14,7 +14,12 @@
         <div class="panel panel-info">
             <div class="panel-heading">
                 Communities
-                <a href="/communities/new" style="float: right">New!</a>
+                <@sec.authorize access="hasRole('ROLE_ADMIN')">
+                    <a href="/communities/pdf" target="_blank" style="float: right">generate pdf</a>
+                </@sec.authorize>
+                <@sec.authorize access="hasRole('ROLE_USER')">
+                    <a href="/communities/new" style="float: right">New!</a>
+                </@sec.authorize>
             </div>
             <div class="panel-body">
                 <div class="dataTable_wrapper">
