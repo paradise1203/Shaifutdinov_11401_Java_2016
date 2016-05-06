@@ -1,5 +1,7 @@
 package com.aidar.controller;
 
+import com.aidar.enums.AssessmentType;
+import com.aidar.model.Assessment;
 import com.aidar.model.Message;
 import com.aidar.model.User;
 import com.aidar.service.*;
@@ -73,12 +75,12 @@ public class UserController {
         int rating = assessmentService.getUserRating(id);
         model.addAttribute("positive", rating >= 0);
         model.addAttribute("rating", Math.abs(rating));
-//        Assessment myAssessment = assessmentService.getMyAssessmentOfUser(id);
-//        model.addAttribute("haveAssessment", myAssessment != null);
-//        if (myAssessment != null) {
-//            model.addAttribute("havePositiveAssessment",
-//                    myAssessment.getAssessmentType() == AssessmentType.LIKE);
-//        }
+        Assessment myAssessment = assessmentService.getMyAssessmentOfUser(id);
+        model.addAttribute("haveAssessment", myAssessment != null);
+        if (myAssessment != null) {
+            model.addAttribute("havePositiveAssessment",
+                    myAssessment.getAssessmentType() == AssessmentType.LIKE);
+        }
         return "user/profile";
     }
 
@@ -109,11 +111,12 @@ public class UserController {
         return new ModelAndView("partition/messages_part");
     }
 
-    // TODO
-    @RequestMapping(value = "/${id}/assess", method = RequestMethod.POST)
+    @RequestMapping(value = "/{id}/assess", method = RequestMethod.POST)
     @ResponseBody
-    public void assessUser(@PathVariable("id") Long id, String assessment) {
+    public String assessUser(@PathVariable("id") Long id,
+                             @RequestParam("assessment") String assessment) {
         assessmentService.assess(id, assessment);
+        return String.valueOf(assessmentService.getUserRating(id));
     }
 
     // generate downloadable pdf document with all users
