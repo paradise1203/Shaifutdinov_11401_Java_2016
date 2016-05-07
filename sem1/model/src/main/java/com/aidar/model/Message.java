@@ -94,4 +94,27 @@ Message {
     public void setStatus(MessageStatus status) {
         this.status = status;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Message)) return false;
+
+        Message message = (Message) o;
+
+        if (getId() != message.getId()) return false;
+        if (!getText().equals(message.getText())) return false;
+        if (!getSender().equals(message.getSender())) return false;
+        return getRecipient().equals(message.getRecipient());
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (getId() ^ (getId() >>> 32));
+        result = 31 * result + getText().hashCode();
+        result = 31 * result + getSender().hashCode();
+        result = 31 * result + getRecipient().hashCode();
+        return result;
+    }
 }

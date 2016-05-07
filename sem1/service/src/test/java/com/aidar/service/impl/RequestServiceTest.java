@@ -50,18 +50,13 @@ public class RequestServiceTest {
     @Autowired
     private UserRepository userRepository;
 
-    //-------------------
-
     //Test data
 
     @Autowired
     private Request request;
 
     private static List<Request> requests;
-
     private static User user;
-
-    //---------
 
     @BeforeClass
     public static void setup() {

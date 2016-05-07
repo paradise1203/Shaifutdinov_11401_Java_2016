@@ -80,4 +80,26 @@ public class News {
         this.createdAt = createdAt;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof News)) return false;
+
+        News news = (News) o;
+
+        if (getId() != null ? !getId().equals(news.getId()) : news.getId() != null) return false;
+        if (!getText().equals(news.getText())) return false;
+        if (!getCommunity().equals(news.getCommunity())) return false;
+        return getAuthor().equals(news.getAuthor());
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId() != null ? getId().hashCode() : 0;
+        result = 31 * result + getText().hashCode();
+        result = 31 * result + getCommunity().hashCode();
+        result = 31 * result + getAuthor().hashCode();
+        return result;
+    }
 }

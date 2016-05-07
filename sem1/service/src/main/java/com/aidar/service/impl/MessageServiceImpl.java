@@ -41,6 +41,7 @@ public class MessageServiceImpl implements MessageService {
             penFriends.add(sender.equals(principal) ? m.getRecipient() : sender);
         });
         return penFriends;
+
     }
 
     @Override

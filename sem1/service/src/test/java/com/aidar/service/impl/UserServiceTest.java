@@ -28,6 +28,8 @@ import static org.mockito.Mockito.*;
         loader = AnnotationConfigContextLoader.class)
 public class UserServiceTest {
 
+    //Mocked dependencies
+
     @Autowired
     private UserService userService;
 

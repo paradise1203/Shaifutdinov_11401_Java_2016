@@ -85,4 +85,19 @@ public class Community {
         this.news = news;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Community)) return false;
+
+        Community community = (Community) o;
+
+        return getId() == community.getId();
+
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) (getId() ^ (getId() >>> 32));
+    }
 }
