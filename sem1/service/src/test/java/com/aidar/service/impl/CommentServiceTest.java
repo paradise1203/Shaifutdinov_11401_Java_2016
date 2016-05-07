@@ -1,12 +1,12 @@
 package com.aidar.service.impl;
 
-import com.aidar.config.NewsServiceTestConfig;
-import com.aidar.model.Community;
-import com.aidar.model.News;
+import com.aidar.config.CommentServiceTestConfig;
+import com.aidar.model.Comment;
+import com.aidar.model.Request;
 import com.aidar.model.User;
-import com.aidar.repository.CommunityRepository;
-import com.aidar.repository.NewsRepository;
-import com.aidar.service.NewsService;
+import com.aidar.repository.CommentRepository;
+import com.aidar.repository.RequestRepository;
+import com.aidar.service.CommentService;
 import com.aidar.service.SecurityService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,20 +15,18 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * Created by paradise on 07.05.16.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = NewsServiceTestConfig.class,
+@ContextConfiguration(classes = CommentServiceTestConfig.class,
         loader = AnnotationConfigContextLoader.class)
-public class NewsServiceTest {
+public class CommentServiceTest {
 
     @Autowired
-    private NewsService newsService;
+    private CommentService commentService;
 
     // Mocked dependencies
 
@@ -36,23 +34,23 @@ public class NewsServiceTest {
     private SecurityService securityService;
 
     @Autowired
-    private CommunityRepository communityRepository;
+    private CommentRepository commentRepository;
 
     @Autowired
-    private NewsRepository newsRepository;
+    private RequestRepository requestRepository;
 
     @Test
     public void addShouldWorkCorrect() {
         String text = "Some text";
+        Request request = new Request();
+        request.setId(1);
         User user = new User();
         user.setId(1);
-        Community community = new Community();
-        community.setId(1);
-        News news = new News(text, community, user);
-        when(communityRepository.findOne(community.getId())).thenReturn(community);
+        Comment comment = new Comment(text, request, user);
+        when(requestRepository.findOne(request.getId())).thenReturn(request);
         when(securityService.getPersistedPrincipal()).thenReturn(user);
-        newsService.add(community.getId(), text);
-        verify(newsRepository, times(1)).save(news);
+        commentService.add(request.getId(), text);
+        verify(commentRepository, times(1)).save(comment);
     }
 
 }

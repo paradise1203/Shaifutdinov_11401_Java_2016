@@ -79,4 +79,27 @@ public class Comment {
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Comment)) return false;
+
+        Comment comment = (Comment) o;
+
+        if (getId() != comment.getId()) return false;
+        if (!getText().equals(comment.getText())) return false;
+        if (!getRequest().equals(comment.getRequest())) return false;
+        return getAuthor().equals(comment.getAuthor());
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (getId() ^ (getId() >>> 32));
+        result = 31 * result + getText().hashCode();
+        result = 31 * result + getRequest().hashCode();
+        result = 31 * result + getAuthor().hashCode();
+        return result;
+    }
 }

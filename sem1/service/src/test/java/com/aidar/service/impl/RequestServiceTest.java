@@ -36,7 +36,7 @@ public class RequestServiceTest {
     @Autowired
     private RequestService requestService;
 
-    //Mocked dependencies
+    // Mocked dependencies
 
     @Autowired
     private SecurityService securityService;
@@ -50,7 +50,7 @@ public class RequestServiceTest {
     @Autowired
     private UserRepository userRepository;
 
-    //Test data
+    // Test data
 
     @Autowired
     private Request request;

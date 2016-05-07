@@ -39,7 +39,7 @@ public class MessageServiceTest {
     @Autowired
     private MessageService messageService;
 
-    //Mocked dependencies
+    // Mocked dependencies
 
     @Autowired
     private SecurityService securityService;
@@ -50,7 +50,7 @@ public class MessageServiceTest {
     @Autowired
     private UserRepository userRepository;
 
-    //Test data
+    // Test data
 
     private static User user;
     private static User friend;

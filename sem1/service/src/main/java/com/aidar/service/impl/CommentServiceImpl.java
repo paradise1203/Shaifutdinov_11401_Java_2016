@@ -18,13 +18,13 @@ import org.springframework.transaction.annotation.Transactional;
 public class CommentServiceImpl implements CommentService {
 
     @Autowired
+    private SecurityService securityService;
+
+    @Autowired
     private CommentRepository commentRepository;
 
     @Autowired
     private RequestRepository requestRepository;
-
-    @Autowired
-    private SecurityService securityService;
 
     @Override
     public Comment add(Long id, String text) {

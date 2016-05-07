@@ -54,4 +54,25 @@ public class UserCommunity {
     public void setCommunity(Community community) {
         this.community = community;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof UserCommunity)) return false;
+
+        UserCommunity that = (UserCommunity) o;
+
+        if (getId() != that.getId()) return false;
+        if (!getUser().equals(that.getUser())) return false;
+        return getCommunity().equals(that.getCommunity());
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (getId() ^ (getId() >>> 32));
+        result = 31 * result + getUser().hashCode();
+        result = 31 * result + getCommunity().hashCode();
+        return result;
+    }
 }

@@ -7,6 +7,7 @@ import com.aidar.model.User;
 import com.aidar.repository.UserRepository;
 import com.aidar.service.SecurityService;
 import com.aidar.service.UserService;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ import static org.mockito.Mockito.*;
         loader = AnnotationConfigContextLoader.class)
 public class UserServiceTest {
 
-    //Mocked dependencies
+    // Mocked dependencies
 
     @Autowired
     private UserService userService;
@@ -39,11 +40,19 @@ public class UserServiceTest {
     @Autowired
     private UserRepository userRepository;
 
+    // Test data
+
+    private static User user;
+
+    @BeforeClass
+    public static void setup() {
+        user = new User();
+        user.setId(0);
+    }
+
     @Test
     public void getAllShouldReturnAllUsers() {
         List<User> users = new ArrayList<>();
-        User user = new User();
-        user.setId(0);
         users.add(user);
         when(userRepository.findByRole(Role.ROLE_USER)).thenReturn(users);
         assertEquals(users, userService.getAll());
@@ -51,23 +60,18 @@ public class UserServiceTest {
 
     @Test
     public void getCurrentShouldReturnCurrentPrincipal() {
-        User user = new User();
-        user.setId(0);
         when(securityService.getPersistedPrincipal()).thenReturn(user);
         assertEquals(user, userService.getCurrent());
     }
 
     @Test
     public void getOneShouldReturnOneUserById() {
-        User user = new User();
-        user.setId(0);
         when(userRepository.findOne(user.getId())).thenReturn(user);
         assertEquals(user, userService.getOne(user.getId()));
     }
 
     @Test
     public void addShouldWorkCorrect() {
-        User user = new User();
         userService.add(user);
         verify(userRepository, times(1)).save(user);
     }
