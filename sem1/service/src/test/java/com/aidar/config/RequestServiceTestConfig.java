@@ -1,5 +1,6 @@
 package com.aidar.config;
 
+import com.aidar.model.Request;
 import com.aidar.repository.RequestRepository;
 import com.aidar.repository.UserRepository;
 import com.aidar.service.GoogleMapsService;
@@ -10,6 +11,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * Created by paradise on 06.05.16.
@@ -40,6 +42,13 @@ public class RequestServiceTestConfig {
     @Bean
     public UserRepository userRepository() {
         return mock(UserRepository.class);
+    }
+
+    @Bean
+    public Request request() {
+        Request request = mock(Request.class);
+        when(request.getId()).thenReturn(1L);
+        return request;
     }
 
 }

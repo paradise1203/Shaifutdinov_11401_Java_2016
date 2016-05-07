@@ -76,6 +76,7 @@ public class UserServiceTest {
         User newUser = mock(User.class);
         when(userRepository.findOne(user.getId())).thenReturn(newUser);
         userService.update(user);
+
         verify(user, times(2)).getId();
         verify(userRepository, atLeastOnce()).findOne(user.getId());
         verify(newUser, times(1)).setEmail(user.getEmail());
@@ -85,20 +86,24 @@ public class UserServiceTest {
 
     @Test
     public void banShouldWorkCorrect() {
-        String email = "email@gmail.com";
+        String email = "user@gmail.com";
         User user = mock(User.class);
+        when(user.getEmail()).thenReturn(email);
         when(userRepository.findOneByEmail(email)).thenReturn(user);
         userService.ban(email);
-        verify(userRepository, times(1)).findOneByEmail(email);
+
+        verify(userRepository, atLeastOnce()).findOneByEmail(email);
         verify(user, times(1)).setStatus(UserStatus.BANNED);
     }
 
     @Test
     public void pardonShouldWorkCorrect() {
-        String email = "email@gmail.com";
+        String email = "user@gmail.com";
         User user = mock(User.class);
+        when(user.getEmail()).thenReturn(email);
         when(userRepository.findOneByEmail(email)).thenReturn(user);
         userService.pardon(email);
+
         verify(userRepository, atLeastOnce()).findOneByEmail(email);
         verify(user, times(1)).setStatus(UserStatus.ACTIVE);
     }
