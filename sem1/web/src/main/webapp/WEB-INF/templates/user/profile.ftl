@@ -37,7 +37,11 @@
                         <#list needyReq as r>
                             <li>
                                 <a href="/requests/${r.id}">
-                                    Was helped by ${r.needy.name} ${r.needy.surname} at ${r.createdAt}
+                                    Was helped
+                                    <#if r.volunteer??>
+                                        by ${r.volunteer.name} ${r.volunteer.surname}
+                                    </#if>
+                                    at ${r.createdAt}
                                 </a>
                             </li>
                         </#list>

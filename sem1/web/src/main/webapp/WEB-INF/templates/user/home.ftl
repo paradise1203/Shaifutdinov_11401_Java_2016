@@ -69,7 +69,7 @@
                     <#list recentRequests as r>
                         <li>
                             <a href="/requests/${r.id}">
-                                issued by ${r.needy.name} ${r.needy.surname} at ${r.createdAt}
+                                Issued by ${r.needy.name} ${r.needy.surname} at ${r.createdAt}
                             </a>
                         </li>
                     </#list>
