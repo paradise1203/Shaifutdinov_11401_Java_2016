@@ -9,9 +9,8 @@ import java.util.Date;
 public class DateUtil {
 
     public static Date getMonthAgoDate() {
-        Date now = new Date();
         Calendar c = Calendar.getInstance();
-        c.add(Calendar.DAY_OF_MONTH, -1);
+        c.add(Calendar.MONTH, -1);
         return c.getTime();
     }
 
