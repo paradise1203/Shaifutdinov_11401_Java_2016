@@ -4,6 +4,21 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
 
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+            classpath:persistence-config.xml,
+            classpath:service-config.xml,
+            classpath:security-config.xml,
+            classpath:aspect-config.xml,
+            classpath:rpc-config.xml
+        </param-value>
+    </context-param>
+
     <servlet>
         <servlet-name>dispatcher</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -15,19 +30,16 @@
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 
-    <listener>
-        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-    </listener>
+    <servlet>
+        <servlet-name>rpcDispatcher</servlet-name>
+        <servlet-class>com.aidar.gwt.RpcDispatcherServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
 
-    <context-param>
-        <param-name>contextConfigLocation</param-name>
-        <param-value>
-            classpath:persistence-config.xml,
-            classpath:service-config.xml,
-            classpath:security-config.xml,
-            classpath:aspect-config.xml
-        </param-value>
-    </context-param>
+    <servlet-mapping>
+        <servlet-name>rpcDispatcher</servlet-name>
+        <url-pattern>/stockWatcherRPC/rpc/*</url-pattern>
+    </servlet-mapping>
 
     <filter>
         <filter-name>encodingFilter</filter-name>

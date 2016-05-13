@@ -67,6 +67,12 @@
             <artifactId>spring-security-taglibs</artifactId>
         </dependency>
 
+        <!-- GWT -->
+        <dependency>
+            <groupId>com.google.gwt</groupId>
+            <artifactId>gwt-user</artifactId>
+        </dependency>
+
         <!-- Hibernate -->
         <dependency>
             <groupId>org.hibernate</groupId>
