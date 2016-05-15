@@ -36,6 +36,11 @@
             <artifactId>aop</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.aidar</groupId>
+            <artifactId>api</artifactId>
+        </dependency>
+
         <!-- Spring -->
         <dependency>
             <groupId>org.springframework</groupId>

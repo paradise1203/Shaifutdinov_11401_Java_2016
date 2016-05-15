@@ -25,7 +25,8 @@
             classpath:persistence-config.xml,
             classpath:service-config.xml,
             classpath:security-config.xml,
-            classpath:aspect-config.xml
+            classpath:aspect-config.xml,
+            classpath:api-config.xml
         </param-value>
     </context-param>
 

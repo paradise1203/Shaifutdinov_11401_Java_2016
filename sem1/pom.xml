@@ -15,6 +15,7 @@
         <module>service</module>
         <module>web</module>
         <module>aop</module>
+        <module>api</module>
     </modules>
 
     <properties>
@@ -49,6 +50,12 @@
             <dependency>
                 <groupId>com.aidar</groupId>
                 <artifactId>aop</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.aidar</groupId>
+                <artifactId>api</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
