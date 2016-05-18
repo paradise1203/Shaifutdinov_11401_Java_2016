@@ -24,6 +24,11 @@
             <artifactId>service</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.aidar</groupId>
+            <artifactId>api</artifactId>
+        </dependency>
+
         <!-- Spring -->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -60,6 +65,7 @@
             <artifactId>aspectjweaver</artifactId>
         </dependency>
 
+        <!-- Other -->
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
@@ -68,6 +74,11 @@
         <dependency>
             <groupId>com.jcabi</groupId>
             <artifactId>jcabi-log</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
         </dependency>
     </dependencies>
 

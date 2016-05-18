@@ -5,10 +5,12 @@ import com.aidar.util.google_api.GeocodeResponse;
 import com.aidar.util.google_api.LocationBody;
 import org.apache.http.client.utils.URIBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import javax.annotation.PostConstruct;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -16,16 +18,23 @@ import java.net.URISyntaxException;
  * Created by paradise on 01.05.16.
  */
 @Service
+@PropertySource("classpath:googleapi.properties")
 public class GoogleMapsServiceImpl implements GoogleMapsService {
+
+    @Autowired
+    private Environment environment;
 
     @Autowired
     private RestTemplate restTemplate;
 
-    @Value("${googleApiKey}")
     private String googleApiKey;
-
-    @Value("${googleMapsGeocodeApiRequest}")
     private String geocodeUrl;
+
+    @PostConstruct
+    public void initialize() {
+        googleApiKey = environment.getProperty("googleApiKey");
+        geocodeUrl = environment.getProperty("googleMapsGeocodeApiRequest");
+    }
 
     @Override
     public LocationBody getLocation(String address) {
