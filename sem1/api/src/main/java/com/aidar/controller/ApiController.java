@@ -1,8 +1,16 @@
 package com.aidar.controller;
 
+import org.springframework.web.bind.annotation.RestController;
+
+<<<<<<< HEAD
 import com.aidar.security.annotation.RequireAuthentication;
 import com.aidar.util.ApiResponse;
 import com.aidar.util.HttpResponse;
+=======
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
+>>>>>>> 0370696ee389c4b1a4e37a4b00165debd23946f4
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
