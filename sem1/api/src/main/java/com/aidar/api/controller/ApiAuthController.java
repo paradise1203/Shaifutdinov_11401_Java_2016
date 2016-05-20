@@ -1,9 +1,9 @@
-package com.aidar.controller;
+package com.aidar.api.controller;
 
-import com.aidar.security.AuthService;
-import com.aidar.security.annotation.RequireAnonymous;
-import com.aidar.util.ApiResponse;
-import com.aidar.util.HttpResponse;
+import com.aidar.api.security.AuthService;
+import com.aidar.api.security.annotation.RequireAnonymous;
+import com.aidar.api.util.ApiResponse;
+import com.aidar.api.util.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,12 +28,20 @@ public class ApiAuthController {
     public ApiResponse signIn(HttpServletRequest request, HttpServletResponse response) {
         ApiResponse apiResponse = new ApiResponse();
         try {
-            apiResponse.setResponseData(authService.addToken(request));
+            apiResponse.setResponseData(authService.addAuthentication(request));
             apiResponse.setHttpResponse(HttpResponse.SUCCESS);
         } catch (AuthenticationException ex) {
             apiResponse.setHttpResponse(HttpResponse.FAIL);
             apiResponse.addError(ex.getMessage());
         }
+        return apiResponse;
+    }
+
+    @RequestMapping(value = "/forbidden")
+    public ApiResponse forbidden(HttpServletRequest request, HttpServletResponse response) {
+        ApiResponse apiResponse = new ApiResponse();
+        apiResponse.setHttpResponse(HttpResponse.FAIL);
+        apiResponse.addError("Access denied");
         return apiResponse;
     }
 

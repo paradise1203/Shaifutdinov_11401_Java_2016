@@ -1,4 +1,4 @@
-package com.aidar.security;
+package com.aidar.api.security;
 
 import com.aidar.enums.UserStatus;
 import com.aidar.model.User;
@@ -28,7 +28,7 @@ public class AuthService {
 
     private static final String TOKEN = "token";
 
-    public String addToken(HttpServletRequest request) {
+    public String addAuthentication(HttpServletRequest request) {
         String email = request.getParameter("email");
         User principal = userRepository.findOneByEmail(email);
         if (principal == null) {

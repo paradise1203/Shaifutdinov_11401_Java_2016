@@ -1,4 +1,4 @@
-package com.aidar.util;
+package com.aidar.api.util;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 

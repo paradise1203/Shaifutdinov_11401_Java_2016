@@ -1,4 +1,4 @@
-package com.aidar.security.annotation;
+package com.aidar.api.security.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

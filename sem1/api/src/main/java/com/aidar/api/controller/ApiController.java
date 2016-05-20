@@ -1,8 +1,8 @@
-package com.aidar.controller;
+package com.aidar.api.controller;
 
-import com.aidar.security.annotation.RequireAuthentication;
-import com.aidar.util.ApiResponse;
-import com.aidar.util.HttpResponse;
+import com.aidar.api.security.annotation.RequireAuthentication;
+import com.aidar.api.util.ApiResponse;
+import com.aidar.api.util.HttpResponse;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

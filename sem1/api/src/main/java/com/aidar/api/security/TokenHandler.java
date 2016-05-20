@@ -1,4 +1,4 @@
-package com.aidar.security;
+package com.aidar.api.security;
 
 import com.aidar.model.User;
 import com.fasterxml.jackson.core.JsonProcessingException;

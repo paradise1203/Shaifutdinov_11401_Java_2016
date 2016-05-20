@@ -1,4 +1,4 @@
-package com.aidar.util;
+package com.aidar.api.util;
 
 /**
  * Created by paradise on 17.05.16.

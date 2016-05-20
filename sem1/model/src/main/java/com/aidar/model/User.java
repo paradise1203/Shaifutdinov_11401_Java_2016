@@ -3,7 +3,6 @@ package com.aidar.model;
 import com.aidar.enums.Role;
 import com.aidar.enums.UserStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 
@@ -26,13 +25,10 @@ public class User {
     @JsonIgnore
     private String surname;
 
-    @JsonProperty
     private String email;
 
-    @JsonProperty
     private String password;
 
-    @JsonProperty
     @Enumerated(EnumType.STRING)
     private Role role;
 
