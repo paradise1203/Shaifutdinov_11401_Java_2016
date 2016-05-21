@@ -1,7 +1,9 @@
-package com.aidar.web;
+package com.aidar.api.rest;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import org.springframework.http.HttpStatus;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,18 +12,28 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiResponse<T> {
 
-    private HttpResponse httpResponse;
+    private HttpStatus httpStatus;
 
     private T responseData;
 
     private List<String> errors;
 
-    public HttpResponse getHttpResponse() {
-        return httpResponse;
+    public ApiResponse() {
+        errors = new ArrayList<>();
     }
 
-    public void setHttpResponse(HttpResponse httpResponse) {
-        this.httpResponse = httpResponse;
+    public ApiResponse(HttpStatus httpStatus, T responseData) {
+        this();
+        this.httpStatus = httpStatus;
+        this.responseData = responseData;
+    }
+
+    public HttpStatus getHttpStatus() {
+        return httpStatus;
+    }
+
+    public void setHttpStatus(HttpStatus httpStatus) {
+        this.httpStatus = httpStatus;
     }
 
     public T getResponseData() {
@@ -38,10 +50,6 @@ public class ApiResponse<T> {
 
     public List<String> getErrors() {
         return errors;
-    }
-
-    public void setError(List<String> errors) {
-        this.errors = errors;
     }
 
     public void addError(String error) {

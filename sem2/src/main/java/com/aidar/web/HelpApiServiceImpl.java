@@ -12,7 +12,7 @@ public class HelpApiServiceImpl implements HelpApiService {
     private RestTemplate restTemplate = new RestTemplate();
 
     @Override
-    public ApiResponse signIn(String email, String pass) {
+    public ApiResponse<String> signIn(String email, String pass) {
         MultiValueMap<String, Object> params = new LinkedMultiValueMap<>();
         params.add("email", email);
         params.add("pass", pass);

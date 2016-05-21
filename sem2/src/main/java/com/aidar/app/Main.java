@@ -13,6 +13,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -53,16 +54,16 @@ public class Main extends Application {
         final Text error = new Text();
         gridPane.add(error, 0, 6, 2, 1);
 
+        Scene scene = new Scene(gridPane, 350, 320);
+
         signIn.setOnAction(e -> {
-            ApiResponse apiResponse = new HelpApiServiceImpl().signIn(email.getText(), pass.getText());
+            ApiResponse<String> apiResponse = new HelpApiServiceImpl().signIn(email.getText(), pass.getText());
             if (apiResponse.getHttpResponse() == HttpResponse.SUCCESS) {
-                error.setText(apiResponse.getResponseData().toString());
+                scene.setRoot(new StackPane(new Text("Hello!")));
             } else {
                 error.setText(apiResponse.getErrors().get(0));
             }
         });
-
-        Scene scene = new Scene(gridPane, 350, 320);
 
         primaryStage.setTitle("Help!");
         primaryStage.setScene(scene);

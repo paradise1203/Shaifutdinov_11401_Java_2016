@@ -1,36 +1,30 @@
-package com.aidar.model;
+package com.aidar.data.model;
 
-import com.aidar.enums.Role;
-import com.aidar.enums.UserStatus;
+import com.aidar.data.enums.Role;
+import com.aidar.data.enums.UserStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import javax.persistence.*;
 
 /**
  * Created by paradise on 08.04.16.
  */
-@Entity
-@Table(name = "users")
-@SequenceGenerator(name = "users_gen", sequenceName = "users_seq", allocationSize = 1)
 public class User {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_gen")
+    @JsonIgnore
     private long id;
 
+    @JsonIgnore
     private String name;
 
+    @JsonIgnore
     private String surname;
 
     private String email;
 
-    @JsonIgnore
     private String password;
 
-    @Enumerated(EnumType.STRING)
     private Role role;
 
-    @Enumerated(EnumType.STRING)
+    @JsonIgnore
     private UserStatus status;
 
     public long getId() {

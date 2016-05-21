@@ -1,6 +1,8 @@
 package com.aidar.api.security;
 
+import com.aidar.api.util.UserForToken;
 import com.aidar.model.User;
+import com.aidar.repository.UserRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
+import java.util.Base64;
 
 /**
  * Created by paradise on 16.03.16.
@@ -27,6 +30,9 @@ public class TokenHandler {
 
     @Autowired
     private Environment environment;
+
+    @Autowired
+    private UserRepository userRepository;
 
     private Mac hmac;
 
@@ -43,28 +49,30 @@ public class TokenHandler {
         }
     }
 
-    private byte[] toJSON(User user) {
+    private byte[] toJSON(UserForToken userForToken) {
         try {
-            return new ObjectMapper().writeValueAsBytes(user);
+            return new ObjectMapper().writeValueAsBytes(userForToken);
         } catch (JsonProcessingException e) {
             throw new IllegalStateException(e);
         }
     }
 
-    private User fromJSON(final byte[] userBytes) {
+    private UserForToken fromJSON(final byte[] userBytes) {
         try {
-            return new ObjectMapper().readValue(new ByteArrayInputStream(userBytes), User.class);
+            return new ObjectMapper().readValue(new ByteArrayInputStream(userBytes), UserForToken.class);
         } catch (IOException e) {
             throw new IllegalStateException(e);
         }
     }
 
     private String toBase64(byte[] content) {
-        return DatatypeConverter.printBase64Binary(content);
+//        return DatatypeConverter.printBase64Binary(content);
+        return Base64.getEncoder().encodeToString(content);
     }
 
     private byte[] fromBase64(String content) {
-        return DatatypeConverter.parseBase64Binary(content);
+//        return DatatypeConverter.parseBase64Binary(content);
+        return Base64.getDecoder().decode(content);
     }
 
     // synchronized to guard internal hmac object
@@ -73,7 +81,8 @@ public class TokenHandler {
     }
 
     public String createTokenForUser(User user) {
-        byte[] userBytes = toJSON(user);
+        UserForToken userForToken = UserForToken.userToUserForToken(user);
+        byte[] userBytes = toJSON(userForToken);
         byte[] hash = createHmac(userBytes);
         return toBase64(userBytes) +
                 "." +
@@ -84,14 +93,16 @@ public class TokenHandler {
         final String[] parts = token.split("\\.");
         if (parts.length == 2 && parts[0].length() > 0 && parts[1].length() > 0) {
             try {
-                final byte[] userBytes = fromBase64(parts[0]);
-                final byte[] hash = fromBase64(parts[1]);
+                final byte[] userBytes = fromBase64(parts[0].replaceAll(" ", "+"));
+                final byte[] hash = fromBase64(parts[1].replaceAll(" ", "+"));
 
                 boolean validHash = Arrays.equals(createHmac(userBytes), hash);
                 if (validHash) {
-                    return fromJSON(userBytes);
+                    UserForToken userForToken = fromJSON(userBytes);
+                    return userRepository.findOneByEmail(userForToken.getEmail());
                 }
-            } catch (IllegalArgumentException ignore) {
+            } catch (Exception ex) {
+                ex.printStackTrace();
             }
         }
         return null;

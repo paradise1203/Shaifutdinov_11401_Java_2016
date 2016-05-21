@@ -24,9 +24,14 @@ public class AuthService {
     @Autowired
     private TokenHandler tokenHandler;
 
-    private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+    @Autowired
+    private BCryptPasswordEncoder encoder;
 
     private static final String TOKEN = "token";
+
+    public User getPrincipal(HttpServletRequest request) {
+        return getAuthentication(request);
+    }
 
     public String addAuthentication(HttpServletRequest request) {
         String email = request.getParameter("email");

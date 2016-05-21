@@ -5,6 +5,8 @@ package com.aidar.web;
  */
 public interface HelpApiService {
 
-    ApiResponse signIn(String email, String pass);
+    ApiResponse<String> signIn(String email, String pass);
+
+
 
 }

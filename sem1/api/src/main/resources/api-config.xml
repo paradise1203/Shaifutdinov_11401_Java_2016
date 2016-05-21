@@ -12,4 +12,6 @@
 
     <context:component-scan base-package="com.aidar.api.security"/>
 
+    <bean class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+
 </beans>
