@@ -1,6 +1,6 @@
-package com.aidar.api.rest;
+package com.aidar.web.util;
 
-import com.aidar.model.User;
+import com.aidar.web.data.model.User;
 import org.springframework.http.HttpStatus;
 
 import java.util.ArrayList;

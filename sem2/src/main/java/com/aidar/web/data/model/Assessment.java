@@ -1,6 +1,6 @@
-package com.aidar.data.model;
+package com.aidar.web.data.model;
 
-import com.aidar.data.enums.AssessmentType;
+import com.aidar.web.data.enums.AssessmentType;
 
 /**
  * Created by paradise on 29.04.16.

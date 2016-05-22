@@ -1,4 +1,4 @@
-package com.aidar.data.enums;
+package com.aidar.web.data.enums;
 
 /**
  * Created by paradise on 29.04.16.

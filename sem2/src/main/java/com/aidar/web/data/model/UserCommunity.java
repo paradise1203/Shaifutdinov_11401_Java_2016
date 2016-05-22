@@ -1,4 +1,4 @@
-package com.aidar.data.model;
+package com.aidar.web.data.model;
 
 /**
  * Created by paradise on 16.04.16.

@@ -1,27 +1,27 @@
-package com.aidar.data.model;
+package com.aidar.web.data.model;
 
 import java.util.Date;
 
 /**
- * Created by paradise on 30.04.16.
+ * Created by paradise on 13.04.16.
  */
-public class News {
+public class Comment {
 
-    private Long id;
+    private long id;
 
     private String text;
 
-    private Community community;
+    private Request request;
 
     private User author;
 
     private Date createdAt;
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -33,12 +33,12 @@ public class News {
         this.text = text;
     }
 
-    public Community getCommunity() {
-        return community;
+    public Request getRequest() {
+        return request;
     }
 
-    public void setCommunity(Community community) {
-        this.community = community;
+    public void setRequest(Request request) {
+        this.request = request;
     }
 
     public User getAuthor() {
@@ -60,22 +60,22 @@ public class News {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof News)) return false;
+        if (!(o instanceof Comment)) return false;
 
-        News news = (News) o;
+        Comment comment = (Comment) o;
 
-        if (getId() != null ? !getId().equals(news.getId()) : news.getId() != null) return false;
-        if (!getText().equals(news.getText())) return false;
-        if (!getCommunity().equals(news.getCommunity())) return false;
-        return getAuthor().equals(news.getAuthor());
+        if (getId() != comment.getId()) return false;
+        if (!getText().equals(comment.getText())) return false;
+        if (!getRequest().equals(comment.getRequest())) return false;
+        return getAuthor().equals(comment.getAuthor());
 
     }
 
     @Override
     public int hashCode() {
-        int result = getId() != null ? getId().hashCode() : 0;
+        int result = (int) (getId() ^ (getId() >>> 32));
         result = 31 * result + getText().hashCode();
-        result = 31 * result + getCommunity().hashCode();
+        result = 31 * result + getRequest().hashCode();
         result = 31 * result + getAuthor().hashCode();
         return result;
     }

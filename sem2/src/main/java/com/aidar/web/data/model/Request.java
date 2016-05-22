@@ -1,7 +1,7 @@
-package com.aidar.data.model;
+package com.aidar.web.data.model;
 
-import com.aidar.data.enums.RequestStatus;
-import com.aidar.data.enums.ServiceType;
+import com.aidar.web.data.enums.RequestStatus;
+import com.aidar.web.data.enums.ServiceType;
 
 import java.util.Date;
 import java.util.List;

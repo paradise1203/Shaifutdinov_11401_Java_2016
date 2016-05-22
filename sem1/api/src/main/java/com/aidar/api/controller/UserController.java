@@ -38,9 +38,11 @@ public class UserController {
     private AssessmentService assessmentService;
 
     @RequireAuthentication
-    @RequestMapping("/home")
+    @RequestMapping("/profile")
     public ApiResponse home(HttpServletRequest request, HttpServletResponse response) {
-        return new ApiResponse<>(HttpStatus.OK, authService.getPrincipal(request));
+        ApiResponse apiResponse = new ApiResponse(HttpStatus.OK);
+        apiResponse.setUser(authService.getPrincipal(request));
+        return apiResponse;
     }
 
 }

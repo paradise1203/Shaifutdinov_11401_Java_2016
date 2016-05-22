@@ -26,9 +26,9 @@ public class AuthController {
     @RequireAnonymous
     @RequestMapping(value = "/sign_in", method = RequestMethod.POST)
     public ApiResponse signIn(HttpServletRequest request, HttpServletResponse response) {
-        ApiResponse<String> apiResponse = new ApiResponse<>();
+        ApiResponse apiResponse = new ApiResponse();
         try {
-            apiResponse.setResponseData(authService.addAuthentication(request));
+            apiResponse.setToken(authService.addAuthentication(request));
             apiResponse.setHttpStatus(HttpStatus.OK);
         } catch (AuthenticationException ex) {
             apiResponse.setHttpStatus(HttpStatus.BAD_REQUEST);

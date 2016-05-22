@@ -1,4 +1,4 @@
-package com.aidar.data.model;
+package com.aidar.web.data.model;
 
 import java.util.Date;
 import java.util.List;

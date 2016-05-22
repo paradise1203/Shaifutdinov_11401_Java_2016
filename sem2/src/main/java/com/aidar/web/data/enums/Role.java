@@ -1,16 +1,16 @@
-package com.aidar.data.enums;
+package com.aidar.web.data.enums;
 
 /**
- * Created by paradise on 13.04.16.
+ * Created by paradise on 08.04.16.
  */
-public enum UserStatus {
+public enum Role {
 
-    ACTIVE("active"),
-    BANNED("banned");
+    ROLE_USER("user"),
+    ROLE_ADMIN("super user");
 
     private String representation;
 
-    UserStatus(String representation) {
+    Role(String representation) {
         this.representation = representation;
     }
 

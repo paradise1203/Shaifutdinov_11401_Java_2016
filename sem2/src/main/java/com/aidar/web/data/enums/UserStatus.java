@@ -1,17 +1,16 @@
-package com.aidar.data.enums;
+package com.aidar.web.data.enums;
 
 /**
  * Created by paradise on 13.04.16.
  */
-public enum ServiceType {
+public enum UserStatus {
 
-    MARKET("Buy smth in the market"),
-    STREET("Some help on the street"),
-    HOME("Some help in the home");
+    ACTIVE("active"),
+    BANNED("banned");
 
     private String representation;
 
-    ServiceType(String representation) {
+    UserStatus(String representation) {
         this.representation = representation;
     }
 

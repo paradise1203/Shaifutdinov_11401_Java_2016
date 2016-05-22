@@ -1,30 +1,23 @@
-package com.aidar.data.model;
+package com.aidar.web.data.model;
 
-import com.aidar.data.enums.Role;
-import com.aidar.data.enums.UserStatus;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.aidar.web.data.enums.Role;
+import com.aidar.web.data.enums.UserStatus;
 
 /**
  * Created by paradise on 08.04.16.
  */
 public class User {
 
-    @JsonIgnore
     private long id;
 
-    @JsonIgnore
     private String name;
 
-    @JsonIgnore
     private String surname;
 
     private String email;
 
-    private String password;
-
     private Role role;
 
-    @JsonIgnore
     private UserStatus status;
 
     public long getId() {
@@ -57,14 +50,6 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public Role getRole() {
