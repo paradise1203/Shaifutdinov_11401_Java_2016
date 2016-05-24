@@ -64,4 +64,18 @@ public class HelpApiServiceImpl implements HelpApiService {
         return restCall(environment.getProperty("community") + "/" + id);
     }
 
+    @Override
+    public ApiResponse dialog(Long id) {
+        return restCall(environment.getProperty("users") + "/" + id + "/dialog");
+    }
+
+    @Override
+    public ApiResponse sendMessage(Long id, String text) {
+        MultiValueMap<String, Object> params = new LinkedMultiValueMap<>();
+        params.add("text", text);
+        params.add(TOKEN, Main.token);
+        String uri = environment.getProperty("users") + "/" + id + "/dialog";
+        return restTemplate.postForObject(uri, params, ApiResponse.class);
+    }
+
 }

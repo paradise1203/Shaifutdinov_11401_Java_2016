@@ -1,16 +1,14 @@
 package com.aidar.app;
 
 import com.aidar.web.data.enums.Role;
-import com.aidar.web.data.model.Community;
-import com.aidar.web.data.model.News;
-import com.aidar.web.data.model.Request;
-import com.aidar.web.data.model.User;
+import com.aidar.web.data.model.*;
 import com.aidar.web.service.HelpApiService;
 import com.aidar.web.util.ApiResponse;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
@@ -108,6 +106,43 @@ public class PaneManager {
         mainPane.setCenter(communityPane);
     }
 
+    private void setDialogPane(ApiResponse apiResponse, GridPane homePane) {
+        GridPane dialogPane = new GridPane();
+        dialogPane.setAlignment(Pos.CENTER);
+        dialogPane.setHgap(10);
+        dialogPane.setVgap(10);
+        dialogPane.setPadding(new Insets(15, 15, 15, 15));
+
+        User friend = apiResponse.getFriend();
+
+        Text heading = new Text("Dialog with " + friend.getName() + " " + friend.getSurname() + ":");
+        dialogPane.add(heading, 0, 0, 2, 1);
+
+        int row = 1;
+
+        List<Message> messages = apiResponse.getDialog();
+        for (Message m : messages) {
+            String sender = m.getSender().equals(friend) ?
+                    friend.getName() + " " + friend.getSurname() : "You";
+            Text message = new Text(sender + " : " + m.getText() + " at " + m.getCreatedAt());
+            dialogPane.add(message, 0, row++, 2, 1);
+        }
+
+        TextArea message = new TextArea();
+        dialogPane.add(message, 0, row, 2, 3);
+        row += 3;
+
+        Button send = new Button("send");
+        dialogPane.add(send, 1, row, 1, 1);
+        send.setOnAction(e -> helpApiService.sendMessage(friend.getId(), message.getText()));
+
+        Button back = new Button("back");
+        dialogPane.add(back, 0, row, 1, 1);
+        back.setOnAction(e -> mainPane.setCenter(homePane));
+
+        mainPane.setCenter(dialogPane);
+    }
+
     public GridPane homePane() {
         GridPane homePane = new GridPane();
         homePane.setAlignment(Pos.CENTER);
@@ -126,6 +161,9 @@ public class PaneManager {
                 for (User f : penFriends) {
                     Hyperlink link = new Hyperlink(f.getName() + " " + f.getSurname());
                     homePane.add(link, 0, row++, 2, 1);
+                    link.setOnAction(e ->
+                            setDialogPane(helpApiService.dialog(f.getId()), homePane)
+                    );
                 }
 
                 heading = new Text("My communities:");

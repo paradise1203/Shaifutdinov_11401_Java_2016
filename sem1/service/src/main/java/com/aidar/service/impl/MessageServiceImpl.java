@@ -51,15 +51,23 @@ public class MessageServiceImpl implements MessageService {
         return penFriends(principal);
     }
 
-    @Override
-    public List<Message> getDialog(Long id) {
-        User principal = securityService.getPersistedPrincipal();
+    private List<Message> dialog(Long id, User principal) {
         User friend = userRepository.findOne(id);
         List<Message> messages = messageRepository.getDialog(principal, friend);
         messages.stream()
                 .filter(m -> m.getSender().equals(friend))
                 .forEach(m -> m.setStatus(MessageStatus.READ));
         return messages;
+    }
+
+    @Override
+    public List<Message> getDialog(Long id) {
+        return dialog(id, securityService.getPersistedPrincipal());
+    }
+
+    @Override
+    public List<Message> getDialog(Long id, User principal) {
+        return dialog(id, principal);
     }
 
     @Override
@@ -72,12 +80,20 @@ public class MessageServiceImpl implements MessageService {
         return messages;
     }
 
-    @Override
-    public Message add(Long id, String text) {
-        User principal = securityService.getPersistedPrincipal();
+    private Message newMessage(Long id, String text, User principal) {
         User friend = userRepository.findOne(id);
         Message message = new Message(text, principal, friend);
         return messageRepository.save(message);
+    }
+
+    @Override
+    public Message add(Long id, String text) {
+        return newMessage(id, text, securityService.getPersistedPrincipal());
+    }
+
+    @Override
+    public Message add(Long id, String text, User principal) {
+        return newMessage(id, text, userRepository.findOne(principal.getId()));
     }
 
 }

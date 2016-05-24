@@ -17,8 +17,12 @@ public interface MessageService {
 
     List<Message> getDialog(Long id);
 
+    List<Message> getDialog(Long id, User principal);
+
     List<Message> getNew(Long id);
 
     Message add(Long id, String text);
+
+    Message add(Long id, String text, User principal);
 
 }

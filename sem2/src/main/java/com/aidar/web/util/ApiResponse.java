@@ -1,6 +1,7 @@
 package com.aidar.web.util;
 
 import com.aidar.web.data.model.Community;
+import com.aidar.web.data.model.Message;
 import com.aidar.web.data.model.Request;
 import com.aidar.web.data.model.User;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,10 @@ public class ApiResponse {
     private User user;
 
     private int rating;
+
+    private List<Message> dialog;
+
+    private User friend;
 
     private List<User> penFriends;
 
@@ -72,6 +77,22 @@ public class ApiResponse {
 
     public void setRating(int rating) {
         this.rating = rating;
+    }
+
+    public List<Message> getDialog() {
+        return dialog;
+    }
+
+    public void setDialog(List<Message> dialog) {
+        this.dialog = dialog;
+    }
+
+    public User getFriend() {
+        return friend;
+    }
+
+    public void setFriend(User friend) {
+        this.friend = friend;
     }
 
     public List<User> getPenFriends() {

@@ -15,4 +15,8 @@ public interface HelpApiService {
 
     ApiResponse community(Long id);
 
+    ApiResponse dialog(Long id);
+
+    ApiResponse sendMessage(Long id, String text);
+
 }
