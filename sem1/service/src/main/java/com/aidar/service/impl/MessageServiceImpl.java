@@ -31,9 +31,7 @@ public class MessageServiceImpl implements MessageService {
     @Autowired
     private UserRepository userRepository;
 
-    @Override
-    public Set<User> getMyPenFriends() {
-        User principal = securityService.getPersistedPrincipal();
+    private Set<User> penFriends(User principal) {
         List<Message> messages = messageRepository.findAllBySenderOrRecipient(principal, principal);
         Set<User> penFriends = new HashSet<>();
         messages.forEach(m -> {
@@ -41,7 +39,16 @@ public class MessageServiceImpl implements MessageService {
             penFriends.add(sender.equals(principal) ? m.getRecipient() : sender);
         });
         return penFriends;
+    }
 
+    @Override
+    public Set<User> getMyPenFriends() {
+        return penFriends(securityService.getPersistedPrincipal());
+    }
+
+    @Override
+    public Set<User> getMyPenFriends(User principal) {
+        return penFriends(principal);
     }
 
     @Override

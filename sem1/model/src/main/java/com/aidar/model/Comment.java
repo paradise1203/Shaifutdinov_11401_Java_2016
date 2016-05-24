@@ -1,5 +1,7 @@
 package com.aidar.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -20,6 +22,7 @@ public class Comment {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "request_id")
+    @JsonIgnore
     private Request request;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

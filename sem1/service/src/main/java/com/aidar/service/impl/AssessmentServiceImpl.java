@@ -52,6 +52,11 @@ public class AssessmentServiceImpl implements AssessmentService {
     }
 
     @Override
+    public int getMyRating(User principal) {
+        return getRating(principal);
+    }
+
+    @Override
     public int getUserRating(Long id) {
         User user = userRepository.findOne(id);
         return getRating(user);

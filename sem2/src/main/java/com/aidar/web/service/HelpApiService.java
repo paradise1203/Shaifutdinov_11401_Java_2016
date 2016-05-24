@@ -11,4 +11,8 @@ public interface HelpApiService {
 
     ApiResponse profile();
 
+    ApiResponse home();
+
+    ApiResponse community(Long id);
+
 }

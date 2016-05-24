@@ -3,6 +3,7 @@ package com.aidar.model;
 import com.aidar.enums.Role;
 import com.aidar.enums.UserStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 
@@ -12,6 +13,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "users")
 @SequenceGenerator(name = "users_gen", sequenceName = "users_seq", allocationSize = 1)
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class User {
 
     @Id

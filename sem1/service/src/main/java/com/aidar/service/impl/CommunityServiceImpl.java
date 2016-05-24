@@ -58,6 +58,11 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
     @Override
+    public Set<Community> getMy(User principal) {
+        return getSome(principal);
+    }
+
+    @Override
     public Set<Community> getByUser(Long id) {
         User user = userRepository.findOne(id);
         return getSome(user);
@@ -71,6 +76,13 @@ public class CommunityServiceImpl implements CommunityService {
     @Override
     public boolean isMember(Long id) {
         User principal = securityService.getPersistedPrincipal();
+        Community community = communityRepository.findOne(id);
+        return userCommunityRepository.findOneByUserAndCommunity(principal, community) != null;
+    }
+
+    @Override
+    public boolean isMember(Long id, User principal) {
+        principal = userRepository.findOne(principal.getId());
         Community community = communityRepository.findOne(id);
         return userCommunityRepository.findOneByUserAndCommunity(principal, community) != null;
     }

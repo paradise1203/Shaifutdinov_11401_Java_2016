@@ -13,6 +13,8 @@ public interface MessageService {
 
     Set<User> getMyPenFriends();
 
+    Set<User> getMyPenFriends(User principal);
+
     List<Message> getDialog(Long id);
 
     List<Message> getNew(Long id);

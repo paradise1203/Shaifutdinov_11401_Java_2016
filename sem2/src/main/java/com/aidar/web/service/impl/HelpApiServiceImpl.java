@@ -38,16 +38,30 @@ public class HelpApiServiceImpl implements HelpApiService {
         return restTemplate.postForObject(environment.getProperty("signIn"), params, ApiResponse.class);
     }
 
-    @Override
-    public ApiResponse profile() {
+    private ApiResponse restCall(String url) {
         try {
-            URI uri = new URIBuilder(environment.getProperty("profile"))
+            URI uri = new URIBuilder(url)
                     .addParameter(TOKEN, Main.token)
                     .build();
             return restTemplate.getForObject(uri, ApiResponse.class);
         } catch (URISyntaxException ignored) {
             return null;
         }
+    }
+
+    @Override
+    public ApiResponse profile() {
+        return restCall(environment.getProperty("profile"));
+    }
+
+    @Override
+    public ApiResponse home() {
+        return restCall(environment.getProperty("homePage"));
+    }
+
+    @Override
+    public ApiResponse community(Long id) {
+        return restCall(environment.getProperty("community") + "/" + id);
     }
 
 }

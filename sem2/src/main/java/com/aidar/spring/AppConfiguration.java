@@ -1,7 +1,7 @@
 package com.aidar.spring;
 
 import com.aidar.app.Main;
-import com.aidar.web.data.model.User;
+import com.aidar.app.PaneManager;
 import com.aidar.web.service.HelpApiService;
 import com.aidar.web.util.ApiResponse;
 import javafx.geometry.Insets;
@@ -24,11 +24,14 @@ import org.springframework.web.client.RestTemplate;
  * Created by paradise on 21.05.16.
  */
 @Configuration
-@ComponentScan(basePackages = { "com.aidar.web" })
+@ComponentScan(basePackages = { "com.aidar.web", "com.aidar.app" })
 public class AppConfiguration {
 
     @Autowired
     private HelpApiService helpApiService;
+
+    @Autowired
+    private PaneManager paneManager;
 
     @Bean
     public RestTemplate restTemplate() {
@@ -80,39 +83,10 @@ public class AppConfiguration {
         return new Scene(gridPane, 350, 320);
     }
 
-    private GridPane infoProfilePane() {
-        GridPane editProfilePane = new GridPane();
-        editProfilePane.setAlignment(Pos.CENTER);
-        editProfilePane.setHgap(10);
-        editProfilePane.setVgap(10);
-        editProfilePane.setPadding(new Insets(15, 15, 15, 15));
-
-        ApiResponse apiResponse = helpApiService.profile();
-        if (apiResponse.getHttpStatus() == HttpStatus.OK) {
-            User user = apiResponse.getUser();
-
-            Text name = new Text("Name: " + user.getName());
-            editProfilePane.add(name, 0, 0, 2, 1);
-
-            Text surname = new Text("Surname: " + user.getSurname());
-            editProfilePane.add(surname, 0, 1, 2, 1);
-
-            Text email = new Text("Email: " + user.getEmail());
-            editProfilePane.add(email, 0, 2, 2, 1);
-
-            Text role = new Text("Role: " + user.getRole().getRepresentation());
-            editProfilePane.add(role, 0, 3, 2, 1);
-
-            Text status = new Text("Status: " + user.getStatus().getRepresentation());
-            editProfilePane.add(status, 0, 4, 2, 1);
-        }
-
-        return editProfilePane;
-    }
-
     @Bean
     public Scene mainScene() {
         BorderPane mainPane = new BorderPane();
+        paneManager.setMainPane(mainPane);
 
         MenuBar menu = new MenuBar();
         menu.prefWidthProperty().bind(Main.stage.widthProperty());
@@ -121,18 +95,23 @@ public class AppConfiguration {
         // Profile
         Menu profileMenu = new Menu("Profile");
         MenuItem infoMenuItem = new MenuItem("Info");
+        MenuItem homeMenuItem = new MenuItem("Home");
         MenuItem exitMenuItem = new MenuItem("Exit");
-        profileMenu.getItems().addAll(infoMenuItem, new SeparatorMenuItem(), exitMenuItem);
-        infoMenuItem.setOnAction(e -> mainPane.setCenter(infoProfilePane()));
-        exitMenuItem.setOnAction(e -> Main.signInScene());
+        profileMenu.getItems().addAll(infoMenuItem, homeMenuItem,
+                new SeparatorMenuItem(), exitMenuItem);
+        infoMenuItem.setOnAction(e ->
+                mainPane.setCenter(paneManager.infoProfilePane()));
+        homeMenuItem.setOnAction(e ->
+                mainPane.setCenter(paneManager.homePane()));
+        exitMenuItem.setOnAction(e -> {
+            //clean
+            mainPane.setCenter(null);
+            Main.signInScene();
+        });
 
-        // Home
-        Menu homeMenu = new Menu("Home");
-//        homeMenu.setOnAction(e -> mainPane.setCenter());
+        menu.getMenus().addAll(profileMenu);
 
-        menu.getMenus().add(profileMenu);
-
-        return new Scene(mainPane, 400, 350, Color.WHITE);
+        return new Scene(mainPane, 500, 425, Color.WHITE);
     }
 
 }

@@ -1,5 +1,7 @@
 package com.aidar.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -20,6 +22,7 @@ public class News {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "community_id")
+    @JsonIgnore
     private Community community;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

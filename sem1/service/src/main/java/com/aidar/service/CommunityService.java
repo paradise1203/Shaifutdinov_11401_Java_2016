@@ -1,6 +1,7 @@
 package com.aidar.service;
 
 import com.aidar.model.Community;
+import com.aidar.model.User;
 
 import java.util.List;
 import java.util.Set;
@@ -16,11 +17,15 @@ public interface CommunityService {
 
     Set<Community> getMy();
 
+    Set<Community> getMy(User principal);
+
     Set<Community> getByUser(Long id);
 
     Community getOne(Long id);
 
     boolean isMember(Long id);
+
+    boolean isMember(Long id, User principal);
 
     void add(Community community);
 

@@ -1,5 +1,7 @@
 package com.aidar.api.rest;
 
+import com.aidar.model.Community;
+import com.aidar.model.Request;
 import com.aidar.model.User;
 import org.springframework.http.HttpStatus;
 
@@ -16,6 +18,18 @@ public class ApiResponse {
     private String token;
 
     private User user;
+
+    private int rating;
+
+    private List<User> penFriends;
+
+    private Community community;
+
+    private boolean membership;
+
+    private List<Community> communities;
+
+    List<Request> requests;
 
     private List<String> errors;
 
@@ -52,6 +66,54 @@ public class ApiResponse {
         this.user = user;
     }
 
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    public List<User> getPenFriends() {
+        return penFriends;
+    }
+
+    public void setPenFriends(List<User> penFriends) {
+        this.penFriends = penFriends;
+    }
+
+    public Community getCommunity() {
+        return community;
+    }
+
+    public void setCommunity(Community community) {
+        this.community = community;
+    }
+
+    public boolean isMembership() {
+        return membership;
+    }
+
+    public void setMembership(boolean membership) {
+        this.membership = membership;
+    }
+
+    public List<Community> getCommunities() {
+        return communities;
+    }
+
+    public void setCommunities(List<Community> communities) {
+        this.communities = communities;
+    }
+
+    public List<Request> getRequests() {
+        return requests;
+    }
+
+    public void setRequests(List<Request> requests) {
+        this.requests = requests;
+    }
+
     public void setErrors(List<String> errors) {
         this.errors = errors;
     }
@@ -63,5 +125,4 @@ public class ApiResponse {
     public void addError(String error) {
         errors.add(error);
     }
-
 }

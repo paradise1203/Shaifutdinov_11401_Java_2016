@@ -26,14 +26,15 @@ public class Main extends Application {
     }
 
     public static void mainScene() {
-        Scene homeScene = (Scene) context.getBean("mainScene");
+        Scene mainScene = (Scene) context.getBean("mainScene");
         stage.setTitle("Home");
-        stage.setScene(homeScene);
+        stage.setScene(mainScene);
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         stage = primaryStage;
+        setUserAgentStylesheet(STYLESHEET_CASPIAN);
         context = new AnnotationConfigApplicationContext(AppConfiguration.class);
         signInScene();
     }
