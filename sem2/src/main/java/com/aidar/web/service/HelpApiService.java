@@ -19,4 +19,6 @@ public interface HelpApiService {
 
     ApiResponse sendMessage(Long id, String text);
 
+    ApiResponse requests();
+
 }

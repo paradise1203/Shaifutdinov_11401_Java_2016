@@ -78,4 +78,9 @@ public class HelpApiServiceImpl implements HelpApiService {
         return restTemplate.postForObject(uri, params, ApiResponse.class);
     }
 
+    @Override
+    public ApiResponse requests() {
+        return restCall(environment.getProperty("requests"));
+    }
+
 }

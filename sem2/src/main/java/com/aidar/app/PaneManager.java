@@ -2,15 +2,19 @@ package com.aidar.app;
 
 import com.aidar.web.data.enums.Role;
 import com.aidar.web.data.model.*;
+import com.aidar.web.data.util.RequestTable;
+import com.aidar.web.data.util.Transformer;
 import com.aidar.web.service.HelpApiService;
 import com.aidar.web.util.ApiResponse;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -205,6 +209,30 @@ public class PaneManager {
         }
 
         return homePane;
+    }
+
+    public StackPane requestsPane() {
+        StackPane requestsPane = new StackPane();
+        requestsPane.setPadding(new Insets(15, 15, 15, 15));
+
+        ApiResponse apiResponse = helpApiService.requests();
+        ObservableList<RequestTable> requests = FXCollections
+                .observableArrayList(Transformer.transformRequests(apiResponse.getRequests()));
+
+        TableView<RequestTable> table = new TableView<>();
+        table.setEditable(true);
+        String[] columns = {
+                "needy", "volunteer", "address", "createdAt", "serviceType", "status"
+        };
+        for (String c : columns) {
+            TableColumn column = new TableColumn(c);
+            column.setCellValueFactory(new PropertyValueFactory<>(c));
+            table.getColumns().add(column);
+        }
+        table.setItems(requests);
+
+        requestsPane.getChildren().add(table);
+        return requestsPane;
     }
 
 }

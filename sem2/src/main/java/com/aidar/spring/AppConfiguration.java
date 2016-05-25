@@ -100,16 +100,27 @@ public class AppConfiguration {
         profileMenu.getItems().addAll(infoMenuItem, homeMenuItem,
                 new SeparatorMenuItem(), exitMenuItem);
         infoMenuItem.setOnAction(e ->
-                mainPane.setCenter(paneManager.infoProfilePane()));
+                mainPane.setCenter(paneManager.infoProfilePane())
+        );
         homeMenuItem.setOnAction(e ->
-                mainPane.setCenter(paneManager.homePane()));
+                mainPane.setCenter(paneManager.homePane())
+        );
         exitMenuItem.setOnAction(e -> {
             //clean
             mainPane.setCenter(null);
             Main.signInScene();
         });
 
-        menu.getMenus().addAll(profileMenu);
+        // Requests
+        Menu requestsMenu = new Menu("Requests");
+        MenuItem newMenuItem = new MenuItem("New");
+        MenuItem allMenuItem = new MenuItem("All");
+        requestsMenu.getItems().addAll(newMenuItem, new SeparatorMenuItem(), allMenuItem);
+        allMenuItem.setOnAction(e ->
+                mainPane.setCenter(paneManager.requestsPane())
+        );
+
+        menu.getMenus().addAll(profileMenu, requestsMenu);
 
         return new Scene(mainPane, 500, 425, Color.WHITE);
     }
