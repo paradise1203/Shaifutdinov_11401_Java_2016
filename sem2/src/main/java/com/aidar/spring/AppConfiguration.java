@@ -116,6 +116,9 @@ public class AppConfiguration {
         MenuItem newMenuItem = new MenuItem("New");
         MenuItem allMenuItem = new MenuItem("All");
         requestsMenu.getItems().addAll(newMenuItem, new SeparatorMenuItem(), allMenuItem);
+        newMenuItem.setOnAction(e ->
+                mainPane.setCenter(paneManager.newRequestPane())
+        );
         allMenuItem.setOnAction(e ->
                 mainPane.setCenter(paneManager.requestsPane())
         );

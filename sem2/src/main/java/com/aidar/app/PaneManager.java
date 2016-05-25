@@ -1,6 +1,7 @@
 package com.aidar.app;
 
 import com.aidar.web.data.enums.Role;
+import com.aidar.web.data.enums.ServiceType;
 import com.aidar.web.data.model.*;
 import com.aidar.web.data.util.RequestTable;
 import com.aidar.web.data.util.Transformer;
@@ -14,13 +15,16 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by paradise on 24.05.16.
@@ -233,6 +237,53 @@ public class PaneManager {
 
         requestsPane.getChildren().add(table);
         return requestsPane;
+    }
+
+    public GridPane newRequestPane() {
+        GridPane newRequestPane = new GridPane();
+        newRequestPane.setAlignment(Pos.CENTER);
+        newRequestPane.setHgap(10);
+        newRequestPane.setVgap(10);
+        newRequestPane.setPadding(new Insets(15, 15, 15, 15));
+
+        Label addressLabel = new Label("Your location:");
+        newRequestPane.add(addressLabel, 0, 0);
+
+        TextField address = new TextField();
+        newRequestPane.add(address, 1, 0);
+
+        Label typeOfServiceLabel = new Label("Type of service you need:");
+        newRequestPane.add(typeOfServiceLabel, 0, 1);
+
+        List<String> types = Arrays.stream(ServiceType.values())
+                .map(ServiceType::getRepresentation)
+                .collect(Collectors.toList());
+
+        ChoiceBox<String> typeOfService = new ChoiceBox<>(FXCollections
+                .observableArrayList(types));
+
+        newRequestPane.add(typeOfService, 1, 1);
+
+        final Text error = new Text();
+        newRequestPane.add(error, 0, 6, 2, 1);
+
+        Button help = new Button("Help!");
+        HBox hBox = new HBox(10);
+        hBox.setAlignment(Pos.BOTTOM_RIGHT);
+        hBox.getChildren().add(help);
+        newRequestPane.add(hBox, 1, 4);
+
+        help.setOnAction(e -> {
+            ApiResponse apiResponse = helpApiService
+                    .newRequest(address.getText(), typeOfService.getValue());
+            if (apiResponse.getHttpStatus() == HttpStatus.OK) {
+                mainPane.setCenter(homePane());
+            } else {
+                error.setText(apiResponse.getErrors().get(0));
+            }
+        });
+
+        return newRequestPane;
     }
 
 }

@@ -1,6 +1,7 @@
 package com.aidar.service;
 
 import com.aidar.model.Request;
+import com.aidar.model.User;
 
 import java.util.List;
 
@@ -24,6 +25,8 @@ public interface RequestService {
     Request getOne(Long id);
 
     void add(Request request);
+
+    void add(String address, String serviceType, User principal);
 
     void help(Long id);
 

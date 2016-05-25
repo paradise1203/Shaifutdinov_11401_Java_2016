@@ -19,4 +19,13 @@ public enum ServiceType {
         return representation;
     }
 
+    public static ServiceType getByRepresentation(String representation) {
+        for (ServiceType serviceType : values()) {
+            if (serviceType.getRepresentation().equals(representation)) {
+                return serviceType;
+            }
+        }
+        return null;
+    }
+
 }

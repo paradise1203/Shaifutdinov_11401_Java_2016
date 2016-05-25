@@ -1,6 +1,7 @@
 package com.aidar.service.impl;
 
 import com.aidar.enums.RequestStatus;
+import com.aidar.enums.ServiceType;
 import com.aidar.model.Request;
 import com.aidar.model.User;
 import com.aidar.repository.RequestRepository;
@@ -77,15 +78,27 @@ public class RequestServiceImpl implements RequestService {
         return requestRepository.findOne(id);
     }
 
-    @Override
-    public void add(Request request) {
+    private void add(Request request, User principal) {
         LocationBody location = googleMapsService.getLocation(request.getAddress());
         request.setLatitude(location.getLatitude());
         request.setLongitude(location.getLongitude());
-        request.setNeedy(securityService.getPersistedPrincipal());
+        request.setNeedy(principal);
         request.setCreatedAt(new Date());
         request.setStatus(RequestStatus.PENDING);
         requestRepository.save(request);
+    }
+
+    @Override
+    public void add(Request request) {
+        add(request, securityService.getPersistedPrincipal());
+    }
+
+    @Override
+    public void add(String address, String serviceType, User principal) {
+        Request request = new Request();
+        request.setAddress(address);
+        request.setServiceType(ServiceType.getByRepresentation(serviceType));
+        add(request, userRepository.findOne(principal.getId()));
     }
 
     @Override

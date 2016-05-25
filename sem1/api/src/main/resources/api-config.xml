@@ -9,8 +9,8 @@
     <context:annotation-config/>
 
     <context:component-scan base-package="com.aidar.api.controller"/>
-
     <context:component-scan base-package="com.aidar.api.security"/>
+    <context:component-scan base-package="com.aidar.api.util"/>
 
     <bean class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 
