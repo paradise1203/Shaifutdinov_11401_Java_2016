@@ -21,6 +21,8 @@ public interface HelpApiService {
 
     ApiResponse requests();
 
+    ApiResponse request(Long id);
+
     ApiResponse newRequest(String address, String serviceType);
 
 }

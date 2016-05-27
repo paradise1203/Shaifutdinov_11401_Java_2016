@@ -84,6 +84,11 @@ public class HelpApiServiceImpl implements HelpApiService {
     }
 
     @Override
+    public ApiResponse request(Long id) {
+        return restCall(environment.getProperty("request") + "/" + id);
+    }
+
+    @Override
     public ApiResponse newRequest(String address, String serviceType) {
         MultiValueMap<String, Object> params = new LinkedMultiValueMap<>();
         params.add("address", address);

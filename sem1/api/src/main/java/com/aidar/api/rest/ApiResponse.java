@@ -34,6 +34,8 @@ public class ApiResponse {
 
     private List<Community> communities;
 
+    private Request request;
+
     List<Request> requests;
 
     private List<String> errors;
@@ -125,6 +127,14 @@ public class ApiResponse {
 
     public void setCommunities(List<Community> communities) {
         this.communities = communities;
+    }
+
+    public Request getRequest() {
+        return request;
+    }
+
+    public void setRequest(Request request) {
+        this.request = request;
     }
 
     public List<Request> getRequests() {

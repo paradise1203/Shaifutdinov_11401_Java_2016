@@ -114,6 +114,48 @@ public class PaneManager {
         mainPane.setCenter(communityPane);
     }
 
+    private void setRequestPane(ApiResponse apiResponse, GridPane homePane) {
+        GridPane requestPane = new GridPane();
+        requestPane.setAlignment(Pos.CENTER);
+        requestPane.setHgap(10);
+        requestPane.setVgap(10);
+        requestPane.setPadding(new Insets(15, 15, 15, 15));
+
+        Request request = apiResponse.getRequest();
+
+        User user = request.getNeedy();
+        Text name = new Text("Needy: " + user.getName() + " " + user.getSurname());
+        requestPane.add(name, 0, 0, 2, 1);
+
+        user = request.getVolunteer();
+        Text description = new Text();
+        if (user != null) {
+            description = new Text("Volunteer: " + user.getName() + " " + user.getSurname());
+        } else {
+            description = new Text("Volunteer: no yet");
+        }
+        requestPane.add(description, 0, 1, 2, 1);
+
+        Text address = new Text("Address: " + request.getAddress());
+        requestPane.add(address, 0, 2, 2, 1);
+
+        Text createdAt = new Text("Created at: " + request.getCreatedAt());
+        requestPane.add(createdAt, 0, 3, 2, 1);
+
+        Text serviceType = new Text("Type of service: " +
+                request.getServiceType().getRepresentation());
+        requestPane.add(serviceType, 0, 4, 2, 1);
+
+        Text status = new Text("Status: " + request.getStatus().getRepresentation());
+        requestPane.add(status, 0, 5, 2, 1);
+
+        Button back = new Button("back");
+        requestPane.add(back, 0, 6, 1, 1);
+        back.setOnAction(e -> mainPane.setCenter(homePane));
+
+        mainPane.setCenter(requestPane);
+    }
+
     private void setDialogPane(ApiResponse apiResponse, GridPane homePane) {
         GridPane dialogPane = new GridPane();
         dialogPane.setAlignment(Pos.CENTER);
@@ -208,6 +250,9 @@ public class PaneManager {
                     Hyperlink link = new Hyperlink("Issued by " + r.getNeedy().getName()
                             + " " + r.getNeedy().getSurname() + " at " + r.getCreatedAt());
                     homePane.add(link, 0, row++, 2, 1);
+                    link.setOnAction(e ->
+                            setRequestPane(helpApiService.request(r.getId()), homePane)
+                    );
                 }
             }
         }
