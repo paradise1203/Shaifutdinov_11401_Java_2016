@@ -331,4 +331,69 @@ public class PaneManager {
         return newRequestPane;
     }
 
+    public StackPane communitiesPane() {
+        StackPane communitiesPane = new StackPane();
+        communitiesPane.setPadding(new Insets(15, 15, 15, 15));
+
+        ApiResponse apiResponse = helpApiService.communities();
+        ObservableList<Community> communities = FXCollections
+                .observableArrayList(apiResponse.getCommunities());
+
+        TableView<Community> table = new TableView<>();
+        table.setEditable(true);
+        String[] columns = {
+                "name", "description", "founder", "createdAt"
+        };
+        for (String c : columns) {
+            TableColumn column = new TableColumn(c);
+            column.setCellValueFactory(new PropertyValueFactory<>(c));
+            table.getColumns().add(column);
+        }
+        table.setItems(communities);
+
+        communitiesPane.getChildren().add(table);
+        return communitiesPane;
+    }
+
+    public GridPane newCommunityPane() {
+        GridPane newCommunityPane = new GridPane();
+        newCommunityPane.setAlignment(Pos.CENTER);
+        newCommunityPane.setHgap(10);
+        newCommunityPane.setVgap(10);
+        newCommunityPane.setPadding(new Insets(15, 15, 15, 15));
+
+        Label nameLabel = new Label("Name:");
+        newCommunityPane.add(nameLabel, 0, 0);
+
+        TextField name = new TextField();
+        newCommunityPane.add(name, 1, 0);
+
+        Label descriptionLabel = new Label("Brief description:");
+        newCommunityPane.add(descriptionLabel, 0, 1);
+
+        TextArea description = new TextArea();
+        newCommunityPane.add(description, 0, 2, 2, 3);
+
+        final Text error = new Text();
+        newCommunityPane.add(error, 0, 6, 2, 1);
+
+        Button create = new Button("Create");
+        HBox hBox = new HBox(10);
+        hBox.setAlignment(Pos.BOTTOM_RIGHT);
+        hBox.getChildren().add(create);
+        newCommunityPane.add(hBox, 1, 5);
+
+        create.setOnAction(e -> {
+            ApiResponse apiResponse = helpApiService
+                    .newCommunity(name.getText(), description.getText());
+            if (apiResponse.getHttpStatus() == HttpStatus.OK) {
+                mainPane.setCenter(homePane());
+            } else {
+                error.setText(apiResponse.getErrors().get(0));
+            }
+        });
+
+        return newCommunityPane;
+    }
+
 }

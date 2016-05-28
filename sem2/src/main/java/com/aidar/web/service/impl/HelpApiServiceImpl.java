@@ -60,11 +60,6 @@ public class HelpApiServiceImpl implements HelpApiService {
     }
 
     @Override
-    public ApiResponse community(Long id) {
-        return restCall(environment.getProperty("community") + "/" + id);
-    }
-
-    @Override
     public ApiResponse dialog(Long id) {
         return restCall(environment.getProperty("users") + "/" + id + "/dialog");
     }
@@ -75,6 +70,26 @@ public class HelpApiServiceImpl implements HelpApiService {
         params.add("text", text);
         params.add(TOKEN, Main.token);
         String uri = environment.getProperty("users") + "/" + id + "/dialog";
+        return restTemplate.postForObject(uri, params, ApiResponse.class);
+    }
+
+    @Override
+    public ApiResponse communities() {
+        return restCall(environment.getProperty("communities"));
+    }
+
+    @Override
+    public ApiResponse community(Long id) {
+        return restCall(environment.getProperty("community") + "/" + id);
+    }
+
+    @Override
+    public ApiResponse newCommunity(String name, String description) {
+        MultiValueMap<String, Object> params = new LinkedMultiValueMap<>();
+        params.add("name", name);
+        params.add("description", description);
+        params.add(TOKEN, Main.token);
+        String uri = environment.getProperty("newCommunity");
         return restTemplate.postForObject(uri, params, ApiResponse.class);
     }
 

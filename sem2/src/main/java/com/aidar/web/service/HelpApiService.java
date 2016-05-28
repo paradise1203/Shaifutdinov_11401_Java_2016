@@ -13,11 +13,15 @@ public interface HelpApiService {
 
     ApiResponse home();
 
-    ApiResponse community(Long id);
-
     ApiResponse dialog(Long id);
 
     ApiResponse sendMessage(Long id, String text);
+
+    ApiResponse communities();
+
+    ApiResponse community(Long id);
+
+    ApiResponse newCommunity(String address, String description);
 
     ApiResponse requests();
 

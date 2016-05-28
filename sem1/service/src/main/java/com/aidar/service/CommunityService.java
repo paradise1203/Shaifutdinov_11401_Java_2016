@@ -29,6 +29,8 @@ public interface CommunityService {
 
     void add(Community community);
 
+    void add(String name, String description, User principal);
+
     void addMember(Long id);
 
     void removeMember(Long id);

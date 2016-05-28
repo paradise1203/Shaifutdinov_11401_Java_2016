@@ -92,7 +92,7 @@ public class AppConfiguration {
         menu.prefWidthProperty().bind(Main.stage.widthProperty());
         mainPane.setTop(menu);
 
-        // Profile
+        // Users
         Menu profileMenu = new Menu("Profile");
         MenuItem infoMenuItem = new MenuItem("Info");
         MenuItem homeMenuItem = new MenuItem("Home");
@@ -113,17 +113,31 @@ public class AppConfiguration {
 
         // Requests
         Menu requestsMenu = new Menu("Requests");
-        MenuItem newMenuItem = new MenuItem("New");
-        MenuItem allMenuItem = new MenuItem("All");
-        requestsMenu.getItems().addAll(newMenuItem, new SeparatorMenuItem(), allMenuItem);
-        newMenuItem.setOnAction(e ->
+        MenuItem newRequestMenuItem = new MenuItem("New");
+        MenuItem allRequestsMenuItem = new MenuItem("All");
+        requestsMenu.getItems().addAll(newRequestMenuItem,
+                new SeparatorMenuItem(), allRequestsMenuItem);
+        newRequestMenuItem.setOnAction(e ->
                 mainPane.setCenter(paneManager.newRequestPane())
         );
-        allMenuItem.setOnAction(e ->
+        allRequestsMenuItem.setOnAction(e ->
                 mainPane.setCenter(paneManager.requestsPane())
         );
 
-        menu.getMenus().addAll(profileMenu, requestsMenu);
+        // Communities
+        Menu communitiesMenu = new Menu("Communities");
+        MenuItem newCommunityMenuItem = new MenuItem("New");
+        MenuItem allCommunitiesMenuItem = new MenuItem("All");
+        communitiesMenu.getItems().addAll(newCommunityMenuItem,
+                new SeparatorMenuItem(), allCommunitiesMenuItem);
+        newCommunityMenuItem.setOnAction(e ->
+                mainPane.setCenter(paneManager.newCommunityPane())
+        );
+        allCommunitiesMenuItem.setOnAction(e ->
+                mainPane.setCenter(paneManager.communitiesPane())
+        );
+
+        menu.getMenus().addAll(profileMenu, requestsMenu, communitiesMenu);
 
         return new Scene(mainPane, 500, 425, Color.WHITE);
     }

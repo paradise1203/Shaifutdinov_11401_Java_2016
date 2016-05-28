@@ -87,13 +87,24 @@ public class CommunityServiceImpl implements CommunityService {
         return userCommunityRepository.findOneByUserAndCommunity(principal, community) != null;
     }
 
-    @Override
-    public void add(Community community) {
-        User principal = securityService.getPersistedPrincipal();
+    private void add(Community community, User principal) {
         community.setFounder(principal);
         community.setCreatedAt(new Date());
         communityRepository.save(community);
         userCommunityRepository.save(new UserCommunity(principal, community));
+    }
+
+    @Override
+    public void add(Community community) {
+        add(community, securityService.getPersistedPrincipal());
+    }
+
+    @Override
+    public void add(String name, String description, User principal) {
+        Community community = new Community();
+        community.setName(name);
+        community.setDescription(description);
+        add(community, userRepository.findOne(principal.getId()));
     }
 
     @Override

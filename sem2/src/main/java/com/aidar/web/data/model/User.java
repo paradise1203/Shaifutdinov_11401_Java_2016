@@ -83,4 +83,10 @@ public class User {
     public int hashCode() {
         return (int) (getId() ^ (getId() >>> 32));
     }
+
+    @Override
+    public String toString() {
+        return name + " " + surname;
+    }
+
 }
