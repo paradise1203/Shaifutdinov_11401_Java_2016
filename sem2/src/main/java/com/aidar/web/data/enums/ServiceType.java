@@ -19,4 +19,9 @@ public enum ServiceType {
         return representation;
     }
 
+    @Override
+    public String toString() {
+        return getRepresentation();
+    }
+
 }

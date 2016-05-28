@@ -3,8 +3,6 @@ package com.aidar.app;
 import com.aidar.web.data.enums.Role;
 import com.aidar.web.data.enums.ServiceType;
 import com.aidar.web.data.model.*;
-import com.aidar.web.data.util.RequestTable;
-import com.aidar.web.data.util.Transformer;
 import com.aidar.web.service.HelpApiService;
 import com.aidar.web.util.ApiResponse;
 import javafx.collections.FXCollections;
@@ -42,33 +40,33 @@ public class PaneManager {
     }
 
     public GridPane infoProfilePane() {
-        GridPane editProfilePane = new GridPane();
-        editProfilePane.setAlignment(Pos.CENTER);
-        editProfilePane.setHgap(10);
-        editProfilePane.setVgap(10);
-        editProfilePane.setPadding(new Insets(15, 15, 15, 15));
+        GridPane infoProfilePane = new GridPane();
+        infoProfilePane.setAlignment(Pos.CENTER);
+        infoProfilePane.setHgap(10);
+        infoProfilePane.setVgap(10);
+        infoProfilePane.setPadding(new Insets(15, 15, 15, 15));
 
         ApiResponse apiResponse = helpApiService.profile();
         if (apiResponse.getHttpStatus() == HttpStatus.OK) {
             User user = apiResponse.getUser();
 
             Text name = new Text("Name: " + user.getName());
-            editProfilePane.add(name, 0, 0, 2, 1);
+            infoProfilePane.add(name, 0, 0, 2, 1);
 
             Text surname = new Text("Surname: " + user.getSurname());
-            editProfilePane.add(surname, 0, 1, 2, 1);
+            infoProfilePane.add(surname, 0, 1, 2, 1);
 
             Text email = new Text("Email: " + user.getEmail());
-            editProfilePane.add(email, 0, 2, 2, 1);
+            infoProfilePane.add(email, 0, 2, 2, 1);
 
             Text role = new Text("Role: " + user.getRole().getRepresentation());
-            editProfilePane.add(role, 0, 3, 2, 1);
+            infoProfilePane.add(role, 0, 3, 2, 1);
 
             Text status = new Text("Status: " + user.getStatus().getRepresentation());
-            editProfilePane.add(status, 0, 4, 2, 1);
+            infoProfilePane.add(status, 0, 4, 2, 1);
         }
 
-        return editProfilePane;
+        return infoProfilePane;
     }
 
     private void setCommunityPane(ApiResponse apiResponse, GridPane homePane) {
@@ -128,7 +126,7 @@ public class PaneManager {
         requestPane.add(name, 0, 0, 2, 1);
 
         user = request.getVolunteer();
-        Text description = new Text();
+        Text description;
         if (user != null) {
             description = new Text("Volunteer: " + user.getName() + " " + user.getSurname());
         } else {
@@ -149,8 +147,19 @@ public class PaneManager {
         Text status = new Text("Status: " + request.getStatus().getRepresentation());
         requestPane.add(status, 0, 5, 2, 1);
 
+        Text heading = new Text("Comments:");
+        requestPane.add(heading, 0, 6, 2, 1);
+        List<Comment> comments = request.getComments();
+        int row = 7;
+        for (Comment c : comments) {
+            User author = c.getAuthor();
+            Text record = new Text(c.getText() + " by "
+                    + author.getName() + " " + author.getSurname() + " at " + c.getCreatedAt());
+            requestPane.add(record, 0, row++, 2, 1);
+        }
+
         Button back = new Button("back");
-        requestPane.add(back, 0, 6, 1, 1);
+        requestPane.add(back, 0, row, 1, 1);
         back.setOnAction(e -> mainPane.setCenter(homePane));
 
         mainPane.setCenter(requestPane);
@@ -265,10 +274,10 @@ public class PaneManager {
         requestsPane.setPadding(new Insets(15, 15, 15, 15));
 
         ApiResponse apiResponse = helpApiService.requests();
-        ObservableList<RequestTable> requests = FXCollections
-                .observableArrayList(Transformer.transformRequests(apiResponse.getRequests()));
+        ObservableList<Request> requests = FXCollections
+                .observableArrayList(apiResponse.getRequests());
 
-        TableView<RequestTable> table = new TableView<>();
+        TableView<Request> table = new TableView<>();
         table.setEditable(true);
         String[] columns = {
                 "needy", "volunteer", "address", "createdAt", "serviceType", "status"
@@ -389,7 +398,11 @@ public class PaneManager {
             if (apiResponse.getHttpStatus() == HttpStatus.OK) {
                 mainPane.setCenter(homePane());
             } else {
-                error.setText(apiResponse.getErrors().get(0));
+                String err = "";
+                for (String er : apiResponse.getErrors()) {
+                    err += er + "\n";
+                }
+                error.setText(err);
             }
         });
 

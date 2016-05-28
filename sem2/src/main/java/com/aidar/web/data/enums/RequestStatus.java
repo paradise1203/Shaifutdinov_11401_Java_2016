@@ -19,4 +19,9 @@ public enum RequestStatus {
         return representation;
     }
 
+    @Override
+    public String toString() {
+        return getRepresentation();
+    }
+
 }
